@@ -9,9 +9,10 @@
   <meta property="og:title" content="GOLDEN SHIFT | 박장한 AI Game Maker">
   <meta property="og:description" content="일꾼을 모집해 일터에 배치하고, 번 가상 골드로 슬롯·블랙잭·가상 투자를 하거나 생산 시설을 확장하는 싱글플레이 웹 게임입니다.">
   <meta property="og:url" content="https://msg1150.github.io/ai-game-maker-portfolio/projects/golden-shift/">
+  <meta property="og:image" content="https://msg1150.github.io/ai-game-maker-portfolio/assets/golden-slot.webp">
   <link rel="canonical" href="https://msg1150.github.io/ai-game-maker-portfolio/projects/golden-shift/">
   <link rel="icon" href="../../assets/mark.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="../../assets/site.css?v=ff93880d">
+  <link rel="stylesheet" href="../../assets/site.css?v=23cecb46">
   <script src="../../assets/site.js?v=f974bd36" defer></script>
   <title>GOLDEN SHIFT | 박장한 AI Game Maker</title>
 </head>
@@ -36,13 +37,13 @@
               <ul class="tags" aria-label="사용 기술"><li>JavaScript</li><li>Cloudflare Workers</li><li>D1</li><li>ChatGPT</li></ul>
               <div class="actions"><a class="button" href="https://gold-slot-idle.goldenshift.workers.dev/">웹 게임 열기<svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
             </div>
-            <figure class="project-cover"><img src="../../assets/golden-reels.svg" alt="세 릴의 가운데 행을 금색 당첨선으로 표시한 슬롯 규칙 설명 도식" width="960" height="540" fetchpriority="high" decoding="async"><figcaption>중앙 판정선 설명 도식</figcaption></figure>
+            <figure class="project-cover"><img src="../../assets/golden-slot.webp" alt="금색 중앙 당첨선 안에 체리 세 개가 놓인 GOLDEN SHIFT 슬롯 화면" width="1198" height="702" fetchpriority="high" decoding="async"><figcaption>인게임 · 골든 슬롯</figcaption></figure>
           </div>
         </div>
       </section>
       <div class="shell detail">
         <nav class="local-nav" aria-label="페이지 목차">
-          <a href="#role">역할</a><a href="#timeline">개발 이력</a><a href="#cases">구현 사례</a><a href="#deployment">배포 구조</a>
+          <a href="#role">역할</a><a href="#timeline">개발 이력</a><a href="#cases">구현 사례</a><a href="#gallery">인게임 화면</a><a href="#deployment">배포 구조</a>
         </nav>
         <section class="loop" aria-labelledby="loop-title"><h2 id="loop-title">핵심 플레이 루프</h2><ol><li>일꾼 모집</li><li>근무·자동 생산</li><li>골드 획득</li><li>투자·시설 확장</li></ol></section>
         <section id="role" class="detail-section">
@@ -58,14 +59,26 @@
     <div class="case-head"><p class="eyebrow"><span>CASE 01</span> 연출과 판정</p><h3>슬롯이 돌아가는 느낌과 당첨 기준을 함께 전달하기</h3></div>
     <div class="case-layout">
       <dl class="case-copy">
-        <div><dt>목표와 판단</dt><dd>릴을 한 행에서 세 행으로 늘리면서, 세 줄 중 어느 줄이 실제 당첨에 쓰이는지 한눈에 읽을 수 있어야 했습니다.</dd></div>
-        <div><dt>구현</dt><dd>세 릴을 수직으로 흘려 왼쪽부터 멈추고, 가운데 행에 금색 판정선을 표시했습니다. 각 릴의 가운데 심볼은 서버 결과로 확정되며, 위아래 심볼은 연출에 쓰입니다.</dd></div>
+        <div><dt>목표와 판단</dt><dd>릴을 한 행에서 세 행으로 늘려 슬롯이 돌아가는 느낌을 주고 싶었습니다. 첫 변경 뒤에는 위아래 심볼이 잘려 보였고, 세 줄 중 어느 줄이 당첨에 쓰이는지도 한눈에 읽을 수 있어야 했습니다.</dd></div>
+        <div><dt>구현</dt><dd>릴 높이와 심볼 간격을 조정한 뒤, 세 릴이 세로로 움직이고 왼쪽부터 멈추도록 했습니다. 가운데 행에 금색 판정선을 넣고 각 릴의 중앙 심볼은 서버 결과로 확정했습니다.</dd></div>
         <div><dt>확인한 근거</dt><dd>v0.14.3 패치의 테스트로 중앙 심볼이 서버 결과와 일치하는지, 모션 감소 설정에서 애니메이션 없이 결과가 표시되는지 확인했습니다.</dd></div>
       </dl>
-      <figure class="evidence"><img src="../../assets/golden-reels.svg" width="960" height="540" alt="슬롯의 세 행 중 가운데 판정선만 강조한 개념 도식" loading="lazy" decoding="async"><figcaption>개념 도식 · 가운데 한 줄의 심볼만 서버 판정에 사용</figcaption></figure>
+      <figure class="evidence"><img src="../../assets/golden-slot.webp" width="1198" height="702" alt="금색 중앙 당첨선 안에 체리 세 개가 놓인 GOLDEN SHIFT 슬롯 화면" loading="lazy" decoding="async"><figcaption>골든 슬롯 · 위쪽 다이아 세 개와 가운데 체리 세 개가 동시에 보여도 금색 선 안의 체리만 당첨 판정에 쓰입니다. <a href="../../assets/golden-slot.webp">원본 크기로 보기</a></figcaption></figure>
     </div>
     <details class="prompt">
-    <summary>실제 요청 펼치기</summary>
+    <summary>첫 요청 · 슬롯 릴을 1행에서 3행으로</summary>
+    <div class="prompt-body">
+      <pre><code>그리고 이거 슬롯머신 지금은 이런식으로 한칸씩만 있는데 위 아래로 한칸씩 추가해서 실제로 슬롯머신이 돌아가는듯한 느낌이 들었으면 좋겠어</code></pre>
+      <div class="prompt-tools"><button type="button" data-copy hidden>프롬프트 복사</button><span class="copy-status" role="status"></span></div>
+    </div>
+  </details><details class="prompt">
+    <summary>수정 요청 · 위아래 심볼 잘림</summary>
+    <div class="prompt-body">
+      <pre><code>뭔가 이미지가 좀 짤려보이는 느낌이야 이 부분 수정을 해야할거같아</code></pre>
+      <div class="prompt-tools"><button type="button" data-copy hidden>프롬프트 복사</button><span class="copy-status" role="status"></span></div>
+    </div>
+  </details><details class="prompt">
+    <summary>추가 요청 · 중앙 당첨선 강조</summary>
     <div class="prompt-body">
       <pre><code>그럼 해당 방향으로 구현을 하면서 각 릴의 중앙이 좀 다른 릴들이랑 다르게 표시가 됐으면 좋겠어 딱 이 부분이 당첨이 되는 부분이다하고</code></pre>
       <div class="prompt-tools"><button type="button" data-copy hidden>프롬프트 복사</button><span class="copy-status" role="status"></span></div>
@@ -74,16 +87,22 @@
 
   </article><article class="case" id="blackjack">
     <div class="case-head"><p class="eyebrow"><span>CASE 02</span> 지급 규칙</p><h3>블랙잭에서 승리해야만 골드를 받도록 정하기</h3></div>
-    <div class="">
+    <div class="case-layout">
       <dl class="case-copy">
         <div><dt>목표와 판단</dt><dd>블랙잭을 추가하는 과정에서 무승부 시 베팅금을 돌려주는 구현 방향이 제안됐습니다.</dd></div>
         <div><dt>구현</dt><dd>승리 시에만 베팅액을 포함해 3배를 지급하도록 요구사항을 확정했습니다. 패배와 무승부의 지급액은 0G입니다.</dd></div>
         <div><dt>확인한 근거</dt><dd>개발 기록과 v0.14 패치에서 무승부 정산과 사용자 요청의 대응 관계를 확인했습니다.</dd></div>
       </dl>
-
+      <figure class="evidence"><img src="../../assets/golden-blackjack.webp" width="1188" height="812" alt="딜러의 숨긴 카드와 플레이어 합계 17, 히트 및 스탠드 버튼이 보이는 블랙잭 화면" loading="lazy" decoding="async"><figcaption>골든 블랙잭 · 히트와 스탠드 선택, 딜러 행동 기준, 승리 시 지급 규칙을 한 화면에 표시합니다. <a href="../../assets/golden-blackjack.webp">원본 크기로 보기</a></figcaption></figure>
     </div>
     <details class="prompt">
-    <summary>실제 수정 요청 펼치기</summary>
+    <summary>첫 요청 · 블랙잭과 딜러 행동 추가</summary>
+    <div class="prompt-body">
+      <pre><code>이제 룰렛에 성공하면 각 아이콘에 맞게 성공 이펙트가 화면에 나왔으면 좋겠어 그리고 추가로 블랙잭 탭을 하나 추가해서 블랙잭을 추가해주는데 먼저 플레이어가 카드를 더 뽑을지 정할수있게 하고 딜러는 본인의 카드의 합이 19 ~ 21이면 무조건 스탑 1 ~ 13은 무조건 카드 한장 더 뽑고 14 ~ 18은 70%확률로 카드를 더 뽑게 해줘 블랙잭은 슬롯머신보다 비교적 확룰이 높으니 배율은 3배로 해줘</code></pre>
+      <div class="prompt-tools"><button type="button" data-copy hidden>프롬프트 복사</button><span class="copy-status" role="status"></span></div>
+    </div>
+  </details><details class="prompt">
+    <summary>수정 요청 · 무승부 지급 규칙 변경</summary>
     <div class="prompt-body">
       <pre><code>아니야 무승부도 원금회수는 못해 무조건 승리해야만 따는 구조야</code></pre>
       <div class="prompt-tools"><button type="button" data-copy hidden>프롬프트 복사</button><span class="copy-status" role="status"></span></div>
@@ -91,6 +110,10 @@
   </details>
 
   </article></div>
+        </section>
+        <section id="gallery" class="detail-section">
+          <p class="eyebrow"><span>SCREENSHOTS</span> GAME SYSTEMS</p><h2>인게임 화면</h2>
+          <div class="gallery"><figure class="evidence"><img src="../../assets/golden-worksites.webp" width="1190" height="818" alt="황금 농장과 수정 광산의 자동 생산, 정원 확장, 성장 업그레이드 화면" loading="lazy" decoding="async"><figcaption>나의 일터 · 일꾼 배치와 자동 생산을 관리하고 정원과 일터 레벨을 따로 올립니다. <a href="../../assets/golden-worksites.webp">원본 크기로 보기</a></figcaption></figure><figure class="evidence"><img src="../../assets/golden-recruitment.webp" width="1185" height="662" alt="다섯 등급별 생산 배율과 등장 확률, 1회 및 10회 모집 버튼" loading="lazy" decoding="async"><figcaption>일꾼 모집소 · 등급별 생산 배율과 등장 확률을 확인하고 1회 또는 10회 모집합니다. <a href="../../assets/golden-recruitment.webp">원본 크기로 보기</a></figcaption></figure><figure class="evidence"><img src="../../assets/golden-fusion.webp" width="1185" height="739" alt="등급별 5 대 1 합성 조건과 보유·배치·미배치 일꾼 수가 표시된 화면" loading="lazy" decoding="async"><figcaption>등급 합성 · 배치되지 않은 같은 등급 일꾼 5명을 상위 등급 1명으로 합칩니다. <a href="../../assets/golden-fusion.webp">원본 크기로 보기</a></figcaption></figure><figure class="evidence"><img src="../../assets/golden-market.webp" width="1187" height="843" alt="주식 탭의 가상 시세 그래프와 평가손익 및 거래 화면" loading="lazy" decoding="async"><figcaption>모의 거래소 · 게임 속 가상 주식과 코인의 시세, 보유량, 평가손익을 확인하고 거래합니다. <a href="../../assets/golden-market.webp">원본 크기로 보기</a></figcaption></figure></div>
         </section>
         <section id="deployment" class="detail-section">
           <p class="eyebrow"><span>NOTES</span> 배포 구조</p><h2>웹 게임 화면과 계정별 저장 분리</h2>

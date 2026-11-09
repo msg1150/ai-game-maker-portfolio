@@ -126,14 +126,15 @@ function caseMedia(media) {
   const content = media.video ?
     `<video controls playsinline preload="none" width="${media.width}" height="${media.height}" style="aspect-ratio: ${media.width} / ${media.height}" poster="${asset}" aria-label="${esc(media.alt)}"><source src="../../assets/${esc(media.video)}" type="video/mp4"><a href="../../assets/${esc(media.video)}">MP4 영상 열기</a></video>` :
     `<img src="${asset}" width="${media.width}" height="${media.height}" alt="${esc(media.alt)}" loading="lazy" decoding="async">`;
-  return `<figure class="evidence">${content}<figcaption>${esc(media.caption)}</figcaption></figure>`;
+  const fullSize = media.fullSize ? ` <a href="${asset}">원본 크기로 보기</a>` : '';
+  return `<figure class="evidence">${content}<figcaption>${esc(media.caption)}${fullSize}</figcaption></figure>`;
 }
 
 function promptList(prompts = []) {
   return prompts.map(({ label, text }) => `<details class="prompt">
     <summary>${esc(label)}</summary>
     <div class="prompt-body">
-      <pre><code>${esc(text)}</code></pre>
+      <pre><code>${esc(text).replace(/\r?\n/g, '&#10;')}</code></pre>
       <div class="prompt-tools"><button type="button" data-copy hidden>프롬프트 복사</button><span class="copy-status" role="status"></span></div>
     </div>
   </details>`).join('');
@@ -156,7 +157,7 @@ function renderCase(item, index) {
 }
 
 function detail(project) {
-  const { name, summary, roles, cases, timeline, section } = project;
+  const { name, summary, roles, cases, timeline, gallery, section } = project;
   return layout({
     title: `${name} | 박장한 AI Game Maker`,
     description: summary,
@@ -181,7 +182,7 @@ function detail(project) {
       </section>
       <div class="shell detail">
         <nav class="local-nav" aria-label="페이지 목차">
-          <a href="#role">역할</a>${timeline ? '<a href="#timeline">개발 이력</a>' : ''}<a href="#cases">구현 사례</a><a href="#${section.id}">${esc(section.label)}</a>
+          <a href="#role">역할</a>${timeline ? '<a href="#timeline">개발 이력</a>' : ''}<a href="#cases">구현 사례</a>${gallery ? '<a href="#gallery">인게임 화면</a>' : ''}<a href="#${section.id}">${esc(section.label)}</a>
         </nav>
         ${project.loop ? `<section class="loop" aria-labelledby="loop-title"><h2 id="loop-title">핵심 플레이 루프</h2><ol>${project.loop.map((item) => `<li>${esc(item)}</li>`).join('')}</ol></section>` : ''}
         <section id="role" class="detail-section">
@@ -195,6 +196,10 @@ function detail(project) {
           <p class="eyebrow"><span>CASES</span> IMPLEMENTATION</p><h2>구현 사례</h2>
           <div class="case-list">${cases.map(renderCase).join('')}</div>
         </section>
+        ${gallery ? `<section id="gallery" class="detail-section">
+          <p class="eyebrow"><span>SCREENSHOTS</span> GAME SYSTEMS</p><h2>인게임 화면</h2>
+          <div class="gallery">${gallery.map(caseMedia).join('')}</div>
+        </section>` : ''}
         <section id="${section.id}" class="detail-section">
           <p class="eyebrow"><span>NOTES</span> ${esc(section.label)}</p><h2>${esc(section.title)}</h2>
           <p class="prose">${esc(section.text)}</p>
