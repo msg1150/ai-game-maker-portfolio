@@ -158,6 +158,9 @@ function renderCase(item, index) {
 
 function detail(project) {
   const { name, summary, roles, cases, timeline, gallery, section } = project;
+  const heading = project.titleParts
+    ? project.titleParts.map((part) => `<span class="hero-title-part">${esc(part)}</span>`).join('<wbr>')
+    : esc(name);
   return layout({
     title: `${name} | 박장한 AI Game Maker`,
     description: summary,
@@ -170,7 +173,7 @@ function detail(project) {
           <div class="hero-inner">
             <div class="hero-copy">
               <p class="eyebrow"><span>PROJECT ${project.number}</span> ${esc(project.category)}</p>
-              <h1>${esc(name)}</h1>
+              <h1>${heading}</h1>
               <p class="hero-lede">${esc(project.tagline)}</p>
               <p class="hero-summary">${esc(summary)}</p>
               ${tags(project.stack)}

@@ -93,6 +93,7 @@ svg { flex: 0 0 auto; }
 .crumb a { color: var(--accent); }
 .project-hero .hero-inner { padding-block: clamp(1.8rem, 4.5vw, 4.2rem); }
 .project-hero h1 { font-size: clamp(2.3rem, 4.5vw, 4.5rem); }
+.hero-title-part { white-space: nowrap; }
 .project-cover { overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
 figcaption { color: var(--muted); font-size: .8rem; padding: .6rem .8rem; }
 .local-nav { display: flex; gap: .35rem .65rem; flex-wrap: wrap; padding-block: .55rem; border-bottom: 1px solid var(--line); }
