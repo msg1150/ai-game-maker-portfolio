@@ -252,7 +252,13 @@
         "렌더링을 최적화하고 마을 원화와 길드 의뢰를 적용했습니다."
       ]
     ],
-    "cardSummary": "전리품 회수와 몬스터 추격 규칙을 설계하고, AI와 던전 제작 도구를 만들었습니다."
+    "cardSummary": "전리품 회수와 몬스터 추격 규칙을 설계하고, AI와 던전 제작 도구를 만들었습니다.",
+    "spotlight": {
+      "id": "awareness",
+      "kind": "플레이 영상",
+      "title": "몬스터 추격 개선",
+      "summary": "시야를 잃으면 마지막 목격 위치를 수색합니다."
+    }
   },
   {
     "slug": "golden-shift",
@@ -490,7 +496,13 @@
         "최대 12시간"
       ]
     },
-    "cardSummary": "슬롯과 일터 자동화 규칙을 설계하고, AI와 만든 웹 게임을 Cloudflare에 배포했습니다."
+    "cardSummary": "슬롯과 일터 자동화 규칙을 설계하고, AI와 만든 웹 게임을 Cloudflare에 배포했습니다.",
+    "spotlight": {
+      "id": "market-hotfix",
+      "kind": "회귀 테스트",
+      "title": "시세 저장 오류 대응",
+      "summary": "12시간치 시세를 D1 한도 안에서 복구하는 테스트가 통과했습니다."
+    }
   },
   {
     "slug": "battlearena",
@@ -679,6 +691,12 @@
         "https://github.com/msg1150/UnrealTeamProjectPortfolio"
       ]
     ],
-    "cardSummary": "팀에서 레벨 배치 검증, JSON 편집 도구와 투사체 충돌을 맡았습니다."
+    "cardSummary": "팀에서 레벨 배치 검증, JSON 편집 도구와 투사체 충돌을 맡았습니다.",
+    "spotlight": {
+      "id": "level-validator",
+      "kind": "에디터 화면",
+      "title": "레벨 배치 오류 검출",
+      "summary": "오류 목록에서 수정할 오브젝트로 바로 이동합니다."
+    }
   }
 ]

@@ -108,6 +108,22 @@ function projectCard(project, prefix) {
   </article>`;
 }
 
+function evidenceLink(project) {
+  const { id, kind, title, summary } = project.spotlight;
+  const { media } = project.cases.find((item) => item.id === id);
+  return `<li class="tone-${project.tone}">
+    <a class="evidence-link" href="./${projectPath(project)}#${esc(id)}">
+      <img src="./assets/${esc(media.image)}" alt="" width="${media.width}" height="${media.height}" loading="lazy" decoding="async">
+      <div>
+        <p class="eyebrow"><span>${esc(kind)}</span> ${esc(project.name)}</p>
+        <h3>${esc(title)}</h3>
+        <p>${esc(summary)}</p>
+      </div>
+      ${icon}
+    </a>
+  </li>`;
+}
+
 function home() {
   const [featured, ...other] = projects;
   return layout({
@@ -140,18 +156,12 @@ function home() {
         </div>
         <div class="project-grid">${[featured, ...other].map((item) => projectCard(item, './')).join('')}</div>
       </section>
-      <section class="workflow">
+      <section class="home-evidence" id="highlights">
         <div class="shell section">
           <div class="section-head">
-            <div><p class="eyebrow"><span>02</span> WORKFLOW</p><h2>플레이에서 발견한 문제를 AI와 고치는 과정</h2>
-              <p class="section-intro">DungeonSweeper에서 몬스터 추격을 개선한 사례입니다.</p></div>
+            <div><p class="eyebrow"><span>02</span> PROJECT HIGHLIGHTS</p><h2>구현 사례 바로 보기</h2></div>
           </div>
-          <ol class="steps">
-            <li><span>01</span><h3>플레이에서 문제 발견</h3><p>인식 범위를 살짝 벗어나면 몬스터가 <strong class="text-accent">바로 추격을 멈추고</strong> 순찰로 돌아갔습니다.</p></li>
-            <li><span>02</span><h3>수정 기준 전달</h3><p>플레이어를 놓쳐도 <strong class="text-accent">마지막 목격 위치까지 이동해 수색</strong>하도록 Codex에 요청했습니다.</p></li>
-            <li><span>03</span><h3>수정 결과 확인</h3><p>플레이 영상에서 <strong class="text-accent">발견, 추격, 수색</strong>이 이어지는 것을 볼 수 있습니다.</p></li>
-          </ol>
-          <div class="actions"><a class="button" href="./projects/dungeonsweeper/#awareness">요청 발췌와 시연 영상 보기${icon}</a></div>
+          <ul class="evidence-links">${projects.filter((project) => project.spotlight).map(evidenceLink).join('')}</ul>
         </div>
       </section>`,
   });
