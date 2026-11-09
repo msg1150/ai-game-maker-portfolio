@@ -32,6 +32,7 @@ svg { flex: 0 0 auto; }
 .tone-violet { --accent: #d4bfff; --glow: #30254a; }
 .tone-gold { --accent: #f4ce83; --glow: #3a2d20; }
 .tone-blue { --accent: #a9d7ff; --glow: #1b344d; }
+.tone-violet, .tone-gold, .tone-blue { --accent-text: var(--accent); }
 .skip { position: absolute; z-index: 10; top: .5rem; left: .5rem; padding: .65rem 1rem; transform: translateY(-150%); background: var(--accent); color: #111720; }
 .skip:focus { transform: translateY(0); }
 .site-header { background: #111720; border-bottom: 1px solid var(--line); }
