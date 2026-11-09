@@ -43,7 +43,7 @@
       </section>
       <div class="shell detail">
         <nav class="local-nav" aria-label="페이지 목차">
-          <a href="#role">역할</a><a href="#cases">구현 사례</a><a href="#checks">테스트 기록</a>
+          <a href="#role">역할</a><a href="#timeline">개발 이력</a><a href="#cases">구현 사례</a><a href="#checks">테스트·최적화</a>
         </nav>
         <section class="loop" aria-labelledby="loop-title"><h2 id="loop-title">핵심 플레이 루프</h2><ol><li>던전 진입</li><li>몬스터 회피</li><li>전리품 배치</li><li>귀환과 거래</li></ol></section>
         <section id="role" class="detail-section">
@@ -52,6 +52,8 @@
           <div class="role-grid"><div><h3>내 역할</h3><p>탐험과 귀환의 규칙을 정하고, 플레이에서 발견한 추격 문제를 수정 요구로 바꿨습니다. 던전 제작 도구에서는 자동 생성과 작업자의 채택 기준을 정했습니다.</p></div><div><h3>Codex의 역할</h3><p>정리한 요구사항을 바탕으로 Unity/C# 코드를 작성하고, 몬스터의 추격·수색 전환과 던전 후보 생성·미리보기 기능을 구현했습니다.</p></div></div>
         </section>
 
+        <section id="timeline" class="detail-section"><p class="eyebrow"><span>HISTORY</span> ITERATION</p><h2>주요 개발 이력</h2>
+          <ol class="timeline"><li><span>09.17–10.06</span><div><h3>2D 데모의 핵심 흐름 점검</h3><p>기존 데모에서 던전 진입, 회수, 귀환 흐름을 확인하고 저장 슬롯과 자동 저장 조건을 정의했습니다.</p></div></li><li><span>10.06–10.07</span><div><h3>회수한 전리품에 쓰임 만들기</h3><p>귀환 시 자동 판매하던 흐름을 창고 보관과 개별 판매로 바꾸고, 전리품 일부를 가방 확장 재료로 쓰도록 정했습니다.</p></div></li><li><span>10.17–10.19</span><div><h3>던전 제작과 탐험 범위 확장</h3><p>Blender 3D 실험을 거쳐 일러스트 캐릭터와 입체 지형을 결합한 2.5D로 전환했습니다. 던전 생성·편집 도구를 만들고 계단으로 여러 층을 오갈 수 있게 했습니다.</p></div></li><li><span>10.21–10.26</span><div><h3>렌더링과 콘텐츠 개선</h3><p>프로파일링 결과를 바탕으로 미니맵과 지형 렌더링을 점검했습니다. 이후 마을·던전 원화를 적용하고 길드 의뢰와 재료 납품을 추가했습니다.</p></div></li></ol></section>
         <section id="cases" class="detail-section">
           <p class="eyebrow"><span>CASES</span> IMPLEMENTATION</p><h2>구현 사례</h2>
           <div class="case-list"><article class="case" id="awareness">
@@ -94,20 +96,33 @@
     <div class="case-head"><p class="eyebrow"><span>CASE 03</span> 게임 규칙</p><h3>전리품의 모양을 선택의 일부로 만들기</h3></div>
     <div class="case-layout">
       <dl class="case-copy">
-        <div><dt>목표와 판단</dt><dd>가방은 칸 수만 채우는 목록이 아닙니다. 서로 다른 모양의 전리품을 어디에 놓고 무엇을 포기할지 결정하게 하는 것이 목표였습니다.</dd></div>
-        <div><dt>구현</dt><dd>아이템이 실제로 차지하는 셀로 경계와 충돌을 검사합니다. 회전 미리보기와 최종 판정을 분리하고, 배치·가격·가방 크기를 이어하기에 필요한 상태로 저장합니다.</dd></div>
+        <div><dt>목표와 판단</dt><dd>던전에서는 가방의 제한된 공간 때문에 무엇을 가져올지 고르게 하고 싶었습니다. 귀환 뒤에는 전리품을 팔아 골드를 얻을지, 가방을 늘리는 재료로 남겨둘지 선택하도록 했습니다.</dd></div>
+        <div><dt>구현</dt><dd>가방은 아이템이 실제로 차지하는 셀로 충돌을 검사하고, 회전 미리보기와 최종 배치 판정을 나눴습니다. 귀환한 전리품은 창고로 옮겨 개별 판매하거나 골드와 함께 가방 확장에 사용합니다.</dd></div>
         <div><dt>확인한 근거</dt><dd>회전 전후 배치 화면과 점유 셀 판정 코드를 함께 확인할 수 있습니다.</dd></div>
       </dl>
       <figure class="evidence"><img src="../../assets/dungeon-loot.webp" width="570" height="427" alt="회전하기 전 가방에 전리품 카드를 올린 화면" loading="lazy" decoding="async"><figcaption>게임 화면 · 회전 전 배치 미리보기</figcaption></figure>
     </div>
 
-    <div class="actions"><a class="button" href="https://github.com/msg1150/DungeonSweeper/blob/8cab0a9565909b7917b780bd7b92064493393d53/Assets/Scripts/Runtime/Inventory/GridInventory.cs">배치 검사 코드<svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+    <div class="actions"><a class="button" href="https://github.com/msg1150/DungeonSweeper/blob/8cab0a9565909b7917b780bd7b92064493393d53/Assets/Scripts/Runtime/Inventory/GridInventory.cs">배치 검사 코드<svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a class="button" href="https://github.com/msg1150/DungeonSweeper/blob/8cab0a9565909b7917b780bd7b92064493393d53/Assets/Scripts/Runtime/Town/TownWarehouseProgress.cs">창고와 가방 확장 코드<svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+  </article><article class="case" id="expedition-save">
+    <div class="case-head"><p class="eyebrow"><span>CASE 04</span> 저장·복원</p><h3>층을 다시 방문해도 이전 탐험 상태 이어가기</h3></div>
+    <div class="case-layout">
+      <dl class="case-copy">
+        <div><dt>목표와 판단</dt><dd>여러 층을 오갈 수 있게 하면서, 한 번 방문한 층이 새로 생성되거나 획득한 전리품과 플레이어 상태가 사라지지 않도록 해야 했습니다.</dd></div>
+        <div><dt>구현</dt><dd>탐험 시작 시 도면·스폰·보상 규칙을 스냅샷으로 고정합니다. 층을 떠날 때 몬스터와 시체, 탐색 기록을 보관하고 재방문 시 복원합니다. 층 이동이 끝나면 자동 저장하며, 가방 복원은 검증을 통과한 경우에 적용합니다.</dd></div>
+        <div><dt>확인한 근거</dt><dd>1층에서 2층으로 이동한 뒤 1층으로 복귀하는 시연과 층 이동·저장 코드를 연결했습니다. 이어하기 검증 기록은 하단의 기존 기술 자료에서 확인할 수 있습니다.</dd></div>
+      </dl>
+      <figure class="evidence"><video controls playsinline preload="none" width="960" height="540" style="aspect-ratio: 960 / 540" poster="../../assets/dungeon-floors.webp" aria-label="계단으로 1층에서 2층에 갔다가 1층으로 돌아오는 게임 화면"><source src="../../assets/dungeon-floors.mp4" type="video/mp4"><a href="../../assets/dungeon-floors.mp4">MP4 영상 열기</a></video><figcaption>플레이 영상 · 1층 → 2층 → 1층 왕복</figcaption></figure>
+    </div>
+
+    <div class="actions"><a class="button" href="https://github.com/msg1150/DungeonSweeper/blob/8cab0a9565909b7917b780bd7b92064493393d53/Assets/Scripts/Runtime/Dungeon/Runtime/DungeonRunController.Floors.cs">층 이동 코드<svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a class="button" href="https://github.com/msg1150/DungeonSweeper/blob/8cab0a9565909b7917b780bd7b92064493393d53/Assets/Scripts/Runtime/Dungeon/Runtime/DungeonRunController.Persistence.cs">저장·복원 코드<svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
   </article></div>
         </section>
 
         <section id="checks" class="detail-section">
-          <p class="eyebrow"><span>NOTES</span> 테스트 기록</p><h2>저장·복원까지 확인</h2>
-          <p class="prose">층을 떠날 때 몬스터, 시체, 탐색 기록을 저장하고 재방문 시 복원합니다. 기존 기술 포트폴리오에는 층 이동 영상과 Unity 에디터, 런타임, Windows 재실행에서 확인한 검증 기록을 정리했습니다.</p>
+          <p class="eyebrow"><span>NOTES</span> 테스트·최적화</p><h2>성능 문제를 구간별로 재현하고 측정</h2>
+          <p class="prose">기존 기술 자료의 대조 실험에서 시체 풀링, 미니맵 캐시, 지형 메시 병합을 각각 비교했습니다. Unity 6000.6.0f1, Windows Development Mono, DX11, 1920×1080 환경에서 120프레임 예열 후 300프레임씩 3회 측정한 중앙값입니다.</p>
+          <div class="role-grid"><div><h3>시체 32개 풀링</h3><p>새로 생성·제거하던 흐름을 풀 재사용으로 바꿨습니다. 32개 처리 CPU 시간은 0.4304 → 0.1382ms, 프레임 전체 GC 할당은 26,402 → 34B였습니다.</p></div><div><h3>미니맵 캐시</h3><p>32×32 도면에서 발견 상태와 배율을 고정했습니다. Refresh 300회 중 텍스처 재합성·업로드가 300 → 0회로 줄었고, 호출당 CPU 시간은 0.1120 → 0.0003ms였습니다.</p></div><div><h3>지형 메시 병합</h3><p>16×16 도면에서 카메라와 삼각형 수를 고정했습니다. 프레임당 SRP Draw Calls는 778 → 14회였습니다. 이 값은 해당 도면의 렌더링 카운터입니다.</p></div><div><h3>플레이 확인과 자동 검사</h3><p>추격·은신 동작은 직접 플레이하면서 확인했습니다. 저장·복원은 Unity 에디터, 런타임과 Windows 재실행으로 나누어 확인한 기록을 기존 기술 자료에서 확인할 수 있습니다.</p></div></div>
           <div class="actions"><a class="button" href="https://msg1150.github.io/projects/dungeonsweeper/">테스트와 성능 측정 상세<svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
         </section>
         <nav class="related" aria-label="다른 프로젝트">

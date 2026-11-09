@@ -157,7 +157,7 @@ function renderCase(item, index) {
 }
 
 function detail(project) {
-  const { name, summary, roles, cases, timeline, gallery, section } = project;
+  const { name, summary, roles, planning, cases, timeline, gallery, section } = project;
   const heading = project.titleParts
     ? project.titleParts.map((part) => `<span class="hero-title-part">${esc(part)}</span>`).join('<wbr>')
     : esc(name);
@@ -185,7 +185,7 @@ function detail(project) {
       </section>
       <div class="shell detail">
         <nav class="local-nav" aria-label="페이지 목차">
-          <a href="#role">역할</a>${timeline ? '<a href="#timeline">개발 이력</a>' : ''}<a href="#cases">구현 사례</a>${gallery ? '<a href="#gallery">인게임 화면</a>' : ''}<a href="#${section.id}">${esc(section.label)}</a>
+          <a href="#role">역할</a>${planning ? '<a href="#planning">초기 기획</a>' : ''}${timeline ? '<a href="#timeline">개발 이력</a>' : ''}<a href="#cases">구현 사례</a>${gallery ? '<a href="#gallery">인게임 화면</a>' : ''}<a href="#${section.id}">${esc(section.label)}</a>
         </nav>
         ${project.loop ? `<section class="loop" aria-labelledby="loop-title"><h2 id="loop-title">핵심 플레이 루프</h2><ol>${project.loop.map((item) => `<li>${esc(item)}</li>`).join('')}</ol></section>` : ''}
         <section id="role" class="detail-section">
@@ -193,6 +193,11 @@ function detail(project) {
           <h2>${project.slug === 'battlearena' ? '팀 프로젝트에서 맡은 역할' : '내 역할과 AI의 역할'}</h2>
           <div class="role-grid">${roles.map(([label, text]) => `<div><h3>${esc(label)}</h3><p>${esc(text)}</p></div>`).join('')}</div>
         </section>
+        ${planning ? `<section id="planning" class="detail-section">
+          <p class="eyebrow"><span>PLAN</span> GAME DESIGN</p>
+          <h2>${esc(planning.title)}</h2>
+          <p class="prose">${esc(planning.text)}</p>
+        </section>` : ''}
         ${timeline ? `<section id="timeline" class="detail-section"><p class="eyebrow"><span>HISTORY</span> ITERATION</p><h2>주요 개발 이력</h2>
           <ol class="timeline">${timeline.map(([version, title, text]) => `<li><span>${esc(version)}</span><div><h3>${esc(title)}</h3><p>${esc(text)}</p></div></li>`).join('')}</ol></section>` : ''}
         <section id="cases" class="detail-section">
@@ -206,6 +211,7 @@ function detail(project) {
         <section id="${section.id}" class="detail-section">
           <p class="eyebrow"><span>NOTES</span> ${esc(section.label)}</p><h2>${esc(section.title)}</h2>
           <p class="prose">${esc(section.text)}</p>
+          ${section.notes ? `<div class="role-grid">${section.notes.map(([label, text]) => `<div><h3>${esc(label)}</h3><p>${esc(text)}</p></div>`).join('')}</div>` : ''}
           ${actions(section.links)}
         </section>
         <nav class="related" aria-label="다른 프로젝트">

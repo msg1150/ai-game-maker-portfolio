@@ -43,7 +43,7 @@
       </section>
       <div class="shell detail">
         <nav class="local-nav" aria-label="페이지 목차">
-          <a href="#role">역할</a><a href="#timeline">개발 이력</a><a href="#cases">구현 사례</a><a href="#gallery">인게임 화면</a><a href="#deployment">배포 구조</a>
+          <a href="#role">역할</a><a href="#planning">초기 기획</a><a href="#timeline">개발 이력</a><a href="#cases">구현 사례</a><a href="#gallery">인게임 화면</a><a href="#deployment">배포·운영</a>
         </nav>
         <section class="loop" aria-labelledby="loop-title"><h2 id="loop-title">핵심 플레이 루프</h2><ol><li>일꾼 모집</li><li>근무·자동 생산</li><li>골드 획득</li><li>투자·시설 확장</li></ol></section>
         <section id="role" class="detail-section">
@@ -51,8 +51,13 @@
           <h2>내 역할과 AI의 역할</h2>
           <div class="role-grid"><div><h3>내 역할</h3><p>확률 아이템의 지속 시간, 블랙잭 지급 조건, 슬롯의 중앙 판정선처럼 플레이 규칙과 화면에서 강조할 정보를 구체화했습니다.</p></div><div><h3>ChatGPT의 역할</h3><p>요청에 따라 클라이언트·서버 변경을 제안하고 구현 패치를 제공했습니다. 릴 애니메이션 패치에는 자동 테스트도 포함됐습니다.</p></div></div>
         </section>
+        <section id="planning" class="detail-section">
+          <p class="eyebrow"><span>PLAN</span> GAME DESIGN</p>
+          <h2>일터에서 번 골드를 다시 성장에 쓰는 구조</h2>
+          <p class="prose">초기 기획에서는 일꾼이 번 골드를 슬롯에 쓰거나 새 일꾼을 고용하는 데 다시 투자하게 했습니다. 첫 근무는 수동으로 배치하고, 일터별 업그레이드로 자동 반복과 완전 자동을 열도록 정했습니다. 오프라인 생산은 접속 시 서버 시각으로 경과분을 계산하며 최대 12시간까지 정산합니다.</p>
+        </section>
         <section id="timeline" class="detail-section"><p class="eyebrow"><span>HISTORY</span> ITERATION</p><h2>주요 개발 이력</h2>
-          <ol class="timeline"><li><span>v0.1</span><div><h3>기본 플레이 루프</h3><p>3릴 슬롯과 일꾼·일터를 하나의 경제 구조로 연결했습니다.</p></div></li><li><span>v0.11</span><div><h3>아이템 규칙 변경</h3><p>확률 증가 효과를 다음 성공 스핀 1회로 제한했습니다.</p></div></li><li><span>v0.13.2</span><div><h3>시세 기록 저장 수정</h3><p>시세 이력의 SQL 바인딩 한도를 피하도록 나눠 저장하는 패치를 제공했습니다.</p></div></li><li><span>v0.14–0.14.3</span><div><h3>블랙잭과 릴 연출</h3><p>블랙잭을 추가하고 슬롯을 수직 스크롤과 중앙 판정선으로 개선했습니다.</p></div></li></ol></section>
+          <ol class="timeline"><li><span>v0.1</span><div><h3>기본 플레이 루프</h3><p>3릴 슬롯과 일꾼·일터를 연결하고 Google 로그인과 계정별 저장 구조를 마련했습니다.</p></div></li><li><span>v0.7–0.8</span><div><h3>슬롯 요청과 버튼 상태 개선</h3><p>경량 스핀 API로 전체 상태 재조회 범위를 줄였습니다. 조작이 끝난 뒤 버튼이 잠긴 채 남는 문제와 자동 생산 골드 표시도 수정했습니다.</p></div></li><li><span>v0.11</span><div><h3>확률 아이템의 적용 범위 변경</h3><p>영구 확률 보정을 다음 성공 스핀 한 번에만 적용하는 방식으로 바꿨습니다.</p></div></li><li><span>v0.12–0.13</span><div><h3>가상 주식·코인 추가</h3><p>공통 시세와 계정별 보유량을 분리했습니다. 주식은 20분, 코인은 5분 주기로 갱신하도록 나눴습니다.</p></div></li><li><span>v0.13.2</span><div><h3>장시간 미접속 뒤 시장 오류 대응</h3><p>밀린 시세 이력을 18개씩 나누어 기록하는 패치를 만들었습니다.</p></div></li><li><span>v0.14–0.14.3</span><div><h3>블랙잭과 슬롯 릴 연출</h3><p>딜러 행동과 지급 규칙을 정하고, 슬롯에 수직 스크롤과 중앙 판정선을 추가했습니다.</p></div></li></ol></section>
         <section id="cases" class="detail-section">
           <p class="eyebrow"><span>CASES</span> IMPLEMENTATION</p><h2>구현 사례</h2>
           <div class="case-list"><article class="case" id="payline">
@@ -85,6 +90,42 @@
     </div>
   </details>
 
+  </article><article class="case" id="slot-boost">
+    <div class="case-head"><p class="eyebrow"><span>CASE 03</span> 경제 규칙 변경</p><h3>확률 아이템을 다음 스핀 한 번에만 쓰도록 바꾸기</h3></div>
+    <div class="">
+      <dl class="case-copy">
+        <div><dt>목표와 판단</dt><dd>v0.10에서는 아이템 사용 효과가 이후 스핀에도 계속 적용됐습니다. 한 번의 스핀에 쓸지 결정하는 소모품으로 바꾸고, 한 턴에 하나만 쓰도록 요청했습니다.</dd></div>
+        <div><dt>구현</dt><dd>아이템 하나를 다음 스핀에 예약합니다. 해당 심볼에 3%p를 더하고 나머지 심볼에서 합계 3%p를 빼 전체 확률을 100%로 유지합니다. 서버에서 스핀이 성공한 경우에 효과를 소모하고 기본 확률로 되돌립니다.</dd></div>
+        <div><dt>확인한 근거</dt><dd>v0.11 개발 기록에서 정상 스핀 이후 효과가 사라지는 경우와, 스핀이 취소되거나 거절돼 예약이 남는 경우를 구분했습니다.</dd></div>
+      </dl>
+
+    </div>
+
+
+  </article><article class="case" id="ui-state">
+    <div class="case-head"><p class="eyebrow"><span>CASE 04</span> 사용 중 발견한 문제</p><h3>스핀 뒤 다른 조작이 잠긴 채 남는 문제 해결</h3></div>
+    <div class="">
+      <dl class="case-copy">
+        <div><dt>목표와 판단</dt><dd>스핀이나 다른 작업을 한 번 실행하면 새로고침 전까지 다른 버튼을 사용할 수 없었습니다. 완전 자동 일터의 골드 표시도 페이지를 다시 불러와야 갱신됐습니다.</dd></div>
+        <div><dt>구현</dt><dd>요청이 끝나면 작업 중 상태를 해제하고 버튼 상태를 다시 계산했습니다. 자동 생산은 화면에서 경과 시간에 따른 예상 골드를 표시하고, 실제 정산은 다음 서버 요청에서 처리하도록 나눴습니다.</dd></div>
+        <div><dt>확인한 근거</dt><dd>v0.8 개발 기록에서 버튼 재계산과 자동 골드 표시 수정 범위를 확인했습니다. 계정 골드의 확정값은 서버 상태를 기준으로 합니다.</dd></div>
+      </dl>
+
+    </div>
+
+
+  </article><article class="case" id="market-hotfix">
+    <div class="case-head"><p class="eyebrow"><span>CASE 05</span> 운영 장애 대응</p><h3>밤새 밀린 시세 이력을 D1 한도 안에서 저장하기</h3></div>
+    <div class="">
+      <dl class="case-copy">
+        <div><dt>목표와 판단</dt><dd>장시간 접속하지 않은 뒤 거래소 갱신에서 오류가 발생했습니다. 시세 64개를 한 SQL 문으로 저장하는 경로에 바인딩 값 321개가 필요했습니다.</dd></div>
+        <div><dt>구현</dt><dd>시세 기록을 문장당 최대 18개씩 나눴습니다. 기록당 5개 값과 상태 확인용 1개를 합해 최대 91개로 D1의 100개 한도 안에서 처리합니다.</dd></div>
+        <div><dt>확인한 근거</dt><dd>v0.13.2 패치의 SQLite 기반 회귀 테스트를 재실행했습니다. 12시간 동안 밀린 시세를 채우면서 문장별 바인딩 한도를 지키고 최종 시장 시각까지 갱신하는 검사가 통과했습니다.</dd></div>
+      </dl>
+
+    </div>
+
+
   </article></div>
         </section>
         <section id="gallery" class="detail-section">
@@ -92,8 +133,9 @@
           <div class="gallery"><figure class="evidence"><img src="../../assets/golden-worksites.webp" width="1190" height="818" alt="황금 농장과 수정 광산의 자동 생산, 정원 확장, 성장 업그레이드 화면" loading="lazy" decoding="async"><figcaption>나의 일터 · 일꾼 배치와 자동 생산을 관리하고 정원과 일터 레벨을 따로 올립니다. <a href="../../assets/golden-worksites.webp">원본 크기로 보기</a></figcaption></figure><figure class="evidence"><img src="../../assets/golden-recruitment.webp" width="1185" height="662" alt="다섯 등급별 생산 배율과 등장 확률, 1회 및 10회 모집 버튼" loading="lazy" decoding="async"><figcaption>일꾼 모집소 · 등급별 생산 배율과 등장 확률을 확인하고 1회 또는 10회 모집합니다. <a href="../../assets/golden-recruitment.webp">원본 크기로 보기</a></figcaption></figure><figure class="evidence"><img src="../../assets/golden-fusion.webp" width="1185" height="739" alt="등급별 5 대 1 합성 조건과 보유·배치·미배치 일꾼 수가 표시된 화면" loading="lazy" decoding="async"><figcaption>등급 합성 · 배치되지 않은 같은 등급 일꾼 5명을 상위 등급 1명으로 합칩니다. <a href="../../assets/golden-fusion.webp">원본 크기로 보기</a></figcaption></figure><figure class="evidence"><img src="../../assets/golden-market.webp" width="1187" height="843" alt="주식 탭의 가상 시세 그래프와 평가손익 및 거래 화면" loading="lazy" decoding="async"><figcaption>모의 거래소 · 게임 속 가상 주식과 코인의 시세, 보유량, 평가손익을 확인하고 거래합니다. <a href="../../assets/golden-market.webp">원본 크기로 보기</a></figcaption></figure></div>
         </section>
         <section id="deployment" class="detail-section">
-          <p class="eyebrow"><span>NOTES</span> 배포 구조</p><h2>웹 게임 화면과 계정별 저장 분리</h2>
-          <p class="prose">Cloudflare Workers가 게임 페이지와 API를 제공하고, D1은 계정별 골드·일꾼·일터 등의 상태를 저장합니다. Google 로그인으로 계정을 연결합니다. 아래 공개 주소는 진입 페이지까지 확인했으며, v0.14.3 검증은 제공된 패치를 기준으로 했습니다.</p>
+          <p class="eyebrow"><span>NOTES</span> 배포·운영</p><h2>계정별 저장과 패치 배포</h2>
+          <p class="prose">Cloudflare Workers는 게임 페이지와 API를 제공하고, D1은 계정별 골드·일꾼·일터와 시장 데이터를 저장합니다. Google 로그인으로 계정을 연결하고, 스핀 결과·블랙잭 정산·거래는 서버에서 처리합니다.</p>
+          <div class="role-grid"><div><h3>최초 배포와 로그인 연결</h3><p>Workers와 원격 D1을 연결하고 Google OAuth의 허용 주소를 설정했습니다. 로그인 중 세션 키 설정 오류가 있었고, 재설정한 뒤 사용자가 로그인이 된 것을 확인했습니다.</p></div><div><h3>기존 저장을 보존하며 변경</h3><p>v0.7에서는 슬롯 조회용 인덱스를 추가했습니다. 원격 마이그레이션에서 인증 오류가 발생해 재시도했고, 적용 성공 로그를 확인한 뒤 Worker를 배포했습니다.</p></div><div><h3>검증한 범위</h3><p>공개 주소의 진입 페이지를 확인했습니다. 블랙잭, 중앙 릴 표시, 시장 이력 회귀 검사는 제공된 버전별 패치에서 실행했습니다.</p></div></div>
 
         </section>
         <nav class="related" aria-label="다른 프로젝트">
