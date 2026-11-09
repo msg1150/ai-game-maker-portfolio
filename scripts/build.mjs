@@ -5,7 +5,6 @@ const root = new URL('../', import.meta.url);
 const read = (path) => readFile(new URL(path, root), 'utf8');
 const projects = JSON.parse(await read('content/projects.json')).filter((project) => project.published !== false);
 const siteUrl = 'https://msg1150.github.io/ai-game-maker-portfolio/';
-const technical = 'https://msg1150.github.io/';
 const profile = 'https://github.com/msg1150';
 const email = 'wkdgks88009@gmail.com';
 const esc = (text) => String(text).replace(/[&<>"']/g, (char) => ({
@@ -83,11 +82,10 @@ function layout({ title, description, path = '', project, body }) {
   </header>
   <main id="main">${body}</main>
   <footer class="shell site-footer" id="contact">
-    <div><p class="eyebrow"><span>CONTACT</span></p><h2>박장한</h2><p>게임 개발 및 AI 협업</p></div>
+    <div><p class="eyebrow"><span>CONTACT</span></p><h2>박장한</h2></div>
     <div class="footer-links">
       <a href="mailto:${email}">${email}</a>
       <a href="${profile}">GitHub ${icon}</a>
-      <a href="${technical}">게임 클라이언트 포트폴리오 ${icon}</a>
     </div>
   </footer>
 </body>
@@ -102,7 +100,7 @@ function projectCard(project, prefix) {
       <div class="card-body">
         <p class="eyebrow"><span>${project.number}</span> ${esc(project.category)}</p>
         <h3>${esc(project.name)}</h3>
-        <p>${esc(project.tagline)}</p>
+        <p>${esc(project.cardSummary ?? project.tagline)}</p>
         ${tags(project.stack, prefix)}
         <span class="card-action">프로젝트 보기 ${icon}</span>
       </div>
@@ -136,17 +134,24 @@ function home() {
         </div>
       </section>
       <section class="shell section" id="projects">
-        <div class="section-head"><div><p class="eyebrow"><span>01</span> SELECTED WORK</p><h2>프로젝트</h2></div><p>개인 게임의 기획과 AI 협업부터<br>팀 프로젝트의 클라이언트 구현까지</p></div>
+        <div class="section-head">
+          <div><p class="eyebrow"><span>01</span> SELECTED WORK</p><h2>프로젝트</h2>
+            <p class="section-intro">개인 게임 두 편의 기획과 AI 협업 과정, 팀 프로젝트에서 맡은 구현과 제작 도구를 정리했습니다.</p></div>
+        </div>
         <div class="project-grid">${[featured, ...other].map((item) => projectCard(item, './')).join('')}</div>
       </section>
       <section class="workflow">
         <div class="shell section">
-          <div class="section-head"><div><p class="eyebrow"><span>02</span> WORKFLOW</p><h2>AI와 작업하는 방식</h2></div></div>
+          <div class="section-head">
+            <div><p class="eyebrow"><span>02</span> WORKFLOW</p><h2>플레이에서 발견한 문제를 AI와 고치는 과정</h2>
+              <p class="section-intro">DungeonSweeper에서 몬스터 추격을 개선한 사례입니다.</p></div>
+          </div>
           <ol class="steps">
-            <li><span>01</span><h3>플레이 규칙 정하기</h3></li>
-            <li><span>02</span><h3>AI에 구현 요청하기</h3></li>
-            <li><span>03</span><h3>플레이하고 수정하기</h3></li>
+            <li><span>01</span><h3>플레이에서 문제 발견</h3><p>인식 범위를 살짝 벗어나면 몬스터가 <strong class="text-accent">바로 추격을 멈추고</strong> 순찰로 돌아갔습니다.</p></li>
+            <li><span>02</span><h3>수정 기준 전달</h3><p>플레이어를 놓쳐도 <strong class="text-accent">마지막 목격 위치까지 이동해 수색</strong>하도록 Codex에 요청했습니다.</p></li>
+            <li><span>03</span><h3>수정 결과 확인</h3><p>플레이 영상에서 <strong class="text-accent">발견, 추격, 수색</strong>이 이어지는 것을 볼 수 있습니다.</p></li>
           </ol>
+          <div class="actions"><a class="button" href="./projects/dungeonsweeper/#awareness">요청 발췌와 시연 영상 보기${icon}</a></div>
         </div>
       </section>`,
   });
