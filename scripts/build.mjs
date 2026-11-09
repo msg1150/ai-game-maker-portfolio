@@ -193,7 +193,7 @@ function detail(project) {
               <p class="hero-lede">${esc(project.tagline)}</p>
               <p class="hero-summary">${esc(summary)}</p>
               ${tags(project.stack)}
-              ${actions([['사례·영상 보기', '#cases'], ...project.links])}
+              ${actions([['사례 및 영상 보기', '#cases'], ...project.links])}
             </div>
             <figure class="project-cover">${cover(project, '../../', true)}<figcaption>${esc(project.coverLabel)}</figcaption></figure>
           </div>
