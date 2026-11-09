@@ -24,7 +24,24 @@ function prose(text, highlights = []) {
 }
 
 const projectPath = (project) => `projects/${project.slug}/`;
-const tags = (items) => `<ul class="tags" aria-label="사용 기술">${items.map((item) => `<li>${esc(item)}</li>`).join('')}</ul>`;
+const techLogos = new Map([
+  ['Unity', 'devicon/unity.svg'],
+  ['C#', 'devicon/csharp.svg'],
+  ['JavaScript', 'devicon/javascript.svg'],
+  ['Cloudflare Workers', 'simple-icons/cloudflare-workers.svg'],
+  ['Unreal Engine 5.6.1', 'devicon/unrealengine.svg'],
+  ['C++', 'devicon/cplusplus.svg'],
+  ['Blueprint', 'unreal/blueprint.svg'],
+]);
+
+function tags(items, prefix) {
+  return `<ul class="tags" aria-label="사용 기술">${items.map((item) => {
+    const logo = techLogos.get(item);
+    const label = esc(item);
+    if (!logo) return `<li class="tag-text">${label}</li>`;
+    return `<li class="tag-logo" title="${label}"><img src="${prefix}assets/icons/${logo}" alt="${label}" width="22" height="22"><span class="tag-touch-label" aria-hidden="true">${label}</span></li>`;
+  }).join('')}</ul>`;
+}
 const actions = (links = []) => links.length ? `<div class="actions">${links.map(([label, url]) =>
   `<a class="button" href="${esc(url)}">${esc(label)}${icon}</a>`).join('')}</div>` : '';
 const cover = (project, prefix, eager = false) =>
@@ -83,7 +100,7 @@ function projectCard(project, prefix) {
         <p class="eyebrow"><span>${project.number}</span> ${esc(project.category)}</p>
         <h3>${esc(project.name)}</h3>
         <p>${esc(project.tagline)}</p>
-        ${tags(project.stack)}
+        ${tags(project.stack, prefix)}
         <span class="card-action">프로젝트 보기 ${icon}</span>
       </div>
     </a>
@@ -99,11 +116,16 @@ function home() {
       <section class="hero">
         <div class="shell hero-inner">
           <div class="hero-copy">
-            <p class="eyebrow"><span>PORTFOLIO</span> 박장한</p>
-            <h1>AI Game Maker</h1>
-            <p class="hero-lede">게임 규칙을 설계하고,<br><strong class="text-accent">플레이로 결과를 확인합니다.</strong></p>
-            <p class="hero-summary">AI와 함께 만든 게임과 실제 플레이에서 발견한 개선점을 담았습니다.</p>
-            <div class="actions"><a class="button primary" href="#projects">프로젝트 보기${icon}</a><a class="button" href="${technical}">클라이언트 포트폴리오${icon}</a></div>
+            <p class="eyebrow"><span>PERSONAL PORTFOLIO</span></p>
+            <h1>박장한</h1>
+            <p class="hero-role">AI Game Maker</p>
+            <p class="hero-summary">게임 규칙을 설계하고 AI와 구현한 뒤, <strong class="text-accent">플레이 테스트로 다듬습니다.</strong></p>
+            <div class="actions">
+              <a class="button primary" href="#projects">프로젝트 보기${icon}</a>
+              <a class="button" href="${technical}">클라이언트 포트폴리오${icon}</a>
+              <a class="button icon-button" href="mailto:${email}" aria-label="이메일" title="이메일"><img src="./assets/icons/lucide/mail.svg" alt="" width="18" height="18"></a>
+              <a class="button icon-button" href="${profile}" aria-label="GitHub 프로필" title="GitHub 프로필"><img src="./assets/icons/devicon/github.svg" alt="" width="18" height="18"></a>
+            </div>
           </div>
           <a class="feature tone-${featured.tone}" href="./${projectPath(featured)}">
             <div class="feature-media">${cover(featured, './', true)}<span>게임 타이틀 화면</span></div>
@@ -192,7 +214,7 @@ function detail(project) {
               <h1>${heading}</h1>
               <p class="hero-lede">${esc(project.tagline)}</p>
               <p class="hero-summary">${esc(summary)}</p>
-              ${tags(project.stack)}
+              ${tags(project.stack, '../../')}
               ${actions([['사례 및 영상 보기', '#cases'], ...project.links])}
             </div>
             <figure class="project-cover">${cover(project, '../../', true)}<figcaption>${esc(project.coverLabel)}</figcaption></figure>
