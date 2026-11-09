@@ -501,24 +501,87 @@
       "C++",
       "Blueprint"
     ],
-    "tagline": "조준과 충돌, 공간 포탈을 연결한 멀티플레이 FPS",
-    "summary": "Unreal Engine 기반 3D 멀티플레이 슈팅 팀 프로젝트입니다. 투사체·공간 포탈과 제작 도구를 담당했고, 전투 NPC에서는 특수 이동 경로 탐색을 구현했습니다.",
-    "cover": "arena.webp",
-    "coverAlt": "1인칭 시점에서 공간 포탈 너머의 출구가 보이는 BattleArena 게임 화면",
-    "width": 855,
-    "height": 481,
-    "coverLabel": "게임 화면 · 공간 포탈",
+    "tagline": "멀티플레이 FPS의 게임플레이와 팀 제작 도구",
+    "summary": "Unreal Engine 기반 3D 멀티플레이 슈팅 팀 프로젝트입니다. 게임플레이 기능과 함께 레벨 배치 검증 도구, JSON 데이터 편집·동기화 도구를 맡았습니다.",
+    "cover": "arena-cover.webp",
+    "coverAlt": "BattleArena 로고와 서로 마주 보는 두 캐릭터가 담긴 가로 대표 아트",
+    "width": 1250,
+    "height": 700,
+    "coverLabel": "프로젝트 대표 아트",
     "roles": [
+      [
+        "팀 제작 도구",
+        "레벨에서 잘못 배치된 요소를 찾아주는 검증 도구와 Unreal 에셋의 값을 외부에서 편집하는 JSON 도구를 만들었습니다."
+      ],
       [
         "게임플레이",
         "투사체 조준 보정·충돌 판정, 포탈 출구 화면·통과 처리, 전투 NPC의 포탈·점프패드 경로 탐색을 담당했습니다."
-      ],
-      [
-        "팀 제작 도구",
-        "레벨 배치 오류를 찾는 검증 도구와 외부 데이터를 편집하고 Unreal 에셋으로 동기화하는 도구를 담당했습니다."
       ]
     ],
     "cases": [
+      {
+        "id": "level-validator",
+        "label": "팀 제작 도구 · 레벨",
+        "title": "레벨 오류를 찾고 수정할 위치로 이동",
+        "problem": "포탈 출구 누락과 잘못 연결된 이동 경로를 플레이 전에 확인할 수 있게 했습니다.",
+        "implementation": "포탈·점프패드·이동 경로를 검사하고, 오류 목록의 Focus 버튼으로 대상 오브젝트를 선택해 에디터 시점을 이동합니다.",
+        "verification": "캡처는 지면에서 50cm 떨어진 경로 입구를 검출한 예입니다.",
+        "media": {
+          "image": "arena-level-validator.webp",
+          "width": 1172,
+          "height": 457,
+          "alt": "Unreal 에디터의 레벨 검증 오류 목록과 경로 오브젝트",
+          "caption": "에디터 화면 · 지면에서 50cm 떨어진 경로 입구와 Focus 버튼",
+          "fullSize": true
+        },
+        "links": [
+          [
+            "레벨 검증 도구 코드",
+            "https://github.com/msg1150/UnrealTeamProjectPortfolio/tree/fee0b72e4cc6236acfcb332139613f53fd87b244/GameplayValidator"
+          ]
+        ],
+        "highlights": [
+          "플레이 전에",
+          "Focus 버튼",
+          "50cm"
+        ]
+      },
+      {
+        "id": "data-tools",
+        "label": "팀 제작 도구 · 데이터",
+        "title": "JSON으로 편집한 값을 Unreal 에셋에 반영",
+        "problem": "Unreal 밖에서도 데이터 값을 편집하고, 잘못된 입력이 에셋에 반영되기 전에 확인할 수 있게 했습니다.",
+        "implementation": "Unreal Reflection으로 만든 속성 명세를 .NET 8 WPF 편집기가 읽습니다. 타입과 범위를 검증하고, 값 적용과 에셋 저장을 나눴습니다.",
+        "verification": "실행 중에는 메모리 값에 적용하고, 에셋 저장은 에디터에서 처리합니다.",
+        "flow": [
+          "Unreal 속성 명세",
+          "WPF 편집·입력 검증",
+          "JSON 동기화"
+        ],
+        "media": {
+          "image": "arena-data-editor.webp",
+          "width": 1280,
+          "height": 475,
+          "alt": "WPF 에디터에서 데이터 행과 속성값을 편집하는 화면",
+          "caption": "도구 화면 · Unreal 속성 명세를 읽어 구성한 WPF 편집기",
+          "fullSize": true
+        },
+        "links": [
+          [
+            "JSON 동기화 코드",
+            "https://github.com/msg1150/UnrealTeamProjectPortfolio/tree/fee0b72e4cc6236acfcb332139613f53fd87b244/JsonAssetSync"
+          ],
+          [
+            "WPF 편집기 코드",
+            "https://github.com/msg1150/UnrealTeamProjectPortfolio/tree/fee0b72e4cc6236acfcb332139613f53fd87b244/DataEditor"
+          ]
+        ],
+        "highlights": [
+          "잘못된 입력",
+          "타입과 범위",
+          "값 적용과 에셋 저장"
+        ]
+      },
       {
         "id": "projectile",
         "label": "전투 시스템",
@@ -573,12 +636,33 @@
     ],
     "section": {
       "id": "tools",
-      "label": "팀 제작 도구",
-      "title": "레벨 배치와 데이터 수정에 필요한 도구",
-      "text": "레벨에서 잘못 배치된 요소를 찾아주는 Unreal 에디터 도구를 만들었습니다. 외부 데이터 편집에서는 입력을 검증하고 에셋에 반영하는 단계와 저장하는 단계를 분리했습니다.",
+      "label": "기술·검증 자료",
+      "title": "게임플레이 구현과 테스트 코드",
+      "text": "포탈 화면과 서버 통과 처리, 투사체, 1인칭 렌더링의 상세 구현과 Unreal Automation Test 코드는 기존 기술 자료에서 볼 수 있습니다.",
+      "notes": [
+        [
+          "공간 포탈",
+          "입구 시점에 맞춰 출구 화면을 표시하고, 실제 통과 위치는 서버가 확정합니다."
+        ],
+        [
+          "자동화 테스트",
+          "투사체 합류·충돌과 포탈의 변환·투영·통과 조건을 검사하는 코드를 작성했습니다."
+        ]
+      ],
+      "highlights": [
+        "서버가 확정",
+        "변환·투영·통과 조건"
+      ],
+      "media": {
+        "image": "arena.webp",
+        "width": 855,
+        "height": 481,
+        "alt": "1인칭 시점에서 포탈 너머 출구가 보이는 게임 화면",
+        "caption": "인게임 · 포탈 출구 화면"
+      },
       "links": [
         [
-          "제작 도구 구현 상세",
+          "기존 구현과 검증 자료",
           "https://msg1150.github.io/projects/battlearena/"
         ]
       ]
