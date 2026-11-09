@@ -27,8 +27,11 @@ const projectPath = (project) => `projects/${project.slug}/`;
 const techLogos = new Map([
   ['Unity', 'devicon/unity.svg'],
   ['C#', 'devicon/csharp.svg'],
-  ['JavaScript', 'devicon/javascript.svg'],
-  ['Cloudflare Workers', 'simple-icons/cloudflare-workers.svg'],
+  ['JavaScript', 'jsconf/javascript.svg'],
+  ['Cloudflare Workers', 'cloudflare/workers.svg'],
+  ['D1', 'cloudflare/d1.svg'],
+  ['ChatGPT', 'openai/chatgpt.png'],
+  ['Codex', 'openai/codex.png'],
   ['Unreal Engine 5.6.1', 'devicon/unrealengine.svg'],
   ['C++', 'devicon/cplusplus.svg'],
   ['Blueprint', 'unreal/blueprint.svg'],
@@ -122,7 +125,6 @@ function home() {
             <p class="hero-summary">게임 규칙을 설계하고 AI와 구현한 뒤, <strong class="text-accent">플레이 테스트로 다듬습니다.</strong></p>
             <div class="actions">
               <a class="button primary" href="#projects">프로젝트 보기${icon}</a>
-              <a class="button" href="${technical}">클라이언트 포트폴리오${icon}</a>
               <a class="button icon-button" href="mailto:${email}" aria-label="이메일" title="이메일"><img src="./assets/icons/lucide/mail.svg" alt="" width="18" height="18"></a>
               <a class="button icon-button" href="${profile}" aria-label="GitHub 프로필" title="GitHub 프로필"><img src="./assets/icons/devicon/github.svg" alt="" width="18" height="18"></a>
             </div>
