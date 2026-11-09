@@ -1,0 +1,307 @@
+[
+  {
+    "slug": "dungeonsweeper",
+    "name": "DungeonSweeper",
+    "tone": "violet",
+    "number": "01",
+    "category": "개인 개발 · AI 협업",
+    "stack": [
+      "Unity",
+      "C#",
+      "Codex"
+    ],
+    "tagline": "싸우지 않고, 챙겨서 돌아오는 던전 탐험",
+    "summary": "몬스터를 피해 전리품을 회수하는 2.5D 게임입니다. 던전에서 가방에 담을 것을 고르고, 마을로 돌아와 거래한 뒤 다음 탐험을 준비합니다.",
+    "cover": "dungeon.webp",
+    "coverAlt": "고양이 탐험가와 슬라임이 보이는 DungeonSweeper 타이틀 화면",
+    "width": 1440,
+    "height": 810,
+    "coverLabel": "게임 타이틀 화면",
+    "loop": [
+      "던전 진입",
+      "몬스터 회피",
+      "전리품 배치",
+      "귀환과 거래"
+    ],
+    "roles": [
+      [
+        "내 역할",
+        "탐험과 귀환의 규칙을 정하고, 가방·몬스터·저장 기능을 나누어 요구사항을 정의했습니다. 실제 플레이와 테스트 기록을 바탕으로 결과를 확인했습니다."
+      ],
+      [
+        "Codex의 역할",
+        "요구사항을 바탕으로 Unity/C# 코드 초안을 작성하고 기능별 수정 작업을 지원했습니다."
+      ]
+    ],
+    "cases": [
+      {
+        "id": "inventory",
+        "label": "게임 규칙",
+        "title": "전리품의 모양을 선택의 일부로 만들기",
+        "problem": "가방은 칸 수만 채우는 목록이 아닙니다. 서로 다른 모양의 전리품을 어디에 놓고 무엇을 포기할지 결정하게 하는 것이 목표였습니다.",
+        "implementation": "아이템이 실제로 차지하는 셀로 경계와 충돌을 검사합니다. 회전 미리보기와 최종 판정을 분리하고, 배치·가격·가방 크기를 이어하기에 필요한 상태로 저장합니다.",
+        "verification": "회전 전후 배치 화면과 점유 셀 판정 코드를 함께 확인할 수 있습니다.",
+        "media": {
+          "image": "dungeon-loot.webp",
+          "width": 570,
+          "height": 427,
+          "alt": "회전하기 전 가방에 전리품 카드를 올린 화면",
+          "caption": "게임 화면 · 회전 전 배치 미리보기"
+        },
+        "links": [
+          [
+            "배치 검사 코드",
+            "https://github.com/msg1150/DungeonSweeper/blob/8cab0a9565909b7917b780bd7b92064493393d53/Assets/Scripts/Runtime/Inventory/GridInventory.cs"
+          ]
+        ]
+      },
+      {
+        "id": "awareness",
+        "label": "플레이 검증",
+        "title": "몬스터가 시야를 잃은 뒤의 행동",
+        "problem": "플레이어가 모퉁이 뒤로 숨었을 때, 몬스터가 마지막으로 본 장소를 조사하면 추격에서 벗어나는 과정이 플레이에 드러납니다.",
+        "implementation": "거리와 벽 가림으로 시야를 판단하고, 시야를 잃으면 마지막 목격 위치나 소음 위치를 조사합니다. 4방향 BFS로 이동 경로를 찾고 BoxCast로 몸체가 통과할 수 있는지 검사합니다.",
+        "verification": "아래 영상에서 발견, 추격, 시야 차단 후 마지막 목격 위치 수색이 이어지는 모습을 확인할 수 있습니다.",
+        "media": {
+          "image": "dungeon-awareness.webp",
+          "video": "dungeon-awareness.mp4",
+          "width": 960,
+          "height": 496,
+          "alt": "던전에서 플레이어를 발견하고 추격하는 몬스터",
+          "caption": "플레이 영상 · 발견 → 추격 → 마지막 목격 위치 수색"
+        },
+        "links": [
+          [
+            "몬스터 행동 코드",
+            "https://github.com/msg1150/DungeonSweeper/blob/8cab0a9565909b7917b780bd7b92064493393d53/Assets/Scripts/Runtime/Actors/Monsters/EnemyAgent.cs"
+          ]
+        ]
+      }
+    ],
+    "section": {
+      "id": "checks",
+      "label": "테스트 기록",
+      "title": "저장·복원까지 확인",
+      "text": "층을 떠날 때 몬스터, 시체, 탐색 기록을 저장하고 재방문 시 복원합니다. 기존 기술 포트폴리오에는 층 이동 영상과 Unity 에디터, 런타임, Windows 재실행에서 확인한 검증 기록을 정리했습니다.",
+      "links": [
+        [
+          "테스트와 성능 측정 상세",
+          "https://msg1150.github.io/projects/dungeonsweeper/"
+        ]
+      ]
+    },
+    "links": [
+      [
+        "기존 기술 자료",
+        "https://msg1150.github.io/projects/dungeonsweeper/"
+      ],
+      [
+        "GitHub 코드",
+        "https://github.com/msg1150/DungeonSweeper"
+      ]
+    ]
+  },
+  {
+    "slug": "golden-shift",
+    "name": "GOLDEN SHIFT",
+    "tone": "gold",
+    "number": "02",
+    "category": "개인 개발 · AI 협업",
+    "stack": [
+      "JavaScript",
+      "Cloudflare Workers",
+      "D1",
+      "ChatGPT"
+    ],
+    "tagline": "게임 규칙과 화면의 단서를 함께 다듬은 웹 게임",
+    "summary": "일꾼을 모집해 일터에 배치하고, 번 가상 골드로 슬롯·블랙잭·가상 투자를 하거나 생산 시설을 확장하는 싱글플레이 웹 게임입니다.",
+    "cover": "golden-reels.svg",
+    "coverAlt": "세 릴의 가운데 행을 금색 당첨선으로 표시한 슬롯 규칙 설명 도식",
+    "width": 960,
+    "height": 540,
+    "coverLabel": "중앙 판정선 설명 도식",
+    "loop": [
+      "일꾼 모집",
+      "근무·자동 생산",
+      "골드 획득",
+      "투자·시설 확장"
+    ],
+    "roles": [
+      [
+        "내 역할",
+        "확률 아이템의 지속 시간, 블랙잭 지급 조건, 슬롯의 중앙 판정선처럼 플레이 규칙과 화면에서 강조할 정보를 구체화했습니다."
+      ],
+      [
+        "ChatGPT의 역할",
+        "요청에 따라 클라이언트·서버 변경을 제안하고 구현 패치를 제공했습니다. 릴 애니메이션 패치에는 자동 테스트도 포함됐습니다."
+      ]
+    ],
+    "timeline": [
+      [
+        "v0.1",
+        "기본 플레이 루프",
+        "3릴 슬롯과 일꾼·일터를 하나의 경제 구조로 연결했습니다."
+      ],
+      [
+        "v0.11",
+        "아이템 규칙 변경",
+        "확률 증가 효과를 다음 성공 스핀 1회로 제한했습니다."
+      ],
+      [
+        "v0.13.2",
+        "시세 기록 저장 수정",
+        "시세 이력의 SQL 바인딩 한도를 피하도록 나눠 저장하는 패치를 제공했습니다."
+      ],
+      [
+        "v0.14–0.14.3",
+        "블랙잭과 릴 연출",
+        "블랙잭을 추가하고 슬롯을 수직 스크롤과 중앙 판정선으로 개선했습니다."
+      ]
+    ],
+    "cases": [
+      {
+        "id": "payline",
+        "label": "연출과 판정",
+        "title": "슬롯이 돌아가는 느낌과 당첨 기준을 함께 전달하기",
+        "problem": "릴을 한 행에서 세 행으로 늘리면서, 세 줄 중 어느 줄이 실제 당첨에 쓰이는지 한눈에 읽을 수 있어야 했습니다.",
+        "implementation": "세 릴을 수직으로 흘려 왼쪽부터 멈추고, 가운데 행에 금색 판정선을 표시했습니다. 각 릴의 가운데 심볼은 서버 결과로 확정되며, 위아래 심볼은 연출에 쓰입니다.",
+        "verification": "v0.14.3 패치의 테스트로 중앙 심볼이 서버 결과와 일치하는지, 모션 감소 설정에서 애니메이션 없이 결과가 표시되는지 확인했습니다.",
+        "media": {
+          "image": "golden-reels.svg",
+          "width": 960,
+          "height": 540,
+          "alt": "슬롯의 세 행 중 가운데 판정선만 강조한 개념 도식",
+          "caption": "개념 도식 · 가운데 한 줄의 심볼만 서버 판정에 사용"
+        },
+        "prompts": [
+          {
+            "label": "실제 요청 펼치기",
+            "text": "그럼 해당 방향으로 구현을 하면서 각 릴의 중앙이 좀 다른 릴들이랑 다르게 표시가 됐으면 좋겠어 딱 이 부분이 당첨이 되는 부분이다하고"
+          }
+        ]
+      },
+      {
+        "id": "blackjack",
+        "label": "지급 규칙",
+        "title": "블랙잭에서 승리해야만 골드를 받도록 정하기",
+        "problem": "블랙잭을 추가하는 과정에서 무승부 시 베팅금을 돌려주는 구현 방향이 제안됐습니다.",
+        "implementation": "승리 시에만 베팅액을 포함해 3배를 지급하도록 요구사항을 확정했습니다. 패배와 무승부의 지급액은 0G입니다.",
+        "verification": "개발 기록과 v0.14 패치에서 무승부 정산과 사용자 요청의 대응 관계를 확인했습니다.",
+        "prompts": [
+          {
+            "label": "실제 수정 요청 펼치기",
+            "text": "아니야 무승부도 원금회수는 못해 무조건 승리해야만 따는 구조야"
+          }
+        ]
+      }
+    ],
+    "section": {
+      "id": "deployment",
+      "label": "배포 구조",
+      "title": "웹 게임 화면과 계정별 저장 분리",
+      "text": "Cloudflare Workers가 게임 페이지와 API를 제공하고, D1은 계정별 골드·일꾼·일터 등의 상태를 저장합니다. Google 로그인으로 계정을 연결합니다. 아래 공개 주소는 진입 페이지까지 확인했으며, v0.14.3 검증은 제공된 패치를 기준으로 했습니다."
+    },
+    "links": [
+      [
+        "웹 게임 열기",
+        "https://gold-slot-idle.goldenshift.workers.dev/"
+      ]
+    ]
+  },
+  {
+    "slug": "battlearena",
+    "name": "BattleArena",
+    "tone": "blue",
+    "number": "03",
+    "category": "팀 개발 · 클라이언트 프로그래밍",
+    "stack": [
+      "Unreal Engine 5.6.1",
+      "C++",
+      "Blueprint"
+    ],
+    "tagline": "조준과 충돌, 공간 포탈을 연결한 멀티플레이 FPS",
+    "summary": "Unreal Engine 기반 3D 멀티플레이 슈팅 팀 프로젝트입니다. 투사체·공간 포탈과 제작 도구를 담당했고, 전투 NPC에서는 특수 이동 경로 탐색을 구현했습니다.",
+    "cover": "arena.webp",
+    "coverAlt": "1인칭 시점에서 공간 포탈 너머의 출구가 보이는 BattleArena 게임 화면",
+    "width": 855,
+    "height": 481,
+    "coverLabel": "게임 화면 · 공간 포탈",
+    "roles": [
+      [
+        "게임플레이",
+        "투사체 조준 보정·충돌 판정, 포탈 출구 화면·통과 처리, 전투 NPC의 포탈·점프패드 경로 탐색을 담당했습니다."
+      ],
+      [
+        "팀 제작 도구",
+        "레벨 배치 오류를 찾는 검증 도구와 외부 데이터를 편집하고 Unreal 에셋으로 동기화하는 도구를 담당했습니다."
+      ]
+    ],
+    "cases": [
+      {
+        "id": "projectile",
+        "label": "전투 시스템",
+        "title": "프레임 사이의 투사체 충돌 놓치지 않기",
+        "problem": "총구에서 출발한 투사체를 조준선으로 합류시키면서 빠르게 지나가는 구간의 충돌도 잡아야 했습니다.",
+        "implementation": "한 프레임 안에서 합류 전후 시간을 분리해 이동을 계산합니다. 각 구간을 Sweep하고 최초 충돌 시점을 선택합니다. 플레이어 충돌 판정은 서버에서 검사합니다.",
+        "verification": "조준 후 발사 장면과 이동·충돌 판정 코드를 연결했습니다.",
+        "media": {
+          "image": "arena-shot.webp",
+          "video": "arena-shot.mp4",
+          "width": 864,
+          "height": 308,
+          "alt": "조준선과 총구 위치가 다른 상태에서의 발사 장면",
+          "caption": "플레이 영상 · 조준 후 발사"
+        },
+        "links": [
+          [
+            "충돌 판정 코드",
+            "https://github.com/msg1150/UnrealTeamProjectPortfolio/blob/fee0b72e4cc6236acfcb332139613f53fd87b244/Weapon/ProjectileWorldCollisionComponent.cpp"
+          ]
+        ]
+      },
+      {
+        "id": "navigation",
+        "label": "특수 이동",
+        "title": "비용 0인 포탈 경로를 일반 이동과 비교하기",
+        "problem": "직선 거리가 멀어도 포탈로 즉시 이동할 수 있어, 거리만으로 경로를 평가하면 적합한 후보를 놓칠 수 있습니다.",
+        "implementation": "NavMesh 경로와 포탈·점프패드 등 특수 이동을 하나의 그래프로 표현하고, Dijkstra로 누적 비용을 비교했습니다. 포탈의 비용을 0으로 두고 정적 링크 비용을 캐시했습니다.",
+        "verification": "경로 시각화와 탐색 코드를 통해 일반 이동과 특수 이동이 연결되는 구조를 확인할 수 있습니다.",
+        "media": {
+          "image": "arena-nav.webp",
+          "width": 464,
+          "height": 294,
+          "alt": "전투 NPC의 경로와 특수 이동 연결을 시각화한 게임 화면",
+          "caption": "게임 화면 · 흰색은 현재 경로, 빨간색은 특수 이동 연결, 파란색은 이후 경로"
+        },
+        "links": [
+          [
+            "경로 탐색 코드",
+            "https://github.com/msg1150/UnrealTeamProjectPortfolio/blob/2d5b0c733c93af8702e434e984767b7501b3d082/PathLink/PathLinkRouteFinder.cpp"
+          ]
+        ]
+      }
+    ],
+    "section": {
+      "id": "tools",
+      "label": "팀 제작 도구",
+      "title": "레벨 배치와 데이터 수정에 필요한 도구",
+      "text": "레벨에서 잘못 배치된 요소를 찾아주는 Unreal 에디터 도구를 만들었습니다. 외부 데이터 편집에서는 입력을 검증하고 에셋에 반영하는 단계와 저장하는 단계를 분리했습니다.",
+      "links": [
+        [
+          "제작 도구 구현 상세",
+          "https://msg1150.github.io/projects/battlearena/"
+        ]
+      ]
+    },
+    "links": [
+      [
+        "기존 기술 자료",
+        "https://msg1150.github.io/projects/battlearena/"
+      ],
+      [
+        "GitHub 코드",
+        "https://github.com/msg1150/UnrealTeamProjectPortfolio"
+      ]
+    ]
+  }
+]

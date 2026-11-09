@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Unreal Engine 기반 3D 멀티플레이 슈팅 팀 프로젝트입니다. 투사체·공간 포탈과 제작 도구를 담당했고, 전투 NPC에서는 특수 이동 경로 탐색을 구현했습니다.">
+  <meta name="theme-color" content="#111720">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="BattleArena | 박장한 AI Game Maker">
+  <meta property="og:description" content="Unreal Engine 기반 3D 멀티플레이 슈팅 팀 프로젝트입니다. 투사체·공간 포탈과 제작 도구를 담당했고, 전투 NPC에서는 특수 이동 경로 탐색을 구현했습니다.">
+  <meta property="og:url" content="https://msg1150.github.io/ai-game-maker-portfolio/projects/battlearena/">
+  <meta property="og:image" content="https://msg1150.github.io/ai-game-maker-portfolio/assets/arena.webp">
+  <link rel="canonical" href="https://msg1150.github.io/ai-game-maker-portfolio/projects/battlearena/">
+  <link rel="icon" href="../../assets/mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../assets/site.css?v=ff93880d">
+  <script src="../../assets/site.js?v=f974bd36" defer></script>
+  <title>BattleArena | 박장한 AI Game Maker</title>
+</head>
+<body class="tone-blue">
+  <a class="skip" href="#main">본문으로 건너뛰기</a>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="../../" aria-label="박장한 포트폴리오 홈"><span class="mark" aria-hidden="true">PJ</span><span>박장한 <small>AI Game Maker</small></span></a>
+      <nav class="site-nav" aria-label="프로젝트 탐색"><a href="../../projects/dungeonsweeper/">DungeonSweeper</a><a href="../../projects/golden-shift/">GOLDEN SHIFT</a><a href="../../projects/battlearena/" aria-current="page">BattleArena</a><a class="contact-link" href="#contact">연락처</a></nav>
+    </div>
+  </header>
+  <main id="main">
+      <section class="hero project-hero">
+        <div class="shell">
+          <nav class="crumb" aria-label="현재 위치"><a href="../../">포트폴리오</a><span aria-hidden="true">/</span><span>BattleArena</span></nav>
+          <div class="hero-inner">
+            <div class="hero-copy">
+              <p class="eyebrow"><span>PROJECT 03</span> 팀 개발 · 클라이언트 프로그래밍</p>
+              <h1>BattleArena</h1>
+              <p class="hero-lede">조준과 충돌, 공간 포탈을 연결한 멀티플레이 FPS</p>
+              <p class="hero-summary">Unreal Engine 기반 3D 멀티플레이 슈팅 팀 프로젝트입니다. 투사체·공간 포탈과 제작 도구를 담당했고, 전투 NPC에서는 특수 이동 경로 탐색을 구현했습니다.</p>
+              <ul class="tags" aria-label="사용 기술"><li>Unreal Engine 5.6.1</li><li>C++</li><li>Blueprint</li></ul>
+              <div class="actions"><a class="button" href="https://msg1150.github.io/projects/battlearena/">기존 기술 자료<svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a class="button" href="https://github.com/msg1150/UnrealTeamProjectPortfolio">GitHub 코드<svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+            </div>
+            <figure class="project-cover"><img src="../../assets/arena.webp" alt="1인칭 시점에서 공간 포탈 너머의 출구가 보이는 BattleArena 게임 화면" width="855" height="481" fetchpriority="high" decoding="async"><figcaption>게임 화면 · 공간 포탈</figcaption></figure>
+          </div>
+        </div>
+      </section>
+      <div class="shell detail">
+        <nav class="local-nav" aria-label="페이지 목차">
+          <a href="#role">역할</a><a href="#cases">구현 사례</a><a href="#tools">팀 제작 도구</a>
+        </nav>
+
+        <section id="role" class="detail-section">
+          <p class="eyebrow"><span>ROLE</span> CONTRIBUTION</p>
+          <h2>팀 프로젝트에서 맡은 역할</h2>
+          <div class="role-grid"><div><h3>게임플레이</h3><p>투사체 조준 보정·충돌 판정, 포탈 출구 화면·통과 처리, 전투 NPC의 포탈·점프패드 경로 탐색을 담당했습니다.</p></div><div><h3>팀 제작 도구</h3><p>레벨 배치 오류를 찾는 검증 도구와 외부 데이터를 편집하고 Unreal 에셋으로 동기화하는 도구를 담당했습니다.</p></div></div>
+        </section>
+
+        <section id="cases" class="detail-section">
+          <p class="eyebrow"><span>CASES</span> IMPLEMENTATION</p><h2>구현 사례</h2>
+          <div class="case-list"><article class="case" id="projectile">
+    <div class="case-head"><p class="eyebrow"><span>CASE 01</span> 전투 시스템</p><h3>프레임 사이의 투사체 충돌 놓치지 않기</h3></div>
+    <div class="case-layout">
+      <dl class="case-copy">
+        <div><dt>목표와 판단</dt><dd>총구에서 출발한 투사체를 조준선으로 합류시키면서 빠르게 지나가는 구간의 충돌도 잡아야 했습니다.</dd></div>
+        <div><dt>구현</dt><dd>한 프레임 안에서 합류 전후 시간을 분리해 이동을 계산합니다. 각 구간을 Sweep하고 최초 충돌 시점을 선택합니다. 플레이어 충돌 판정은 서버에서 검사합니다.</dd></div>
+        <div><dt>확인한 근거</dt><dd>조준 후 발사 장면과 이동·충돌 판정 코드를 연결했습니다.</dd></div>
+      </dl>
+      <figure class="evidence"><video controls playsinline preload="none" width="864" height="308" style="aspect-ratio: 864 / 308" poster="../../assets/arena-shot.webp" aria-label="조준선과 총구 위치가 다른 상태에서의 발사 장면"><source src="../../assets/arena-shot.mp4" type="video/mp4"><a href="../../assets/arena-shot.mp4">MP4 영상 열기</a></video><figcaption>플레이 영상 · 조준 후 발사</figcaption></figure>
+    </div>
+
+    <div class="actions"><a class="button" href="https://github.com/msg1150/UnrealTeamProjectPortfolio/blob/fee0b72e4cc6236acfcb332139613f53fd87b244/Weapon/ProjectileWorldCollisionComponent.cpp">충돌 판정 코드<svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+  </article><article class="case" id="navigation">
+    <div class="case-head"><p class="eyebrow"><span>CASE 02</span> 특수 이동</p><h3>비용 0인 포탈 경로를 일반 이동과 비교하기</h3></div>
+    <div class="case-layout">
+      <dl class="case-copy">
+        <div><dt>목표와 판단</dt><dd>직선 거리가 멀어도 포탈로 즉시 이동할 수 있어, 거리만으로 경로를 평가하면 적합한 후보를 놓칠 수 있습니다.</dd></div>
+        <div><dt>구현</dt><dd>NavMesh 경로와 포탈·점프패드 등 특수 이동을 하나의 그래프로 표현하고, Dijkstra로 누적 비용을 비교했습니다. 포탈의 비용을 0으로 두고 정적 링크 비용을 캐시했습니다.</dd></div>
+        <div><dt>확인한 근거</dt><dd>경로 시각화와 탐색 코드를 통해 일반 이동과 특수 이동이 연결되는 구조를 확인할 수 있습니다.</dd></div>
+      </dl>
+      <figure class="evidence"><img src="../../assets/arena-nav.webp" width="464" height="294" alt="전투 NPC의 경로와 특수 이동 연결을 시각화한 게임 화면" loading="lazy" decoding="async"><figcaption>게임 화면 · 흰색은 현재 경로, 빨간색은 특수 이동 연결, 파란색은 이후 경로</figcaption></figure>
+    </div>
+
+    <div class="actions"><a class="button" href="https://github.com/msg1150/UnrealTeamProjectPortfolio/blob/2d5b0c733c93af8702e434e984767b7501b3d082/PathLink/PathLinkRouteFinder.cpp">경로 탐색 코드<svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+  </article></div>
+        </section>
+        <section id="tools" class="detail-section">
+          <p class="eyebrow"><span>NOTES</span> 팀 제작 도구</p><h2>레벨 배치와 데이터 수정에 필요한 도구</h2>
+          <p class="prose">레벨에서 잘못 배치된 요소를 찾아주는 Unreal 에디터 도구를 만들었습니다. 외부 데이터 편집에서는 입력을 검증하고 에셋에 반영하는 단계와 저장하는 단계를 분리했습니다.</p>
+          <div class="actions"><a class="button" href="https://msg1150.github.io/projects/battlearena/">제작 도구 구현 상세<svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+        </section>
+        <nav class="related" aria-label="다른 프로젝트">
+          <a href="../../#projects">프로젝트 목록</a><a href="../../projects/dungeonsweeper/">DungeonSweeper <svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a href="../../projects/golden-shift/">GOLDEN SHIFT <svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </nav>
+      </div></main>
+  <footer class="shell site-footer" id="contact">
+    <div><p class="eyebrow"><span>CONTACT</span></p><h2>박장한</h2><p>게임 개발 및 AI 협업</p></div>
+    <div class="footer-links">
+      <a href="mailto:wkdgks88009@gmail.com">wkdgks88009@gmail.com</a>
+      <a href="https://github.com/msg1150">GitHub <svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a href="https://msg1150.github.io/">게임 클라이언트 포트폴리오 <svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="일꾼을 모집해 일터에 배치하고, 번 가상 골드로 슬롯·블랙잭·가상 투자를 하거나 생산 시설을 확장하는 싱글플레이 웹 게임입니다.">
+  <meta name="theme-color" content="#111720">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="GOLDEN SHIFT | 박장한 AI Game Maker">
+  <meta property="og:description" content="일꾼을 모집해 일터에 배치하고, 번 가상 골드로 슬롯·블랙잭·가상 투자를 하거나 생산 시설을 확장하는 싱글플레이 웹 게임입니다.">
+  <meta property="og:url" content="https://msg1150.github.io/ai-game-maker-portfolio/projects/golden-shift/">
+  <link rel="canonical" href="https://msg1150.github.io/ai-game-maker-portfolio/projects/golden-shift/">
+  <link rel="icon" href="../../assets/mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../assets/site.css?v=ff93880d">
+  <script src="../../assets/site.js?v=f974bd36" defer></script>
+  <title>GOLDEN SHIFT | 박장한 AI Game Maker</title>
+</head>
+<body class="tone-gold">
+  <a class="skip" href="#main">본문으로 건너뛰기</a>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="../../" aria-label="박장한 포트폴리오 홈"><span class="mark" aria-hidden="true">PJ</span><span>박장한 <small>AI Game Maker</small></span></a>
+      <nav class="site-nav" aria-label="프로젝트 탐색"><a href="../../projects/dungeonsweeper/">DungeonSweeper</a><a href="../../projects/golden-shift/" aria-current="page">GOLDEN SHIFT</a><a href="../../projects/battlearena/">BattleArena</a><a class="contact-link" href="#contact">연락처</a></nav>
+    </div>
+  </header>
+  <main id="main">
+      <section class="hero project-hero">
+        <div class="shell">
+          <nav class="crumb" aria-label="현재 위치"><a href="../../">포트폴리오</a><span aria-hidden="true">/</span><span>GOLDEN SHIFT</span></nav>
+          <div class="hero-inner">
+            <div class="hero-copy">
+              <p class="eyebrow"><span>PROJECT 02</span> 개인 개발 · AI 협업</p>
+              <h1>GOLDEN SHIFT</h1>
+              <p class="hero-lede">게임 규칙과 화면의 단서를 함께 다듬은 웹 게임</p>
+              <p class="hero-summary">일꾼을 모집해 일터에 배치하고, 번 가상 골드로 슬롯·블랙잭·가상 투자를 하거나 생산 시설을 확장하는 싱글플레이 웹 게임입니다.</p>
+              <ul class="tags" aria-label="사용 기술"><li>JavaScript</li><li>Cloudflare Workers</li><li>D1</li><li>ChatGPT</li></ul>
+              <div class="actions"><a class="button" href="https://gold-slot-idle.goldenshift.workers.dev/">웹 게임 열기<svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+            </div>
+            <figure class="project-cover"><img src="../../assets/golden-reels.svg" alt="세 릴의 가운데 행을 금색 당첨선으로 표시한 슬롯 규칙 설명 도식" width="960" height="540" fetchpriority="high" decoding="async"><figcaption>중앙 판정선 설명 도식</figcaption></figure>
+          </div>
+        </div>
+      </section>
+      <div class="shell detail">
+        <nav class="local-nav" aria-label="페이지 목차">
+          <a href="#role">역할</a><a href="#timeline">개발 이력</a><a href="#cases">구현 사례</a><a href="#deployment">배포 구조</a>
+        </nav>
+        <section class="loop" aria-labelledby="loop-title"><h2 id="loop-title">핵심 플레이 루프</h2><ol><li>일꾼 모집</li><li>근무·자동 생산</li><li>골드 획득</li><li>투자·시설 확장</li></ol></section>
+        <section id="role" class="detail-section">
+          <p class="eyebrow"><span>ROLE</span> CONTRIBUTION</p>
+          <h2>내 역할과 AI의 역할</h2>
+          <div class="role-grid"><div><h3>내 역할</h3><p>확률 아이템의 지속 시간, 블랙잭 지급 조건, 슬롯의 중앙 판정선처럼 플레이 규칙과 화면에서 강조할 정보를 구체화했습니다.</p></div><div><h3>ChatGPT의 역할</h3><p>요청에 따라 클라이언트·서버 변경을 제안하고 구현 패치를 제공했습니다. 릴 애니메이션 패치에는 자동 테스트도 포함됐습니다.</p></div></div>
+        </section>
+        <section id="timeline" class="detail-section"><p class="eyebrow"><span>HISTORY</span> ITERATION</p><h2>주요 개발 이력</h2>
+          <ol class="timeline"><li><span>v0.1</span><div><h3>기본 플레이 루프</h3><p>3릴 슬롯과 일꾼·일터를 하나의 경제 구조로 연결했습니다.</p></div></li><li><span>v0.11</span><div><h3>아이템 규칙 변경</h3><p>확률 증가 효과를 다음 성공 스핀 1회로 제한했습니다.</p></div></li><li><span>v0.13.2</span><div><h3>시세 기록 저장 수정</h3><p>시세 이력의 SQL 바인딩 한도를 피하도록 나눠 저장하는 패치를 제공했습니다.</p></div></li><li><span>v0.14–0.14.3</span><div><h3>블랙잭과 릴 연출</h3><p>블랙잭을 추가하고 슬롯을 수직 스크롤과 중앙 판정선으로 개선했습니다.</p></div></li></ol></section>
+        <section id="cases" class="detail-section">
+          <p class="eyebrow"><span>CASES</span> IMPLEMENTATION</p><h2>구현 사례</h2>
+          <div class="case-list"><article class="case" id="payline">
+    <div class="case-head"><p class="eyebrow"><span>CASE 01</span> 연출과 판정</p><h3>슬롯이 돌아가는 느낌과 당첨 기준을 함께 전달하기</h3></div>
+    <div class="case-layout">
+      <dl class="case-copy">
+        <div><dt>목표와 판단</dt><dd>릴을 한 행에서 세 행으로 늘리면서, 세 줄 중 어느 줄이 실제 당첨에 쓰이는지 한눈에 읽을 수 있어야 했습니다.</dd></div>
+        <div><dt>구현</dt><dd>세 릴을 수직으로 흘려 왼쪽부터 멈추고, 가운데 행에 금색 판정선을 표시했습니다. 각 릴의 가운데 심볼은 서버 결과로 확정되며, 위아래 심볼은 연출에 쓰입니다.</dd></div>
+        <div><dt>확인한 근거</dt><dd>v0.14.3 패치의 테스트로 중앙 심볼이 서버 결과와 일치하는지, 모션 감소 설정에서 애니메이션 없이 결과가 표시되는지 확인했습니다.</dd></div>
+      </dl>
+      <figure class="evidence"><img src="../../assets/golden-reels.svg" width="960" height="540" alt="슬롯의 세 행 중 가운데 판정선만 강조한 개념 도식" loading="lazy" decoding="async"><figcaption>개념 도식 · 가운데 한 줄의 심볼만 서버 판정에 사용</figcaption></figure>
+    </div>
+    <details class="prompt">
+    <summary>실제 요청 펼치기</summary>
+    <div class="prompt-body">
+      <pre><code>그럼 해당 방향으로 구현을 하면서 각 릴의 중앙이 좀 다른 릴들이랑 다르게 표시가 됐으면 좋겠어 딱 이 부분이 당첨이 되는 부분이다하고</code></pre>
+      <div class="prompt-tools"><button type="button" data-copy hidden>프롬프트 복사</button><span class="copy-status" role="status"></span></div>
+    </div>
+  </details>
+
+  </article><article class="case" id="blackjack">
+    <div class="case-head"><p class="eyebrow"><span>CASE 02</span> 지급 규칙</p><h3>블랙잭에서 승리해야만 골드를 받도록 정하기</h3></div>
+    <div class="">
+      <dl class="case-copy">
+        <div><dt>목표와 판단</dt><dd>블랙잭을 추가하는 과정에서 무승부 시 베팅금을 돌려주는 구현 방향이 제안됐습니다.</dd></div>
+        <div><dt>구현</dt><dd>승리 시에만 베팅액을 포함해 3배를 지급하도록 요구사항을 확정했습니다. 패배와 무승부의 지급액은 0G입니다.</dd></div>
+        <div><dt>확인한 근거</dt><dd>개발 기록과 v0.14 패치에서 무승부 정산과 사용자 요청의 대응 관계를 확인했습니다.</dd></div>
+      </dl>
+
+    </div>
+    <details class="prompt">
+    <summary>실제 수정 요청 펼치기</summary>
+    <div class="prompt-body">
+      <pre><code>아니야 무승부도 원금회수는 못해 무조건 승리해야만 따는 구조야</code></pre>
+      <div class="prompt-tools"><button type="button" data-copy hidden>프롬프트 복사</button><span class="copy-status" role="status"></span></div>
+    </div>
+  </details>
+
+  </article></div>
+        </section>
+        <section id="deployment" class="detail-section">
+          <p class="eyebrow"><span>NOTES</span> 배포 구조</p><h2>웹 게임 화면과 계정별 저장 분리</h2>
+          <p class="prose">Cloudflare Workers가 게임 페이지와 API를 제공하고, D1은 계정별 골드·일꾼·일터 등의 상태를 저장합니다. Google 로그인으로 계정을 연결합니다. 아래 공개 주소는 진입 페이지까지 확인했으며, v0.14.3 검증은 제공된 패치를 기준으로 했습니다.</p>
+
+        </section>
+        <nav class="related" aria-label="다른 프로젝트">
+          <a href="../../#projects">프로젝트 목록</a><a href="../../projects/dungeonsweeper/">DungeonSweeper <svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a href="../../projects/battlearena/">BattleArena <svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </nav>
+      </div></main>
+  <footer class="shell site-footer" id="contact">
+    <div><p class="eyebrow"><span>CONTACT</span></p><h2>박장한</h2><p>게임 개발 및 AI 협업</p></div>
+    <div class="footer-links">
+      <a href="mailto:wkdgks88009@gmail.com">wkdgks88009@gmail.com</a>
+      <a href="https://github.com/msg1150">GitHub <svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a href="https://msg1150.github.io/">게임 클라이언트 포트폴리오 <svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+  </footer>
+</body>
+</html>

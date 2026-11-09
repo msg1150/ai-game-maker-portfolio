@@ -3,83 +3,97 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="박장한의 AI Game Maker 포트폴리오. 게임 기획, AI 협업 개발, 플레이 검증 사례를 정리합니다.">
+  <meta name="description" content="박장한의 게임 기획, AI 협업 개발과 플레이 검증 포트폴리오.">
+  <meta name="theme-color" content="#111720">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="박장한 | AI Game Maker Portfolio">
+  <meta property="og:description" content="박장한의 게임 기획, AI 협업 개발과 플레이 검증 포트폴리오.">
+  <meta property="og:url" content="https://msg1150.github.io/ai-game-maker-portfolio/">
+  <meta property="og:image" content="https://msg1150.github.io/ai-game-maker-portfolio/assets/dungeon.webp">
+  <link rel="canonical" href="https://msg1150.github.io/ai-game-maker-portfolio/">
+  <link rel="icon" href="./assets/mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./assets/site.css?v=ff93880d">
+  <script src="./assets/site.js?v=f974bd36" defer></script>
   <title>박장한 | AI Game Maker Portfolio</title>
-  <style>
-    :root {
-      color-scheme: dark;
-      background: #141b25;
-      color: #e7ebf1;
-      font-family: system-ui, "Malgun Gothic", sans-serif;
-      line-height: 1.65;
-    }
-    * { box-sizing: border-box; }
-    body { margin: 0; }
-    a { color: #b8cef2; text-underline-offset: .25em; }
-    a:focus-visible { outline: 2px solid #b8cef2; outline-offset: 5px; }
-    .shell { width: min(68rem, calc(100% - 2.5rem)); margin-inline: auto; }
-    header, footer { padding-block: 1.25rem; }
-    header { border-bottom: 1px solid #39475b; }
-    nav { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; }
-    main { padding-block: clamp(2.75rem, 8vw, 6rem) 3rem; }
-    h1, h2, h3 { line-height: 1.2; margin-block: 0 .75rem; }
-    h1 { font-size: clamp(2.5rem, 7vw, 5rem); letter-spacing: -.04em; }
-    p { margin-block: 0 1rem; }
-    .intro { max-width: 42rem; color: #c1cddd; }
-    .eyebrow { color: #b8cef2; font-weight: 700; }
-    .projects { margin-top: 3.5rem; }
-    .grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr)); }
-    article {
-      border: 1px solid #39475b;
-      border-top: 3px solid var(--accent);
-      border-radius: .65rem;
-      background: #232d3b;
-      padding: 1.4rem;
-    }
-    article p { color: #c1cddd; }
-    article:first-child { --accent: #a58ad9; }
-    article:nth-child(2) { --accent: #e0b45e; }
-    article:nth-child(3) { --accent: #529ce0; }
-    footer { border-top: 1px solid #39475b; color: #c1cddd; }
-  </style>
 </head>
-<body>
-  <header>
-    <nav class="shell" aria-label="주 메뉴">
-      <a href="#projects">프로젝트</a>
-      <a href="https://msg1150.github.io/">게임 클라이언트 포트폴리오</a>
-    </nav>
+<body class="home">
+  <a class="skip" href="#main">본문으로 건너뛰기</a>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="./" aria-label="박장한 포트폴리오 홈"><span class="mark" aria-hidden="true">PJ</span><span>박장한 <small>AI Game Maker</small></span></a>
+      <nav class="site-nav" aria-label="프로젝트 탐색"><a href="./projects/dungeonsweeper/">DungeonSweeper</a><a href="./projects/golden-shift/">GOLDEN SHIFT</a><a href="./projects/battlearena/">BattleArena</a><a class="contact-link" href="#contact">연락처</a></nav>
+    </div>
   </header>
-  <main class="shell">
-    <p class="eyebrow">박장한</p>
-    <h1>AI Game Maker Portfolio</h1>
-    <p class="intro">게임 아이디어를 플레이 가능한 규칙으로 구체화하고, AI와 구현을 진행한 뒤 실제 플레이에서 발견한 문제를 개선합니다.</p>
-    <section class="projects" id="projects" aria-labelledby="projects-title">
-      <h2 id="projects-title">프로젝트</h2>
-      <div class="grid">
-        <article>
-          <h3>DungeonSweeper</h3>
-          <p>Unity · C# · Codex</p>
-          <p>던전 탐험 게임에서 인벤토리와 몬스터 행동을 설계하고 검증한 과정</p>
-          <a href="https://msg1150.github.io/projects/dungeonsweeper/">DungeonSweeper 기술 자료</a>
-        </article>
-        <article>
-          <h3>GOLDEN SHIFT</h3>
-          <p>JavaScript · Cloudflare Workers · ChatGPT</p>
-          <p>슬롯머신과 방치형 경제를 결합한 웹 게임의 기획과 반복 개발</p>
-        </article>
-        <article>
-          <h3>BattleArena</h3>
-          <p>Unreal Engine · C++ · Blueprint</p>
-          <p>FPS 팀 프로젝트의 기능 구현과 통합 경험</p>
-          <a href="https://msg1150.github.io/projects/battlearena/">BattleArena 기술 자료</a>
-        </article>
+  <main id="main">
+      <section class="hero">
+        <div class="shell hero-inner">
+          <div class="hero-copy">
+            <p class="eyebrow"><span>PORTFOLIO</span> 박장한</p>
+            <h1>AI Game Maker</h1>
+            <p class="hero-lede">게임 규칙을 설계하고,<br>플레이로 결과를 확인합니다.</p>
+            <p class="hero-summary">기획을 구현할 수 있는 요구사항으로 나누고, AI와 작업한 결과를 실제 플레이에서 확인하며 게임을 다듬습니다.</p>
+            <div class="actions"><a class="button primary" href="#projects">프로젝트 보기<svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a class="button" href="https://msg1150.github.io/">클라이언트 포트폴리오<svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+          </div>
+          <a class="feature tone-violet" href="./projects/dungeonsweeper/">
+            <div class="feature-media"><img src="./assets/dungeon.webp" alt="고양이 탐험가와 슬라임이 보이는 DungeonSweeper 타이틀 화면" width="1440" height="810" fetchpriority="high" decoding="async"><span>게임 타이틀 화면</span></div>
+            <div class="feature-caption"><div><p class="eyebrow"><span>01</span> 대표 프로젝트</p><strong>DungeonSweeper</strong></div><span class="round-icon"><svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+          </a>
+        </div>
+      </section>
+      <section class="shell section" id="projects">
+        <div class="section-head"><div><p class="eyebrow"><span>01</span> SELECTED WORK</p><h2>프로젝트</h2></div><p>개인 게임의 기획과 AI 협업부터<br>팀 프로젝트의 클라이언트 구현까지</p></div>
+        <div class="project-grid"><article class="project-card tone-violet">
+    <a href="./projects/dungeonsweeper/">
+      <div class="card-image"><img src="./assets/dungeon.webp" alt="고양이 탐험가와 슬라임이 보이는 DungeonSweeper 타이틀 화면" width="1440" height="810" loading="lazy" decoding="async"><span>게임 타이틀 화면</span></div>
+      <div class="card-body">
+        <p class="eyebrow"><span>01</span> 개인 개발 · AI 협업</p>
+        <h3>DungeonSweeper</h3>
+        <p>싸우지 않고, 챙겨서 돌아오는 던전 탐험</p>
+        <ul class="tags" aria-label="사용 기술"><li>Unity</li><li>C#</li><li>Codex</li></ul>
+        <span class="card-action">프로젝트 보기 <svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
       </div>
-    </section>
-  </main>
-  <footer>
-    <div class="shell"><a href="https://github.com/msg1150">GitHub</a></div>
+    </a>
+  </article><article class="project-card tone-gold">
+    <a href="./projects/golden-shift/">
+      <div class="card-image"><img src="./assets/golden-reels.svg" alt="세 릴의 가운데 행을 금색 당첨선으로 표시한 슬롯 규칙 설명 도식" width="960" height="540" loading="lazy" decoding="async"><span>중앙 판정선 설명 도식</span></div>
+      <div class="card-body">
+        <p class="eyebrow"><span>02</span> 개인 개발 · AI 협업</p>
+        <h3>GOLDEN SHIFT</h3>
+        <p>게임 규칙과 화면의 단서를 함께 다듬은 웹 게임</p>
+        <ul class="tags" aria-label="사용 기술"><li>JavaScript</li><li>Cloudflare Workers</li><li>D1</li><li>ChatGPT</li></ul>
+        <span class="card-action">프로젝트 보기 <svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </div>
+    </a>
+  </article><article class="project-card tone-blue">
+    <a href="./projects/battlearena/">
+      <div class="card-image"><img src="./assets/arena.webp" alt="1인칭 시점에서 공간 포탈 너머의 출구가 보이는 BattleArena 게임 화면" width="855" height="481" loading="lazy" decoding="async"><span>게임 화면 · 공간 포탈</span></div>
+      <div class="card-body">
+        <p class="eyebrow"><span>03</span> 팀 개발 · 클라이언트 프로그래밍</p>
+        <h3>BattleArena</h3>
+        <p>조준과 충돌, 공간 포탈을 연결한 멀티플레이 FPS</p>
+        <ul class="tags" aria-label="사용 기술"><li>Unreal Engine 5.6.1</li><li>C++</li><li>Blueprint</li></ul>
+        <span class="card-action">프로젝트 보기 <svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </div>
+    </a>
+  </article></div>
+      </section>
+      <section class="workflow">
+        <div class="shell section">
+          <div class="section-head"><div><p class="eyebrow"><span>02</span> WORKFLOW</p><h2>AI와 작업하는 방식</h2></div></div>
+          <ol class="steps">
+            <li><span>01</span><h3>플레이 규칙 정의</h3><p>플레이어가 무엇을 선택하는지, 어떤 결과가 나와야 하는지 정합니다.</p></li>
+            <li><span>02</span><h3>구현 단위로 분해</h3><p>게임 상태, 화면 표현, 예외 조건을 나눠 AI에 구현 요구사항을 전달합니다.</p></li>
+            <li><span>03</span><h3>플레이와 코드로 검증</h3><p>게임에서 문제를 재현하고, 수정된 동작을 영상·코드·테스트로 확인합니다.</p></li>
+          </ol>
+        </div>
+      </section></main>
+  <footer class="shell site-footer" id="contact">
+    <div><p class="eyebrow"><span>CONTACT</span></p><h2>박장한</h2><p>게임 개발 및 AI 협업</p></div>
+    <div class="footer-links">
+      <a href="mailto:wkdgks88009@gmail.com">wkdgks88009@gmail.com</a>
+      <a href="https://github.com/msg1150">GitHub <svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a href="https://msg1150.github.io/">게임 클라이언트 포트폴리오 <svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
   </footer>
 </body>
 </html>
-
