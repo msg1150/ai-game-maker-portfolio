@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="박장한의 AI Game Maker 포트폴리오. 게임 기획, AI 협업 개발, 플레이 검증 사례를 정리합니다.">
+  <title>박장한 | AI Game Maker Portfolio</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      background: #141b25;
+      color: #e7ebf1;
+      font-family: system-ui, "Malgun Gothic", sans-serif;
+      line-height: 1.65;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    a { color: #b8cef2; text-underline-offset: .25em; }
+    a:focus-visible { outline: 2px solid #b8cef2; outline-offset: 5px; }
+    .shell { width: min(68rem, calc(100% - 2.5rem)); margin-inline: auto; }
+    header, footer { padding-block: 1.25rem; }
+    header { border-bottom: 1px solid #39475b; }
+    nav { display: flex; flex-wrap: wrap; gap: .5rem 1.5rem; }
+    main { padding-block: clamp(2.75rem, 8vw, 6rem) 3rem; }
+    h1, h2, h3 { line-height: 1.2; margin-block: 0 .75rem; }
+    h1 { font-size: clamp(2.5rem, 7vw, 5rem); letter-spacing: -.04em; }
+    p { margin-block: 0 1rem; }
+    .intro { max-width: 42rem; color: #c1cddd; }
+    .eyebrow { color: #b8cef2; font-weight: 700; }
+    .projects { margin-top: 3.5rem; }
+    .grid { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(min(100%, 19rem), 1fr)); }
+    article {
+      border: 1px solid #39475b;
+      border-top: 3px solid var(--accent);
+      border-radius: .65rem;
+      background: #232d3b;
+      padding: 1.4rem;
+    }
+    article p { color: #c1cddd; }
+    article:first-child { --accent: #a58ad9; }
+    article:nth-child(2) { --accent: #e0b45e; }
+    article:nth-child(3) { --accent: #529ce0; }
+    footer { border-top: 1px solid #39475b; color: #c1cddd; }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="shell" aria-label="주 메뉴">
+      <a href="#projects">프로젝트</a>
+      <a href="https://msg1150.github.io/">게임 클라이언트 포트폴리오</a>
+    </nav>
+  </header>
+  <main class="shell">
+    <p class="eyebrow">박장한</p>
+    <h1>AI Game Maker Portfolio</h1>
+    <p class="intro">게임 아이디어를 플레이 가능한 규칙으로 구체화하고, AI와 구현을 진행한 뒤 실제 플레이에서 발견한 문제를 개선합니다.</p>
+    <section class="projects" id="projects" aria-labelledby="projects-title">
+      <h2 id="projects-title">프로젝트</h2>
+      <div class="grid">
+        <article>
+          <h3>DungeonSweeper</h3>
+          <p>Unity · C# · Codex</p>
+          <p>던전 탐험 게임에서 인벤토리와 몬스터 행동을 설계하고 검증한 과정</p>
+          <a href="https://msg1150.github.io/projects/dungeonsweeper/">DungeonSweeper 기술 자료</a>
+        </article>
+        <article>
+          <h3>GOLDEN SHIFT</h3>
+          <p>JavaScript · Cloudflare Workers · ChatGPT</p>
+          <p>슬롯머신과 방치형 경제를 결합한 웹 게임의 기획과 반복 개발</p>
+        </article>
+        <article>
+          <h3>BattleArena</h3>
+          <p>Unreal Engine · C++ · Blueprint</p>
+          <p>FPS 팀 프로젝트의 기능 구현과 통합 경험</p>
+          <a href="https://msg1150.github.io/projects/battlearena/">BattleArena 기술 자료</a>
+        </article>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <div class="shell"><a href="https://github.com/msg1150">GitHub</a></div>
+  </footer>
+</body>
+</html>
+
