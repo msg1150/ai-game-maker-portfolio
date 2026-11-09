@@ -15,6 +15,14 @@ const icon = '<svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16"
 const css = createHash('sha256').update(await read('assets/site.css')).digest('hex').slice(0, 8);
 const js = createHash('sha256').update(await read('assets/site.js')).digest('hex').slice(0, 8);
 
+function prose(text, highlights = []) {
+  if (!highlights.length) return esc(text);
+  const terms = [...highlights].sort((a, b) => b.length - a.length);
+  const pattern = terms.map((term) => term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|');
+  return text.split(new RegExp(`(${pattern})`, 'g')).map((part, index) =>
+    index % 2 ? `<strong class="text-accent">${esc(part)}</strong>` : esc(part)).join('');
+}
+
 const projectPath = (project) => `projects/${project.slug}/`;
 const tags = (items) => `<ul class="tags" aria-label="사용 기술">${items.map((item) => `<li>${esc(item)}</li>`).join('')}</ul>`;
 const actions = (links = []) => links.length ? `<div class="actions">${links.map(([label, url]) =>
@@ -93,8 +101,8 @@ function home() {
           <div class="hero-copy">
             <p class="eyebrow"><span>PORTFOLIO</span> 박장한</p>
             <h1>AI Game Maker</h1>
-            <p class="hero-lede">게임 규칙을 설계하고,<br>플레이로 결과를 확인합니다.</p>
-            <p class="hero-summary">기획을 구현할 수 있는 요구사항으로 나누고, AI와 작업한 결과를 실제 플레이에서 확인하며 게임을 다듬습니다.</p>
+            <p class="hero-lede">게임 규칙을 설계하고,<br><strong class="text-accent">플레이로 결과를 확인합니다.</strong></p>
+            <p class="hero-summary">AI와 함께 만든 게임과 실제 플레이에서 발견한 개선점을 담았습니다.</p>
             <div class="actions"><a class="button primary" href="#projects">프로젝트 보기${icon}</a><a class="button" href="${technical}">클라이언트 포트폴리오${icon}</a></div>
           </div>
           <a class="feature tone-${featured.tone}" href="./${projectPath(featured)}">
@@ -111,9 +119,9 @@ function home() {
         <div class="shell section">
           <div class="section-head"><div><p class="eyebrow"><span>02</span> WORKFLOW</p><h2>AI와 작업하는 방식</h2></div></div>
           <ol class="steps">
-            <li><span>01</span><h3>플레이 규칙 정의</h3><p>플레이어가 무엇을 선택하는지, 어떤 결과가 나와야 하는지 정합니다.</p></li>
-            <li><span>02</span><h3>구현 단위로 분해</h3><p>게임 상태, 화면 표현, 예외 조건을 나눠 AI에 구현 요구사항을 전달합니다.</p></li>
-            <li><span>03</span><h3>플레이와 코드로 검증</h3><p>게임에서 문제를 재현하고, 수정된 동작을 영상·코드·테스트로 확인합니다.</p></li>
+            <li><span>01</span><h3>플레이 규칙 정하기</h3></li>
+            <li><span>02</span><h3>AI에 구현 요청하기</h3></li>
+            <li><span>03</span><h3>플레이하고 수정하기</h3></li>
           </ol>
         </div>
       </section>`,
@@ -140,16 +148,24 @@ function promptList(prompts = []) {
   </details>`).join('');
 }
 
+function caseVisual(item) {
+  const flow = item.flow ? `<ol class="case-flow" aria-label="구현 흐름">${item.flow.map((step) => `<li>${esc(step)}</li>`).join('')}</ol>` : '';
+  const comparison = item.comparison ? `<div class="evidence-pair">${item.comparison.map(caseMedia).join('')}</div>` : '';
+  return flow + comparison + caseMedia(item.media);
+}
+
 function renderCase(item, index) {
+  const visual = caseVisual(item);
+  const copy = (text) => prose(text, item.highlights);
   return `<article class="case" id="${item.id}">
     <div class="case-head"><p class="eyebrow"><span>CASE 0${index + 1}</span> ${esc(item.label)}</p><h3>${esc(item.title)}</h3></div>
-    <div class="${item.media ? 'case-layout' : ''}">
+    <div class="case-layout">
       <dl class="case-copy">
-        <div><dt>목표와 판단</dt><dd>${esc(item.problem)}</dd></div>
-        <div><dt>구현</dt><dd>${esc(item.implementation)}</dd></div>
-        <div><dt>확인한 근거</dt><dd>${esc(item.verification)}</dd></div>
+        <div><dt>목표</dt><dd>${copy(item.problem)}</dd></div>
+        <div><dt>바꾼 점</dt><dd>${copy(item.implementation)}</dd></div>
+        ${item.verification ? `<div><dt>결과</dt><dd>${copy(item.verification)}</dd></div>` : ''}
       </dl>
-      ${caseMedia(item.media)}
+      ${visual ? `<div class="case-visual">${visual}</div>` : ''}
     </div>
     ${promptList(item.prompts)}
     ${actions(item.links)}
@@ -177,7 +193,7 @@ function detail(project) {
               <p class="hero-lede">${esc(project.tagline)}</p>
               <p class="hero-summary">${esc(summary)}</p>
               ${tags(project.stack)}
-              ${actions(project.links)}
+              ${actions([['사례·영상 보기', '#cases'], ...project.links])}
             </div>
             <figure class="project-cover">${cover(project, '../../', true)}<figcaption>${esc(project.coverLabel)}</figcaption></figure>
           </div>
@@ -196,7 +212,7 @@ function detail(project) {
         ${planning ? `<section id="planning" class="detail-section">
           <p class="eyebrow"><span>PLAN</span> GAME DESIGN</p>
           <h2>${esc(planning.title)}</h2>
-          <p class="prose">${esc(planning.text)}</p>
+          <p class="prose">${prose(planning.text, planning.highlights)}</p>
         </section>` : ''}
         ${timeline ? `<section id="timeline" class="detail-section"><p class="eyebrow"><span>HISTORY</span> ITERATION</p><h2>주요 개발 이력</h2>
           <ol class="timeline">${timeline.map(([version, title, text]) => `<li><span>${esc(version)}</span><div><h3>${esc(title)}</h3><p>${esc(text)}</p></div></li>`).join('')}</ol></section>` : ''}
@@ -211,7 +227,10 @@ function detail(project) {
         <section id="${section.id}" class="detail-section">
           <p class="eyebrow"><span>NOTES</span> ${esc(section.label)}</p><h2>${esc(section.title)}</h2>
           <p class="prose">${esc(section.text)}</p>
-          ${section.notes ? `<div class="role-grid">${section.notes.map(([label, text]) => `<div><h3>${esc(label)}</h3><p>${esc(text)}</p></div>`).join('')}</div>` : ''}
+          ${section.notes ? `<div class="section-evidence">
+            <div class="role-grid">${section.notes.map(([label, text]) => `<div><h3>${esc(label)}</h3><p>${prose(text, section.highlights)}</p></div>`).join('')}</div>
+            ${caseMedia(section.media)}
+          </div>` : ''}
           ${actions(section.links)}
         </section>
         <nav class="related" aria-label="다른 프로젝트">
