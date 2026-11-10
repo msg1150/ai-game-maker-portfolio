@@ -170,6 +170,15 @@ function home() {
 function caseMedia(media) {
   if (!media) return '';
   const asset = `../../assets/${esc(media.image)}`;
+  if (media.gif) {
+    return `<figure class="evidence">
+      <details class="gif-demo">
+        <summary><img src="${asset}" width="${media.width}" height="${media.height}" alt="" loading="lazy"><span class="gif-closed">무음 GIF 보기</span><span class="gif-open">GIF 접기</span></summary>
+        <img src="../../assets/${esc(media.gif)}" width="${media.width}" height="${media.height}" alt="${esc(media.alt)}" loading="lazy">
+      </details>
+      <figcaption>${esc(media.caption)}</figcaption>
+    </figure>`;
+  }
   const content = media.video ?
     `<video controls playsinline preload="none" width="${media.width}" height="${media.height}" style="aspect-ratio: ${media.width} / ${media.height}" poster="${asset}" aria-label="${esc(media.alt)}"><source src="../../assets/${esc(media.video)}" type="video/mp4"><a href="../../assets/${esc(media.video)}">MP4 영상 열기</a></video>` :
     `<img src="${asset}" width="${media.width}" height="${media.height}" alt="${esc(media.alt)}" loading="lazy" decoding="async">`;
