@@ -152,7 +152,7 @@ function home() {
       <section class="shell section" id="projects">
         <div class="section-head">
           <div><p class="eyebrow"><span>01</span> SELECTED WORK</p><h2>프로젝트</h2>
-            <p class="section-intro">개인 게임 두 편의 기획과 AI 협업 과정, 팀 프로젝트에서 맡은 구현과 제작 도구를 정리했습니다.</p></div>
+            <p class="section-intro">개인 게임의 기획과 AI 협업 과정, 팀 프로젝트에서 맡은 구현과 제작 도구를 정리했습니다.</p></div>
         </div>
         <div class="project-grid">${[featured, ...other].map((item) => projectCard(item, './')).join('')}</div>
       </section>

@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="빈칸을 고르면 서버가 숫자와 연산 기호를 제공합니다. 주어진 재료로 스도쿠 정답을 만들고, 같은 칸의 수식을 더 높은 점수로 개선할 수 있습니다.">
+  <meta name="theme-color" content="#111720">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="FormuDoku | 박장한 AI Game Maker">
+  <meta property="og:description" content="빈칸을 고르면 서버가 숫자와 연산 기호를 제공합니다. 주어진 재료로 스도쿠 정답을 만들고, 같은 칸의 수식을 더 높은 점수로 개선할 수 있습니다.">
+  <meta property="og:url" content="https://msg1150.github.io/ai-game-maker-portfolio/projects/formudoku/">
+  <link rel="canonical" href="https://msg1150.github.io/ai-game-maker-portfolio/projects/formudoku/">
+  <link rel="icon" href="../../assets/mark.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../assets/site.css?v=9f069508">
+  <script src="../../assets/site.js?v=801ec972" defer></script>
+  <title>FormuDoku | 박장한 AI Game Maker</title>
+</head>
+<body class="tone-mint">
+  <a class="skip" href="#main">본문으로 건너뛰기</a>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="../../" aria-label="박장한 포트폴리오 홈"><span class="mark" aria-hidden="true">PJ</span><span>박장한 <small>AI Game Maker</small></span></a>
+      <nav class="site-nav" aria-label="프로젝트 탐색"><a href="../../projects/dungeonsweeper/">DungeonSweeper</a><a href="../../projects/golden-shift/">GOLDEN SHIFT</a><a href="../../projects/formudoku/" aria-current="page">FormuDoku</a><a href="../../projects/battlearena/">BattleArena</a><a class="contact-link" href="#contact">연락처</a></nav>
+    </div>
+  </header>
+  <main id="main">
+      <section class="hero project-hero">
+        <div class="shell">
+          <nav class="crumb" aria-label="현재 위치"><a href="../../">포트폴리오</a><span aria-hidden="true">/</span><span>FormuDoku</span></nav>
+          <div class="hero-inner">
+            <div class="hero-copy">
+              <p class="eyebrow"><span>PROJECT 03</span> 개인 개발 / AI 협업</p>
+              <h1>FormuDoku</h1>
+              <p class="hero-lede">정답 숫자를 수식으로 만드는 스도쿠</p>
+              <p class="hero-summary">빈칸을 고르면 서버가 숫자와 연산 기호를 제공합니다. 주어진 재료로 스도쿠 정답을 만들고, 같은 칸의 수식을 더 높은 점수로 개선할 수 있습니다.</p>
+              <ul class="tags" aria-label="사용 기술"><li class="tag-logo" title="JavaScript"><img src="../../assets/icons/jsconf/javascript.svg" alt="JavaScript" width="22" height="22"><span class="tag-touch-label" aria-hidden="true">JavaScript</span></li><li class="tag-logo" title="Cloudflare Workers"><img src="../../assets/icons/cloudflare/workers.svg" alt="Cloudflare Workers" width="22" height="22"><span class="tag-touch-label" aria-hidden="true">Cloudflare Workers</span></li><li class="tag-logo" title="D1"><img src="../../assets/icons/cloudflare/d1.svg" alt="D1" width="22" height="22"><span class="tag-touch-label" aria-hidden="true">D1</span></li><li class="tag-logo" title="ChatGPT"><img src="../../assets/icons/openai/chatgpt.png" alt="ChatGPT" width="22" height="22"><span class="tag-touch-label" aria-hidden="true">ChatGPT</span></li></ul>
+              <div class="actions"><a class="button" href="#cases">사례 및 영상 보기<svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a class="button" href="https://formudoku.goldenshift.workers.dev/">FormuDoku 플레이<svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+            </div>
+            <figure class="project-cover"><img src="../../assets/formudoku-rules.svg" alt="스도쿠 빈칸의 정답 7을 두 수식으로 만든 FormuDoku 규칙 예시" width="960" height="540" fetchpriority="high" decoding="async"><figcaption>게임 규칙 설명 이미지</figcaption></figure>
+          </div>
+        </div>
+      </section>
+      <div class="shell detail">
+        <nav class="local-nav" aria-label="페이지 목차">
+          <a href="#role">역할</a><a href="#cases">구현 사례</a><a href="#checks">테스트 및 배포</a>
+        </nav>
+        <section class="loop" aria-labelledby="loop-title"><h2 id="loop-title">핵심 플레이 루프</h2><ol><li>빈칸 선택</li><li>숫자와 기호로 수식 만들기</li><li>정답 제출</li><li>더 높은 점수에 도전</li></ol></section>
+        <section id="role" class="detail-section">
+          <p class="eyebrow"><span>ROLE</span> CONTRIBUTION</p>
+          <h2>내 역할과 AI의 역할</h2>
+          <div class="role-grid"><div><h3>내 역할</h3><p>풀이가 가능한 재료, 수식 수정 시 점수 차액, 한 칸에 여러 후보 숫자를 적는 메모 규칙을 정했습니다.</p></div><div><h3>ChatGPT의 역할</h3><p>수식 파서와 서버 판정, 점수와 랭킹 저장, 후보 메모 UI를 구현하고 자동 테스트를 작성했습니다.</p></div></div>
+        </section>
+
+
+        <section id="cases" class="detail-section">
+          <p class="eyebrow"><span>CASES</span> IMPLEMENTATION</p><h2>구현 사례</h2>
+          <div class="case-list"><article class="case" id="guaranteed-solution">
+    <div class="case-head"><p class="eyebrow"><span>CASE 01</span> 퍼즐 생성</p><h3>무작위 재료로도 풀 수 있는 빈칸 만들기</h3></div>
+    <div class="case-layout">
+      <dl class="case-copy">
+        <div><dt>목표</dt><dd>재료를 무작위로만 뽑으면 주어진 숫자와 기호로 정답을 만들 수 없는 칸이 생깁니다.</dd></div>
+        <div><dt>바꾼 점</dt><dd>서버가 <strong class="text-accent">정답 수식에 필요한 재료</strong>를 먼저 넣고 나머지를 섞습니다. 재료 하나는 <strong class="text-accent">한 번씩</strong> 쓰고, 일부만 사용해도 제출할 수 있습니다.</dd></div>
+        <div><dt>결과</dt><dd><strong class="text-accent">기본 12개와 전문가 15개</strong> 재료에서 정답 수식이 가능한지 검사했습니다.</dd></div>
+      </dl>
+      <div class="case-visual"><figure class="evidence"><img src="../../assets/formudoku-rules.svg" width="960" height="540" alt="빈칸의 정답 7을 만드는 두 수식과 점수 차액을 설명한 도식" loading="lazy" decoding="async"><figcaption>규칙 예시 / 2 + 5와 3 x 4 - 5는 둘 다 정답 7</figcaption></figure></div>
+    </div>
+    <details class="prompt">
+    <summary>실제 요청 발췌 / 풀이 가능한 재료 보장</summary>
+    <div class="prompt-body">
+      <pre><code>서버에서는 최소한 1가지 이상의 정답 루트를 만들어줘야해</code></pre>
+      <div class="prompt-tools"><button type="button" data-copy hidden>프롬프트 복사</button><span class="copy-status" role="status"></span></div>
+    </div>
+  </details>
+
+  </article><article class="case" id="score-revision">
+    <div class="case-head"><p class="eyebrow"><span>CASE 02</span> 점수 규칙</p><h3>같은 칸은 기존 최고 점수보다 오른 만큼만 지급</h3></div>
+    <div class="case-layout">
+      <dl class="case-copy">
+        <div><dt>목표</dt><dd>정답을 맞힌 칸에서도 더 긴 수식을 시도할 수 있게 하고, 이미 받은 점수의 중복 지급을 막았습니다.</dd></div>
+        <div><dt>바꾼 점</dt><dd>숫자와 연산 기호 수로 점수를 계산합니다. 기존 최고점을 넘을 때만 <strong class="text-accent">점수 차이를 추가</strong>하고, 낮은 점수의 재제출은 <strong class="text-accent">기존 최고 수식을 유지</strong>합니다.</dd></div>
+        <div><dt>결과</dt><dd>Worker와 SQLite 기반 D1 테스트에서 최고 수식 유지와 완료 게임의 랭킹 기록을 확인했습니다.</dd></div>
+      </dl>
+      <div class="case-visual"><ol class="case-flow" aria-label="구현 흐름"><li>2 + 5로 300점</li><li>3 x 4 - 5로 500점</li><li>차이인 200점 추가</li></ol></div>
+    </div>
+
+
+  </article><article class="case" id="candidate-notes">
+    <div class="case-head"><p class="eyebrow"><span>CASE 03</span> 플레이 편의</p><h3>한 칸에 여러 후보 숫자를 메모</h3></div>
+    <div class="case-layout">
+      <dl class="case-copy">
+        <div><dt>목표</dt><dd>한 칸에 숫자 하나만 적을 수 있어 후보가 여러 개면 비교하기 어려웠습니다.</dd></div>
+        <div><dt>바꾼 점</dt><dd>후보를 칸 안에 작게 표시하고, 같은 숫자를 다시 누르면 <strong class="text-accent">그 후보만 지웁니다</strong>. 정답을 제출한 칸의 메모는 자동으로 지웁니다.</dd></div>
+        <div><dt>결과</dt><dd>새로고침 후 복원, <strong class="text-accent">이전 단일 메모 호환</strong>, 오답 시 메모 유지 동작을 검사했습니다.</dd></div>
+      </dl>
+      <div class="case-visual"><ol class="case-flow" aria-label="구현 흐름"><li>후보 숫자 여러 개 기록</li><li>같은 숫자를 눌러 개별 삭제</li><li>정답이면 해당 칸 메모 정리</li></ol></div>
+    </div>
+
+
+  </article></div>
+        </section>
+
+        <section id="checks" class="detail-section">
+          <p class="eyebrow"><span>NOTES</span> 테스트 및 배포</p><h2>브라우저 퍼즐과 서버 판정 검증</h2>
+          <p class="prose">Cloudflare Workers에서 퍼즐 생성과 수식 판정을 처리하고, D1에 진행 상태와 완료 기록을 저장합니다. 공개 주소의 진입 페이지와 로컬 테스트를 각각 확인했습니다.</p>
+          <div class="section-evidence">
+            <div class="role-grid"><div><h3>로컬 자동 테스트 24개 통과</h3><p><strong class="text-accent">스도쿠 유일 해답</strong>, 수식 재료, 점수 수정, 게스트 진행과 랭킹, 후보 메모를 검사했습니다.</p></div><div><h3>완료한 퍼즐의 기록</h3><p><strong class="text-accent">정상 완료한 퍼즐만</strong> 랭킹에 남고, 완성된 퍼즐과 칸별 최고 수식을 관전할 수 있습니다.</p></div></div>
+
+          </div>
+
+        </section>
+        <nav class="related" aria-label="다른 프로젝트">
+          <a href="../../#projects">프로젝트 목록</a><a href="../../projects/dungeonsweeper/">DungeonSweeper <svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a href="../../projects/golden-shift/">GOLDEN SHIFT <svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a href="../../projects/battlearena/">BattleArena <svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </nav>
+      </div></main>
+  <footer class="shell site-footer" id="contact">
+    <div><p class="eyebrow"><span>CONTACT</span></p><h2>박장한</h2></div>
+    <div class="footer-links">
+      <a href="mailto:wkdgks88009@gmail.com">wkdgks88009@gmail.com</a>
+      <a href="https://github.com/msg1150">GitHub <svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+  </footer>
+</body>
+</html>
