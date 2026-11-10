@@ -187,13 +187,17 @@ function caseMedia(media) {
 }
 
 function promptList(prompts = []) {
-  return prompts.map(({ label, text }) => `<details class="prompt">
-    <summary>${esc(label)}</summary>
-    <div class="prompt-body">
+  if (!prompts.length) return '';
+  const grouped = prompts.length > 1;
+  const summary = grouped ? `관련 요청 발췌 (${prompts.length}건)` : prompts[0].label;
+  return `<details class="prompt">
+    <summary>${esc(summary)}</summary>
+    ${prompts.map(({ label, text }) => `<div class="prompt-body">
+      ${grouped ? `<h4>${esc(label)}</h4>` : ''}
       <pre><code>${esc(text).replace(/\r?\n/g, '&#10;')}</code></pre>
       <div class="prompt-tools"><button type="button" data-copy hidden>프롬프트 복사</button><span class="copy-status" role="status"></span></div>
-    </div>
-  </details>`).join('');
+    </div>`).join('')}
+  </details>`;
 }
 
 function caseVisual(item) {

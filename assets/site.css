@@ -168,6 +168,7 @@ figcaption { color: var(--muted); font-size: .8rem; padding: .6rem .8rem; }
 .prompt summary { padding: .7rem .85rem; color: var(--accent); font-size: .9rem; font-weight: 700; cursor: pointer; }
 .prompt summary:hover { background: var(--glow); border-radius: 9px; }
 .prompt-body { padding: .75rem .85rem; border-top: 1px solid var(--line); }
+.prompt-body h4 { margin: 0 0 .4rem; color: var(--accent); font-size: .86rem; }
 .prompt pre { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
 .prompt code { font: .9rem/1.65 "Consolas", "Malgun Gothic", monospace; }
 .prompt-tools { display: flex; align-items: center; flex-wrap: wrap; gap: .6rem; margin-top: .75rem; }
