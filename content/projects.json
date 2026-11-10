@@ -513,11 +513,11 @@
     ],
     "tagline": "정답 숫자를 수식으로 만드는 스도쿠",
     "summary": "빈칸을 고르면 서버가 숫자와 연산 기호를 제공합니다. 주어진 재료로 스도쿠 정답을 만들고, 같은 칸의 수식을 더 높은 점수로 개선할 수 있습니다.",
-    "cover": "formudoku-gameplay.webp",
-    "coverAlt": "FormuDoku의 스도쿠 판과 선택한 칸에 제공된 수식 재료",
+    "cover": "formudoku-cover.webp",
+    "coverAlt": "FormuDoku 제목과 푸른색 스도쿠 격자가 담긴 대표 일러스트",
     "width": 1600,
-    "height": 1110,
-    "coverLabel": "인게임 / 수식 스도쿠",
+    "height": 893,
+    "coverLabel": "프로젝트 대표 아트",
     "loop": [
       "빈칸 선택",
       "숫자와 기호로 수식 만들기",
@@ -543,11 +543,12 @@
         "implementation": "서버가 정답 수식에 필요한 재료를 먼저 넣고 나머지를 섞습니다. 재료 하나는 한 번씩 쓰고, 일부만 사용해도 제출할 수 있습니다.",
         "verification": "기본 12개와 전문가 15개 재료에서 정답 수식이 가능한지 검사했습니다.",
         "media": {
-          "image": "formudoku-rules.svg",
-          "width": 960,
-          "height": 540,
-          "alt": "빈칸의 정답 7을 만드는 두 수식과 점수 차액을 설명한 도식",
-          "caption": "규칙 예시 / 2 + 5와 3 x 4 - 5는 둘 다 정답 7"
+          "image": "formudoku-gameplay.webp",
+          "width": 1600,
+          "height": 1110,
+          "alt": "실제 FormuDoku 게임에서 선택한 빈칸, 수식 입력창, 서버가 제공한 재료가 보이는 화면",
+          "caption": "인게임 / 선택한 빈칸에 제공된 12개 재료로 수식 만들기",
+          "fullSize": true
         },
         "prompts": [
           {
