@@ -11,12 +11,14 @@
   --glow: #202d46;
   --radius: 16px;
   --gutter: clamp(1rem, 4vw, 3.25rem);
+  --header-height: 72px;
   font-family: "Segoe UI", "Malgun Gothic", system-ui, sans-serif;
   line-height: 1.65;
   background: var(--bg);
   color: var(--text);
 }
 * { box-sizing: border-box; }
+html { scroll-padding-top: calc(var(--header-height) + 1rem); }
 body { margin: 0; }
 h1, h2, h3, p, figure { margin: 0; }
 h1, h2, h3 { line-height: 1.18; letter-spacing: -.035em; }
@@ -35,9 +37,9 @@ svg { flex: 0 0 auto; }
 .tone-blue { --accent: #a9d7ff; --glow: #1b344d; }
 .tone-mint { --accent: #87e1ce; --glow: #193b3c; }
 .tone-violet, .tone-gold, .tone-blue, .tone-mint { --accent-text: var(--accent); }
-.skip { position: absolute; z-index: 10; top: .5rem; left: .5rem; padding: .65rem 1rem; transform: translateY(-150%); background: var(--accent); color: #111720; }
+.skip { position: absolute; z-index: 30; top: .5rem; left: .5rem; padding: .65rem 1rem; transform: translateY(-150%); background: var(--accent); color: #111720; }
 .skip:focus { transform: translateY(0); }
-.site-header { background: #111720; border-bottom: 1px solid var(--line); }
+.site-header { position: sticky; top: 0; z-index: 20; background: #111720; border-bottom: 1px solid var(--line); }
 .header-inner { min-height: 72px; display: flex; gap: .35rem 1.25rem; align-items: center; justify-content: space-between; }
 .brand { display: inline-flex; align-items: center; gap: .65rem; font-weight: 720; flex: 0 0 auto; }
 .mark { width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; color: var(--accent); background: var(--glow); border: 1px solid var(--line); font: 750 .9rem system-ui, sans-serif; }
@@ -198,6 +200,7 @@ figcaption { color: var(--muted); font-size: .8rem; padding: .6rem .8rem; }
   .competency-grid { grid-template-columns: minmax(0, 1fr); }
 }
 @media (max-width: 700px) {
+  :root { --header-height: 144px; }
   .header-inner { flex-direction: column; align-items: flex-start; padding-block: .55rem; }
   .site-nav a { padding-inline: .38rem; font-size: .78rem; }
   .hero-inner, .home .hero-inner, .gallery { grid-template-columns: minmax(0, 1fr); gap: 1.4rem; }
