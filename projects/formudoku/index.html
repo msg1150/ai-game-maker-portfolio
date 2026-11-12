@@ -3,17 +3,17 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="빈칸을 고르면 서버가 숫자와 연산 기호를 제공합니다. 주어진 재료로 스도쿠 정답을 만들고, 같은 칸의 수식을 더 높은 점수로 개선할 수 있습니다.">
+  <meta name="description" content="캐주얼은 일부 빈칸만 수식으로, 챌린지는 모든 빈칸을 수식으로 풉니다. 플레이 피드백을 바탕으로 모드와 점수를 나누고, 모바일 입력과 서버 검증 구조를 개선했습니다.">
   <meta name="theme-color" content="#111720">
   <meta property="og:type" content="website">
   <meta property="og:title" content="FormuDoku | 박장한 AI Game Maker">
-  <meta property="og:description" content="빈칸을 고르면 서버가 숫자와 연산 기호를 제공합니다. 주어진 재료로 스도쿠 정답을 만들고, 같은 칸의 수식을 더 높은 점수로 개선할 수 있습니다.">
+  <meta property="og:description" content="캐주얼은 일부 빈칸만 수식으로, 챌린지는 모든 빈칸을 수식으로 풉니다. 플레이 피드백을 바탕으로 모드와 점수를 나누고, 모바일 입력과 서버 검증 구조를 개선했습니다.">
   <meta property="og:url" content="https://msg1150.github.io/ai-game-maker-portfolio/projects/formudoku/">
   <meta property="og:image" content="https://msg1150.github.io/ai-game-maker-portfolio/assets/formudoku-cover.webp">
   <link rel="canonical" href="https://msg1150.github.io/ai-game-maker-portfolio/projects/formudoku/">
   <link rel="icon" href="../../assets/mark.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="../../assets/site.css?v=474af6f4">
-  <script src="../../assets/site.js?v=801ec972" defer></script>
+  <link rel="stylesheet" href="../../assets/site.css?v=529540cc">
+  <script src="../../assets/site.js?v=7df0c7c9" defer></script>
   <title>FormuDoku | 박장한 AI Game Maker</title>
 </head>
 <body class="tone-mint">
@@ -32,8 +32,8 @@
             <div class="hero-copy">
               <p class="eyebrow"><span>PROJECT 03</span> 개인 개발 / AI 협업</p>
               <h1>FormuDoku</h1>
-              <p class="hero-lede">정답 숫자를 수식으로 만드는 스도쿠</p>
-              <p class="hero-summary">빈칸을 고르면 서버가 숫자와 연산 기호를 제공합니다. 주어진 재료로 스도쿠 정답을 만들고, 같은 칸의 수식을 더 높은 점수로 개선할 수 있습니다.</p>
+              <p class="hero-lede">일반 스도쿠와 수식 퍼즐, 두 가지 방식으로 즐기는 게임</p>
+              <p class="hero-summary">캐주얼은 일부 빈칸만 수식으로, 챌린지는 모든 빈칸을 수식으로 풉니다. 플레이 피드백을 바탕으로 모드와 점수를 나누고, 모바일 입력과 서버 검증 구조를 개선했습니다.</p>
               <ul class="tags" aria-label="사용 기술"><li class="tag-logo" title="JavaScript"><img src="../../assets/icons/jsconf/javascript.svg" alt="JavaScript" width="22" height="22"><span class="tag-touch-label" aria-hidden="true">JavaScript</span></li><li class="tag-logo" title="Cloudflare Workers"><img src="../../assets/icons/cloudflare/workers.svg" alt="Cloudflare Workers" width="22" height="22"><span class="tag-touch-label" aria-hidden="true">Cloudflare Workers</span></li><li class="tag-logo" title="D1"><img src="../../assets/icons/cloudflare/d1.svg" alt="D1" width="22" height="22"><span class="tag-touch-label" aria-hidden="true">D1</span></li><li class="tag-logo" title="ChatGPT"><img src="../../assets/icons/openai/chatgpt.png" alt="ChatGPT" width="22" height="22"><span class="tag-touch-label" aria-hidden="true">ChatGPT</span></li></ul>
               <div class="actions"><a class="button" href="#cases">사례 및 영상 보기<svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a class="button" href="https://formudoku.goldenshift.workers.dev/">FormuDoku 플레이<svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
             </div>
@@ -43,61 +43,85 @@
       </section>
       <div class="shell detail">
         <nav class="local-nav" aria-label="페이지 목차">
-          <a href="#role">역할</a><a href="#cases">구현 사례</a><a href="#checks">테스트 및 배포</a>
+          <a href="#role">역할</a><a href="#planning">초기 기획</a><a href="#timeline">개발 이력</a><a href="#cases">구현 사례</a><a href="#checks">테스트 및 공개 상태</a>
         </nav>
         <section class="loop" aria-labelledby="loop-title"><h2 id="loop-title">핵심 플레이 루프</h2><ol><li>빈칸 선택</li><li>숫자와 기호로 수식 만들기</li><li>정답 제출</li><li>더 높은 점수에 도전</li></ol></section>
         <section id="role" class="detail-section">
           <p class="eyebrow"><span>ROLE</span> CONTRIBUTION</p>
           <h2>내 역할과 AI의 역할</h2>
-          <div class="role-grid"><div><h3>내 역할</h3><p>풀이가 가능한 재료, 수식 수정 시 점수 차액, 한 칸에 여러 후보 숫자를 적는 메모 규칙을 정했습니다.</p></div><div><h3>ChatGPT의 역할</h3><p>수식 파서와 서버 판정, 점수와 랭킹 저장, 후보 메모 UI를 구현하고 자동 테스트를 작성했습니다.</p></div></div>
+          <div class="role-grid"><div><h3>내 역할</h3><p>지인 피드백을 바탕으로 수식 칸 수, 모드별 점수와 모바일 조작 방식을 정하고 직접 플레이하며 개선했습니다.</p></div><div><h3>ChatGPT의 역할</h3><p>모드 분리와 수식 입력 UI, 로컬 진행 저장, 서버의 제출 기록 검증 및 회귀 테스트를 구현했습니다.</p></div></div>
         </section>
-
-
+        <section id="planning" class="detail-section">
+          <p class="eyebrow"><span>PLAN</span> GAME DESIGN</p>
+          <h2>모든 빈칸의 수식을 일부 칸의 선택과 집중으로</h2>
+          <p class="prose">모든 빈칸을 수식으로 푸는 초기 기획에서 출발했습니다. <strong class="text-accent">반복 입력이 불편</strong>하다는 피드백을 받고 <strong class="text-accent">캐주얼</strong>을 추가하되, 기존 방식은 <strong class="text-accent">챌린지</strong>로 보존했습니다.</p>
+        </section>
+        <section id="timeline" class="detail-section"><p class="eyebrow"><span>HISTORY</span> ITERATION</p><h2>주요 개발 이력</h2>
+          <ol class="timeline"><li><span>v0.1 ~ 0.3.3</span><div><h3>수식 스도쿠의 기본 규칙</h3><p>정답 재료 생성, 최고 점수 차액, 전문가와 후보 메모를 추가했습니다.</p></div></li><li><span>v0.4.0 ~ 0.4.3</span><div><h3>무료 편의 기능과 브라우저 진행</h3><p>힌트와 튜토리얼을 더하고, 완료 시 서버 검증 및 오프라인 연습을 구성했습니다.</p></div></li><li><span>v0.4.4 ~ 0.4.6</span><div><h3>모바일 조작과 복구</h3><p>하단 고정 입력 패널, 통신 실패 시 완료 기록 보관, 다중 탭 저장 충돌을 개선했습니다.</p></div></li><li><span>v0.5.0 ~ 0.5.1</span><div><h3>피드백을 모드와 입력 규칙에 반영</h3><p>캐주얼과 챌린지를 분리하고 잘못된 숫자 연속 입력을 버튼 단계에서 차단했습니다.</p></div></li></ol></section>
         <section id="cases" class="detail-section">
           <p class="eyebrow"><span>CASES</span> IMPLEMENTATION</p><h2>구현 사례</h2>
-          <div class="case-list"><article class="case" id="guaranteed-solution">
-    <div class="case-head"><p class="eyebrow"><span>CASE 01</span> 퍼즐 생성</p><h3>무작위 재료로도 풀 수 있는 빈칸 만들기</h3></div>
+          <div class="case-list"><article class="case" id="mode-split">
+    <div class="case-head"><p class="eyebrow"><span>CASE 01</span> 플레이 피드백 / v0.5.0</p><h3>반복 수식 입력의 피로도를 두 모드로 해결</h3></div>
     <div class="case-layout">
       <dl class="case-copy">
-        <div><dt>목표</dt><dd>재료를 무작위로만 뽑으면 주어진 숫자와 기호로 정답을 만들 수 없는 칸이 생깁니다.</dd></div>
-        <div><dt>바꾼 점</dt><dd>서버가 <strong class="text-accent">정답 수식에 필요한 재료</strong>를 먼저 넣고 나머지를 섞습니다. 재료 하나는 <strong class="text-accent">한 번씩</strong> 쓰고, 일부만 사용해도 제출할 수 있습니다.</dd></div>
-        <div><dt>결과</dt><dd><strong class="text-accent">기본 12개와 전문가 15개</strong> 재료에서 정답 수식이 가능한지 검사했습니다.</dd></div>
+        <div><dt>목표</dt><dd>모든 빈칸에 수식을 넣는 방식이 처음에는 신선하지만 <strong class="text-accent">반복할수록 불편</strong>하다는 지인 피드백을 받았습니다.</dd></div>
+        <div><dt>바꾼 점</dt><dd>캐주얼은 수식 칸을 <strong class="text-accent">3 / 4 / 5 / 7개</strong>로 줄이고 나머지는 숫자를 입력합니다. 기존 방식은 챌린지로 남기며 <strong class="text-accent">점수와 랭킹을 분리</strong>했습니다.</dd></div>
+        <div><dt>결과</dt><dd>캐주얼 수식 칸은 3 x 3 구역당 최대 1개입니다. 기존 진행과 <strong class="text-accent">과거 랭킹은 챌린지로 보존</strong>되는지 검사했습니다.</dd></div>
       </dl>
-      <div class="case-visual"><figure class="evidence"><img src="../../assets/formudoku-gameplay.webp" width="1600" height="1110" alt="실제 FormuDoku 게임에서 선택한 빈칸, 수식 입력창, 서버가 제공한 재료가 보이는 화면" loading="lazy" decoding="async"><figcaption>인게임 / 선택한 빈칸에 제공된 12개 재료로 수식 만들기 <a href="../../assets/formudoku-gameplay.webp">원본 크기로 보기</a></figcaption></figure></div>
+      <div class="case-visual"><div class="case-table-wrap"><table class="case-table">
+    <caption>v0.5.1 / 모드별 규칙</caption>
+    <thead><tr><th scope="col">구분</th><th scope="col">캐주얼</th><th scope="col">챌린지</th></tr></thead>
+    <tbody><tr><th scope="row">수식 입력</th><td>초급 3칸 / 중급 4칸 / 고급 5칸 / 전문가 7칸</td><td>모든 빈칸</td></tr><tr><th scope="row">나머지 빈칸</th><td>숫자 입력과 수정</td><td>수식으로 입력</td></tr><tr><th scope="row">수식 점수</th><td>연산자 수 x 150점</td><td>(숫자 수 + 연산자 수) x 100점</td></tr><tr><th scope="row">공통 규칙</th><td>연산자 최소 1개 / 칸당 정답 기회 2회</td><td>연산자 최소 1개 / 칸당 정답 기회 2회</td></tr></tbody>
+  </table></div></div>
     </div>
     <details class="prompt">
-    <summary>관련 요청 발췌 (4건)</summary>
+    <summary>관련 요청 발췌 (3건)</summary>
     <div class="prompt-body">
-      <h4>03 / 숫자를 직접 입력하는 대신 수식 만들기</h4>
-      <pre><code>내가 만들려고 하는 게임이 스도쿠인데 그냥 스도쿠처럼 숫자를 직접 넣는게 아니라 빈칸을 누르면 해당 빈칸에 들어갈 숫자를 만들수있는 숫자와 기호들이 제공이 되고 해당 숫자와 기호들을 이용해서 유저가 직접 숫자를 만들도록 할거야</code></pre>
+      <h4>82 / 지인 피드백과 모드 분리 구상</h4>
+      <pre><code>실제로 받은 피드백&#10;1. 칸과 숫자의 색이 비슷해 구분이 힘들다.&#10;2. 매 순간 수식을 넣는게 초반엔 신박하게 다가오지만 하다보니 불편하다.&#10;&#10;내가 생각한 개선방안&#10;1. 현재 우리가 잡아둔 게임의 색감이 있으니 다른 스도쿠처럼 흰색, 검은색 조합보단 배경과 숫자나 버튼의 색 톤에 대비를 준다.&#10;2. 매 순간 수식을 넣는 방식이 추후에는 귀찮음과 불편함으로 이어질수있음을 인정하지만 무작정 수식의 칸을 줄일 경우 기존에 수식의 길이에 따라 늘어나던 점수 방식이 오히려 걸림돌이 되어 몇 개 없는 수식칸의 랜덤성 보기의 비중이 너무 높아짐 이에따라 현재 모든 칸이 수식인 게임은 챌린지 모드로 빼고, 캐주얼 모드를 추가해 각 난이도별 수식칸은 3~5칸으로 두고 나머지 빈칸은 일반 스도쿠와 동일하게 숫자를 넣는 방식으로 진행하고 해당 모드에서 수식칸은 다른 칸과 구별하기 쉽게 오른쪽 모서리에 별표시를 추가한다.&#10;&#10;한번 보고 구상먼저 해봐</code></pre>
       <div class="prompt-tools"><button type="button" data-copy hidden>프롬프트 복사</button><span class="copy-status" role="status"></span></div>
     </div><div class="prompt-body">
-      <h4>04 / 서버가 재료를 무작위로 지급하고 각각 1회 사용</h4>
-      <pre><code>서버에서 해당 빈 칸에 들어갈 숫자를 만들기 위한 숫자와 기호를 랜덤으로 제공할 예정이야 유저는 주어진 보기를 보고 수식을 만드는거고 제공된 애들은 단 한번씩만 사용할 수 있어</code></pre>
+      <h4>83 / 수식 칸 수와 모드별 점수 확정</h4>
+      <pre><code>캐주얼에도 전문가 난이도가 있어야해 난이도는 챌린지 모드와 똑같이 4개야 캐주얼 모드에 수식칸은 초급 3칸, 중급 4칸, 고급 5칸, 전문가 7칸으로 두고 각 3*3영역당 수식칸이 최대 1개만 들어가도록 하자 그리고 지금 챌린지 모드 점수 배율이 기본 점수 100 * (사용한 숫자 개수 + 사용한 기호 개수) 인걸로 아는데 캐주얼 모드는 기본 점수 150 * 사용한 기호 개수로 하는게 나을거같아 추가로 캐주얼 모드에 수식칸을 별표로만하면 눈에 별로 띄지 않을수있다고 했잖아 그러니까 차라리 해당 칸 테두리를 살짝 그라데이션을 넣거나해서 테마 색감을 해치지않는 선에서 테두리에 변형을 주고 별을 아예 빼자 테두리와 별 둘 다 하면 너무 보기 불편하고 별표 자체가 메모기능을 볼때도 불편해질거같아</code></pre>
       <div class="prompt-tools"><button type="button" data-copy hidden>프롬프트 복사</button><span class="copy-status" role="status"></span></div>
     </div><div class="prompt-body">
-      <h4>05 / 일부 재료 사용과 정답 경로 보장</h4>
-      <pre><code>일부만 사용해도 정답으로 인정을 하고 서버에서는 최소한 1가지 이상의 정답 루트를 만들어줘야해</code></pre>
+      <h4>84 / 챌린지도 연산자 최소 1개</h4>
+      <pre><code>해당 방향으로 하는게 지금 그럼 챌린지 모드도 숫자 하나만 입력이 가능한거야? 그런거면 수정해야해</code></pre>
       <div class="prompt-tools"><button type="button" data-copy hidden>프롬프트 복사</button><span class="copy-status" role="status"></span></div>
-    </div><div class="prompt-body">
-      <h4>07 / 괄호도 서버 재료로 지급</h4>
-      <pre><code>괄호도 서버에서 제공할거야 유저는 무조건 서버에서 제공하는 것들만 이용해서 수식을 만들어야해</code></pre>
+    </div>
+  </details>
+
+  </article><article class="case" id="browser-verification">
+    <div class="case-head"><p class="eyebrow"><span>CASE 02</span> 서버 사용량과 검증 / v0.4.2 ~ 0.4.6</p><h3>매번 서버에 보내던 판정을 완료 시 검증으로</h3></div>
+    <div class="case-layout">
+      <dl class="case-copy">
+        <div><dt>목표</dt><dd>무료 웹 게임으로 운영하기 위해 플레이 중 반복되는 <strong class="text-accent">API 요청과 D1 쓰기</strong>를 줄이고 싶었습니다.</dd></div>
+        <div><dt>바꾼 점</dt><dd>진행과 제출 이력은 브라우저에 저장하고, <strong class="text-accent">완료 시 서버</strong>가 발급 재료, 제출 횟수, 정답과 점수를 다시 계산합니다. 통신 실패 시 <strong class="text-accent">결과를 보관해 재시도</strong>합니다.</dd></div>
+        <div><dt>결과</dt><dd>제출마다 DB가 갱신되지 않는지, 재료 위조와 <strong class="text-accent">불가능한 점수</strong> 및 정답 기회 초과를 서버가 거부하는지 검사했습니다.</dd></div>
+      </dl>
+      <div class="case-visual"><ol class="case-flow" aria-label="구현 흐름"><li>시작 시 퍼즐과 재료 발급</li><li>브라우저에서 진행과 이력 저장</li><li>완료 시 서버 재계산 후 랭킹 등록</li></ol></div>
+    </div>
+    <details class="prompt">
+    <summary>58 / 무료 운영을 위한 서버 요청 축소</summary>
+    <div class="prompt-body">
+
+      <pre><code>그리고 이게 지금 테스터가 다 안모이면 아예 무료 웹게임으로 풀어버릴 예정인데 그럴려면 나도 돈이 안나가는 선에서 감당이 되어야 할텐데 서버를 최대한 덜쓰는 쪽으로 하면 어떨까?</code></pre>
       <div class="prompt-tools"><button type="button" data-copy hidden>프롬프트 복사</button><span class="copy-status" role="status"></span></div>
     </div>
   </details>
 
   </article><article class="case" id="formula-validation">
-    <div class="case-head"><p class="eyebrow"><span>CASE 02</span> 수식 판정</p><h3>연산 순서와 오답 판정 기준 정하기</h3></div>
+    <div class="case-head"><p class="eyebrow"><span>CASE 03</span> 수식 입력과 판정 / v0.5.1</p><h3>잘못된 수식은 제출 전 입력 단계에서 차단</h3></div>
     <div class="case-layout">
       <dl class="case-copy">
-        <div><dt>목표</dt><dd>서버가 예상한 풀이 외에도 같은 결과를 내는 수식을 인정하고, <strong class="text-accent">문법 오류</strong>와 계산 결과가 틀린 경우를 구분했습니다.</dd></div>
-        <div><dt>바꾼 점</dt><dd>괄호, 곱셈과 나눗셈, 덧셈과 뺄셈 순서로 계산합니다. 나눗셈은 계산할 때마다 <strong class="text-accent">소수 부분을 버리고</strong>, 숫자 이어 붙이기나 생략된 곱셈은 거부합니다.</dd></div>
-        <div><dt>결과</dt><dd>자동 테스트에서 우선순위, 0으로 나누기, 음수 나눗셈, 같은 재료의 <strong class="text-accent">중복 사용</strong>을 확인했습니다.</dd></div>
+        <div><dt>목표</dt><dd>숫자 이어 붙이기는 금지 규칙이지만 화면에서는 연속 입력이 가능해 제출할 때에야 오류를 알 수 있었습니다.</dd></div>
+        <div><dt>바꾼 점</dt><dd>잘못된 다음 재료는 <strong class="text-accent">버튼 단계에서 막습니다</strong>. 괄호와 연산 우선순위, 나눗셈마다 소수 부분을 버리는 계산은 유지하며 새 수식 칸에는 <strong class="text-accent">연산자 최소 1개</strong>를 요구합니다.</dd></div>
+        <div><dt>결과</dt><dd>숫자 연속 입력과 생략된 곱셈을 막고 <strong class="text-accent">음수 표현은 허용</strong>하는지, 브라우저와 서버의 계산이 일치하는지 검사했습니다.</dd></div>
       </dl>
-      <div class="case-visual"><ol class="case-flow" aria-label="구현 흐름"><li>재료와 문법 검사</li><li>연산 우선순위대로 계산</li><li>스도쿠 정답과 비교</li></ol></div>
+      <div class="case-visual"><ol class="case-flow" aria-label="구현 흐름"><li>숫자 뒤 숫자 입력 차단</li><li>음수와 올바른 연산 허용</li><li>서버도 같은 규칙으로 검증</li></ol></div>
     </div>
     <details class="prompt">
-    <summary>관련 요청 발췌 (5건)</summary>
+    <summary>관련 요청 발췌 (6건)</summary>
     <div class="prompt-body">
       <h4>06 / 대체 정답 허용과 연산 우선순위</h4>
       <pre><code>서버가 예상하지 못한 수식으로 정답을 만들었다면 그것도 정답으로 인정을 하고 수식 계산은 기존에 수식을 계산하는 방식과 그대로 갈거야 입력하는 순서가 아닌 ()먼저 이후 x / 를 하고 그 다음에 + -를 계산하도록</code></pre>
@@ -118,15 +142,54 @@
       <h4>39 / 나눗셈의 소수 부분 버림</h4>
       <pre><code>그리고 지금 나누기에 좀 의문점이 있는데 만약 6 / 4같은 경우에 나머지 숫자들이 나오잖아 나머지 숫자는 지금 어떻게 처리가 되고있어? 만약 남는 형식으로 되고있으면 그냥 아예 버림처리를 해줘 반올림도 하지말고 버림으로</code></pre>
       <div class="prompt-tools"><button type="button" data-copy hidden>프롬프트 복사</button><span class="copy-status" role="status"></span></div>
+    </div><div class="prompt-body">
+      <h4>86 / 제출 후 오류 대신 입력 시점에 차단</h4>
+      <pre><code>그리고 방금 또 피드백이 들어왔는데 현재 우리가 숫자를 연속해서 사용을 못하게 하고있는데 실제로 입력자체는 연속해서 입력이 되잖아 이걸 애초에 입력 시점에서 막아주면 좋겠대</code></pre>
+      <div class="prompt-tools"><button type="button" data-copy hidden>프롬프트 복사</button><span class="copy-status" role="status"></span></div>
+    </div>
+  </details>
+
+  </article><article class="case" id="guaranteed-solution">
+    <div class="case-head"><p class="eyebrow"><span>CASE 04</span> 퍼즐 생성</p><h3>무작위 재료로도 풀 수 있는 빈칸 만들기</h3></div>
+    <div class="case-layout">
+      <dl class="case-copy">
+        <div><dt>목표</dt><dd>재료를 무작위로만 뽑으면 주어진 숫자와 기호로 정답을 만들 수 없는 칸이 생깁니다.</dd></div>
+        <div><dt>바꾼 점</dt><dd>공식 게임 시작 시 서버가 <strong class="text-accent">풀 수 있는 재료</strong>를 발급합니다. 재료는 <strong class="text-accent">기본 12개, 전문가 15개</strong>이며 각각 1회 사용합니다. v0.4부터 <strong class="text-accent">괄호는 별도 버튼</strong>으로 무제한 사용하고 점수에서 제외합니다.</dd></div>
+        <div><dt>결과</dt><dd>기본 12개와 전문가 15개 재료에서 정답 수식이 가능한지 검사했습니다.</dd></div>
+      </dl>
+      <div class="case-visual"><figure class="evidence"><img src="../../assets/formudoku-gameplay.webp" width="1600" height="1110" alt="실제 FormuDoku 게임에서 선택한 빈칸, 수식 입력창, 서버가 제공한 재료가 보이는 화면" loading="lazy" decoding="async"><figcaption>v0.3 촬영 / 빈칸별 12개 재료와 수식 입력. 캐주얼 추가 전 챌린지 방식의 화면입니다. <a href="../../assets/formudoku-gameplay.webp">원본 크기로 보기</a></figcaption></figure></div>
+    </div>
+    <details class="prompt">
+    <summary>관련 요청 발췌 (5건)</summary>
+    <div class="prompt-body">
+      <h4>초기 기획 03 / 숫자를 직접 입력하는 대신 수식 만들기</h4>
+      <pre><code>내가 만들려고 하는 게임이 스도쿠인데 그냥 스도쿠처럼 숫자를 직접 넣는게 아니라 빈칸을 누르면 해당 빈칸에 들어갈 숫자를 만들수있는 숫자와 기호들이 제공이 되고 해당 숫자와 기호들을 이용해서 유저가 직접 숫자를 만들도록 할거야</code></pre>
+      <div class="prompt-tools"><button type="button" data-copy hidden>프롬프트 복사</button><span class="copy-status" role="status"></span></div>
+    </div><div class="prompt-body">
+      <h4>초기 기획 04 / 서버가 재료를 무작위로 지급하고 각각 1회 사용</h4>
+      <pre><code>서버에서 해당 빈 칸에 들어갈 숫자를 만들기 위한 숫자와 기호를 랜덤으로 제공할 예정이야 유저는 주어진 보기를 보고 수식을 만드는거고 제공된 애들은 단 한번씩만 사용할 수 있어</code></pre>
+      <div class="prompt-tools"><button type="button" data-copy hidden>프롬프트 복사</button><span class="copy-status" role="status"></span></div>
+    </div><div class="prompt-body">
+      <h4>초기 기획 05 / 일부 재료 사용과 정답 경로 보장</h4>
+      <pre><code>일부만 사용해도 정답으로 인정을 하고 서버에서는 최소한 1가지 이상의 정답 루트를 만들어줘야해</code></pre>
+      <div class="prompt-tools"><button type="button" data-copy hidden>프롬프트 복사</button><span class="copy-status" role="status"></span></div>
+    </div><div class="prompt-body">
+      <h4>초기 기획 07 / 괄호도 서버 재료로 지급</h4>
+      <pre><code>괄호도 서버에서 제공할거야 유저는 무조건 서버에서 제공하는 것들만 이용해서 수식을 만들어야해</code></pre>
+      <div class="prompt-tools"><button type="button" data-copy hidden>프롬프트 복사</button><span class="copy-status" role="status"></span></div>
+    </div><div class="prompt-body">
+      <h4>56 / 무료 웹 버전의 편의 기능 선별</h4>
+      <pre><code>웹게임으로부터 앱으로 제작하면서 추가하고 수정했던 사항들 정리한 md파일이야 보고 웹에도 반영을 시키는데 광고나 수익성 부분들 전부 제외하고 앱에 있던 광고를 보고 얻는 힌트나 목숨도 없애고 반영해줘</code></pre>
+      <div class="prompt-tools"><button type="button" data-copy hidden>프롬프트 복사</button><span class="copy-status" role="status"></span></div>
     </div>
   </details>
 
   </article><article class="case" id="score-revision">
-    <div class="case-head"><p class="eyebrow"><span>CASE 03</span> 점수 규칙</p><h3>같은 칸은 기존 최고 점수보다 오른 만큼만 지급</h3></div>
+    <div class="case-head"><p class="eyebrow"><span>CASE 05</span> 점수 규칙</p><h3>같은 칸은 기존 최고 점수보다 오른 만큼만 지급</h3></div>
     <div class="case-layout">
       <dl class="case-copy">
         <div><dt>목표</dt><dd>정답을 맞힌 칸에서도 더 긴 수식을 시도할 수 있게 하고, 이미 받은 점수의 중복 지급을 막았습니다.</dd></div>
-        <div><dt>바꾼 점</dt><dd>숫자와 연산 기호 수로 점수를 계산합니다. 기존 최고점을 넘을 때만 <strong class="text-accent">점수 차이를 추가</strong>하고, 낮은 점수의 재제출은 <strong class="text-accent">기존 최고 수식을 유지</strong>합니다.</dd></div>
+        <div><dt>바꾼 점</dt><dd>모드별 규칙으로 계산하되 기존 최고점을 넘을 때만 <strong class="text-accent">차액을 더합니다</strong>. 낮은 점수를 재제출해도 칸의 <strong class="text-accent">최고 수식을 유지</strong>하며, 괄호는 두 모드 모두 0점입니다.</dd></div>
         <div><dt>결과</dt><dd>Worker와 SQLite 기반 D1 테스트에서 최고 수식 유지와 완료 게임의 랭킹 기록을 확인했습니다.</dd></div>
       </dl>
       <div class="case-visual"><ol class="case-flow" aria-label="구현 흐름"><li>첫 수식 300점</li><li>개선한 수식 700점</li><li>차액인 400점 추가</li></ol><figure class="evidence">
@@ -134,7 +197,7 @@
         <summary><img src="../../assets/formudoku-score-poster.webp" width="960" height="662" alt="" loading="lazy"><span class="gif-closed">무음 GIF 보기</span><span class="gif-open">GIF 접기</span></summary>
         <img src="../../assets/formudoku-score.gif" width="960" height="662" alt="같은 칸에 두 수식을 차례로 제출해 총점이 300점에서 700점이 되는 무음 GIF" loading="lazy">
       </details>
-      <figcaption>플레이 시연 / 1 + 3으로 300점, 3 x 2 / 5 + 3으로 700점. 두 번째 제출에서 400점이 추가됩니다.</figcaption>
+      <figcaption>v0.3 촬영 / 현행 챌린지와 같은 점수식. 1 + 3으로 300점, 3 x 2 / 5 + 3으로 700점이 되어 차액 400점만 추가됩니다.</figcaption>
     </figure></div>
     </div>
     <details class="prompt">
@@ -159,17 +222,17 @@
   </details>
 
   </article><article class="case" id="ranking-replay">
-    <div class="case-head"><p class="eyebrow"><span>CASE 04</span> 랭킹 및 관전</p><h3>완료 기록에서 칸별 최고 수식 보기</h3></div>
+    <div class="case-head"><p class="eyebrow"><span>CASE 06</span> 랭킹 및 관전</p><h3>완료 기록에서 칸별 최고 수식 보기</h3></div>
     <div class="case-layout">
       <dl class="case-copy">
         <div><dt>목표</dt><dd>랭킹에서 총점과 함께 어떤 수식으로 퍼즐을 풀었는지 확인할 수 있게 했습니다.</dd></div>
-        <div><dt>바꾼 점</dt><dd>정상 완료 기록을 난이도별로 조회하고, 관전에서는 <strong class="text-accent">칸별 최고 수식과 점수</strong>, 당시 제공된 재료를 표시합니다.</dd></div>
-        <div><dt>결과</dt><dd>공개 화면에서 고급 퍼즐의 선택 칸에 저장된 <strong class="text-accent">900점 수식</strong>을 확인할 수 있습니다.</dd></div>
+        <div><dt>바꾼 점</dt><dd>정상 완료 기록을 <strong class="text-accent">모드와 난이도별</strong>로 조회합니다. 관전에서는 <strong class="text-accent">칸별 최고 수식과 점수</strong>, 당시 제공된 재료를 표시하며 <strong class="text-accent">과거 기록은 챌린지로 유지</strong>합니다.</dd></div>
+        <div><dt>결과</dt><dd>로컬 통합 테스트에서 미완성 게임 제외, 기존 랭킹 보존과 모드별 분리를 확인했습니다.</dd></div>
       </dl>
-      <div class="case-visual"><div class="evidence-pair"><figure class="evidence"><img src="../../assets/formudoku-ranking.webp" width="1600" height="856" alt="난이도별 필터와 관전 버튼을 표시하는 FormuDoku 랭킹" loading="lazy" decoding="async"><figcaption>랭킹 / 완료 기록과 난이도별 보기 <a href="../../assets/formudoku-ranking.webp">원본 크기로 보기</a></figcaption></figure><figure class="evidence"><img src="../../assets/formudoku-replay.webp" width="1600" height="1043" alt="완성된 스도쿠의 선택 칸에서 최고 점수 수식과 제공 재료를 표시하는 관전 화면" loading="lazy" decoding="async"><figcaption>관전 / 선택한 칸의 최고 수식, 점수, 제공 재료 <a href="../../assets/formudoku-replay.webp">원본 크기로 보기</a></figcaption></figure></div></div>
+      <div class="case-visual"><div class="evidence-pair"><figure class="evidence"><img src="../../assets/formudoku-ranking.webp" width="1600" height="856" alt="난이도별 필터와 관전 버튼을 표시하는 FormuDoku 랭킹" loading="lazy" decoding="async"><figcaption>v0.3 촬영 / 모드 분리 전 난이도별 완료 기록과 관전 버튼 <a href="../../assets/formudoku-ranking.webp">원본 크기로 보기</a></figcaption></figure><figure class="evidence"><img src="../../assets/formudoku-replay.webp" width="1600" height="1043" alt="완성된 스도쿠의 선택 칸에서 최고 점수 수식과 제공 재료를 표시하는 관전 화면" loading="lazy" decoding="async"><figcaption>v0.3 촬영 / 관전에서 선택한 칸의 최고 수식, 점수와 제공 재료 <a href="../../assets/formudoku-replay.webp">원본 크기로 보기</a></figcaption></figure></div></div>
     </div>
     <details class="prompt">
-    <summary>관련 요청 발췌 (2건)</summary>
+    <summary>관련 요청 발췌 (3건)</summary>
     <div class="prompt-body">
       <h4>11 / 모든 칸을 채운 뒤 종료하면 점수 확정</h4>
       <pre><code>그리고 만약 모든 빈칸을 채운 후 종료 버튼을 누른다면 해당 상태의 점수가 기록이 되도록 해야해 이럴 경우에는 플레이어가 더이상 수식을 수정할 수 없다고 판단한거니까</code></pre>
@@ -178,48 +241,40 @@
       <h4>12 / 미완성 종료와 게임 오버는 기록 제외</h4>
       <pre><code>게임 오버나 미완성 상태에서 종료했을 때는 점수를 기록해주지 않을거야</code></pre>
       <div class="prompt-tools"><button type="button" data-copy hidden>프롬프트 복사</button><span class="copy-status" role="status"></span></div>
-    </div>
-  </details>
-
-  </article><article class="case" id="expert-compatibility">
-    <div class="case-head"><p class="eyebrow"><span>CASE 05</span> 난이도 및 배포</p><h3>전문가 난이도를 기존 기록과 호환되게 추가</h3></div>
-    <div class="case-layout">
-      <dl class="case-copy">
-        <div><dt>목표</dt><dd>전문가 난이도를 위해 D1 테이블을 재구성하면 진행 중인 게임과 랭킹에 영향을 줄 수 있었습니다.</dd></div>
-        <div><dt>바꾼 점</dt><dd><strong class="text-accent">기존 스키마</strong>로 저장하고, <strong class="text-accent">고정 숫자 17 ~ 19개</strong>인 전문가 퍼즐을 화면과 랭킹에서 구분합니다. 전문가에게는 재료 15개를 제공합니다.</dd></div>
-        <div><dt>결과</dt><dd>로컬 테스트에서 업데이트 전 진행 중 게임과 <strong class="text-accent">기존 랭킹이 유지</strong>되고, 전문가 완료 기록도 조회되는지 확인했습니다.</dd></div>
-      </dl>
-      <div class="case-visual"><ol class="case-flow" aria-label="구현 흐름"><li>기존 D1 스키마 사용</li><li>고정 숫자 수로 전문가 구분</li><li>기존 기록과 새 랭킹 조회</li></ol></div>
-    </div>
-    <details class="prompt">
-    <summary>45 / 전문가 난이도는 수식 재료 15개</summary>
-    <div class="prompt-body">
-
+    </div><div class="prompt-body">
+      <h4>45 / 전문가 난이도는 수식 재료 15개</h4>
       <pre><code>그럼 전문가에서는 영역당 조건을 없애고 전체 고정 숫자를 17~19개로 둔 다음에 전문가 난이도 답게 점수를 많이 얻을 수 있도록 숫자와 기호 보기를 다른 애들과 다르게 15개를 주면 어때?</code></pre>
       <div class="prompt-tools"><button type="button" data-copy hidden>프롬프트 복사</button><span class="copy-status" role="status"></span></div>
     </div>
   </details>
 
-  </article><article class="case" id="candidate-notes">
-    <div class="case-head"><p class="eyebrow"><span>CASE 06</span> 플레이 편의</p><h3>한 칸에 여러 후보 숫자를 메모</h3></div>
+  </article><article class="case" id="mobile-offline">
+    <div class="case-head"><p class="eyebrow"><span>CASE 07</span> 모바일 플레이 / v0.4.3 ~ 0.5.1</p><h3>보드를 보면서 수식을 적는 하단 고정 입력</h3></div>
     <div class="case-layout">
       <dl class="case-copy">
-        <div><dt>목표</dt><dd>한 칸에 숫자 하나만 적을 수 있어 후보가 여러 개면 비교하기 어려웠습니다.</dd></div>
-        <div><dt>바꾼 점</dt><dd>후보를 칸 안에 작게 표시하고, 같은 숫자를 다시 누르면 <strong class="text-accent">그 후보만 지웁니다</strong>. 정답을 제출한 칸의 메모는 자동으로 지웁니다.</dd></div>
-        <div><dt>결과</dt><dd>새로고침 후 복원, <strong class="text-accent">이전 단일 메모 호환</strong>, 오답 시 메모 유지 동작을 검사했습니다.</dd></div>
+        <div><dt>목표</dt><dd>모바일에서 보드와 수식 패널이 멀어 수식을 쓰면서 보드를 확인하기 어렵다는 직접 플레이 피드백이 있었습니다.</dd></div>
+        <div><dt>바꾼 점</dt><dd>모바일에 <strong class="text-accent">접이식 하단 입력 패널</strong>을 두고, 선택한 칸에 따라 <strong class="text-accent">숫자 패드와 수식 재료</strong>를 전환합니다. 여러 후보 숫자 메모와 게임당 무료 힌트 2회를 지원합니다.</dd></div>
+        <div><dt>결과</dt><dd>새로고침과 다중 탭 저장 충돌을 검사했습니다. <strong class="text-accent">오프라인 연습</strong>은 두 모드와 4개 난이도를 지원하고 공식 랭킹에서는 제외합니다.</dd></div>
       </dl>
-      <div class="case-visual"><ol class="case-flow" aria-label="구현 흐름"><li>후보 숫자 여러 개 기록</li><li>같은 숫자를 눌러 개별 삭제</li><li>정답이면 해당 칸 메모 정리</li></ol></div>
+      <div class="case-visual"><ol class="case-flow" aria-label="구현 흐름"><li>상단에서 보드 확인</li><li>하단에서 숫자 또는 수식 입력</li><li>패널을 접어 보드 공간 확보</li></ol></div>
     </div>
+    <details class="prompt">
+    <summary>77 / 실제 모바일 플레이에서 발견한 불편</summary>
+    <div class="prompt-body">
 
+      <pre><code>방금 모바일로 접속해봤는데 이런식으로 구성이 되어있어서 수식을 보드판을 보면서 적기 불편해</code></pre>
+      <div class="prompt-tools"><button type="button" data-copy hidden>프롬프트 복사</button><span class="copy-status" role="status"></span></div>
+    </div>
+  </details>
 
   </article></div>
         </section>
 
         <section id="checks" class="detail-section">
-          <p class="eyebrow"><span>NOTES</span> 테스트 및 배포</p><h2>브라우저 퍼즐과 서버 판정 검증</h2>
-          <p class="prose">Cloudflare Workers에서 퍼즐 생성과 수식 판정을 처리하고, D1에 진행 상태와 완료 기록을 저장합니다. 공개 주소의 진입 페이지와 로컬 테스트를 각각 확인했습니다.</p>
+          <p class="eyebrow"><span>NOTES</span> 테스트 및 공개 상태</p><h2>최신 규칙과 이전 저장의 호환성을 함께 검증</h2>
+          <p class="prose">제공된 v0.5.1 소스를 다시 실행해 로컬 자동 테스트 75개가 통과했습니다. 공개 app.js도 해당 소스와 동일함을 확인했습니다. 모바일 실기기에서 한 판 전체 플레이와 운영 부하 테스트는 별도 확인이 필요합니다.</p>
           <div class="section-evidence">
-            <div class="role-grid"><div><h3>로컬 자동 테스트 24개 통과</h3><p><strong class="text-accent">스도쿠 유일 해답</strong>, 수식 재료, 점수 수정, 게스트 진행과 랭킹, 후보 메모를 검사했습니다.</p></div><div><h3>완료한 퍼즐의 기록</h3><p><strong class="text-accent">정상 완료한 퍼즐만</strong> 랭킹에 남고, 완성된 퍼즐과 칸별 최고 수식을 관전할 수 있습니다.</p></div></div>
+            <div class="role-grid"><div><h3>규칙과 기록</h3><p>모드별 점수, 정답 재료 보장, 최고 수식 보존, <strong class="text-accent">이전 진행과 랭킹 호환성</strong>을 검사했습니다.</p></div><div><h3>진행 저장과 복구</h3><p><strong class="text-accent">브라우저와 서버의 판정 일치</strong>, 완료 기록 재전송, 다중 탭 덮어쓰기 방지와 오프라인 캐시를 검사했습니다.</p></div></div>
 
           </div>
 

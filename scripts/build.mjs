@@ -108,22 +108,6 @@ function projectCard(project, prefix) {
   </article>`;
 }
 
-function evidenceLink(project) {
-  const { id, kind, title, summary } = project.spotlight;
-  const { media } = project.cases.find((item) => item.id === id);
-  return `<li class="tone-${project.tone}">
-    <a class="evidence-link" href="./${projectPath(project)}#${esc(id)}">
-      <img src="./assets/${esc(media.image)}" alt="" width="${media.width}" height="${media.height}" loading="lazy" decoding="async">
-      <div>
-        <p class="eyebrow"><span>${esc(kind)}</span> ${esc(project.name)}</p>
-        <h3>${esc(title)}</h3>
-        <p>${esc(summary)}</p>
-      </div>
-      ${icon}
-    </a>
-  </li>`;
-}
-
 function home() {
   const [featured, ...other] = projects;
   return layout({
@@ -136,9 +120,10 @@ function home() {
             <p class="eyebrow"><span>PERSONAL PORTFOLIO</span></p>
             <h1>박장한</h1>
             <p class="hero-role">AI Game Maker</p>
-            <p class="hero-summary">게임 규칙을 설계하고 AI와 구현한 뒤, <strong class="text-accent">플레이 테스트로 다듬습니다.</strong></p>
+            <p class="hero-summary">문제를 정의하고 AI에 구현 기준을 전달한 뒤, <strong class="text-accent">플레이와 테스트로 결과를 확인합니다.</strong></p>
             <div class="actions">
               <a class="button primary" href="#projects">프로젝트 보기${icon}</a>
+              <a class="button" href="./assets/park-janghan-ai-game-maker-portfolio.pdf">포트폴리오 PDF${icon}</a>
               <a class="button icon-button" href="mailto:${email}" aria-label="이메일" title="이메일"><img src="./assets/icons/lucide/mail.svg" alt="" width="18" height="18"></a>
               <a class="button icon-button" href="${profile}" aria-label="GitHub 프로필" title="GitHub 프로필"><img src="./assets/icons/devicon/github.svg" alt="" width="18" height="18"></a>
             </div>
@@ -149,21 +134,39 @@ function home() {
           </a>
         </div>
       </section>
+      <section class="home-evidence" id="highlights">
+        <div class="shell section">
+          <div class="section-head"><div><p class="eyebrow"><span>01</span> PROBLEM SOLVING</p><h2>사례로 보여주는 문제 해결 역량</h2></div></div>
+          <div class="competency-grid">
+            <article class="competency-card tone-violet">
+              <p class="eyebrow"><span>01</span> AI 리더십</p>
+              <h3>수정 기준은 직접 정하고,<br>구현은 AI와 나눕니다.</h3>
+              <p>몬스터가 추격을 너무 빨리 멈추는 문제를 발견하고, 마지막 목격 위치까지 수색하도록 Codex에 요청했습니다.</p>
+              <a href="./projects/dungeonsweeper/#awareness">실제 요청과 플레이 결과 ${icon}</a>
+            </article>
+            <article class="competency-card tone-gold">
+              <p class="eyebrow"><span>02</span> 구조화 능력</p>
+              <h3>규칙 변경을 화면, 서버,<br>데이터 보존으로 나눕니다.</h3>
+              <p>무료 미니게임 전환을 입력 제거, 구버전 API 처리, DB 제약 변경으로 나누고 기존 기록 보존까지 검사했습니다.</p>
+              <a href="./projects/golden-shift/#free-play">변경 범위와 검증 결과 ${icon}</a>
+            </article>
+            <article class="competency-card tone-mint">
+              <p class="eyebrow"><span>03</span> 학습 실행력</p>
+              <h3>플레이 피드백을 받아<br>다음 구현에 적용합니다.</h3>
+              <p>수식 입력이 반복되면 불편하다는 피드백을 캐주얼 모드와 별도 점수로 옮기고, 모바일 하단 입력도 개선했습니다.</p>
+              <a href="./projects/formudoku/#mode-split">피드백과 모드 설계 ${icon}</a>
+            </article>
+          </div>
+        </div>
+      </section>
       <section class="shell section" id="projects">
         <div class="section-head">
-          <div><p class="eyebrow"><span>01</span> SELECTED WORK</p><h2>프로젝트</h2>
+          <div><p class="eyebrow"><span>02</span> SELECTED WORK</p><h2>프로젝트</h2>
             <p class="section-intro">개인 게임의 기획과 AI 협업 과정, 팀 프로젝트에서 맡은 구현과 제작 도구를 정리했습니다.</p></div>
         </div>
         <div class="project-grid">${[featured, ...other].map((item) => projectCard(item, './')).join('')}</div>
       </section>
-      <section class="home-evidence" id="highlights">
-        <div class="shell section">
-          <div class="section-head">
-            <div><p class="eyebrow"><span>02</span> PROJECT HIGHLIGHTS</p><h2>구현 사례 바로 보기</h2></div>
-          </div>
-          <ul class="evidence-links">${projects.filter((project) => project.spotlight).map(evidenceLink).join('')}</ul>
-        </div>
-      </section>`,
+`,
   });
 }
 
@@ -203,7 +206,12 @@ function promptList(prompts = []) {
 function caseVisual(item) {
   const flow = item.flow ? `<ol class="case-flow" aria-label="구현 흐름">${item.flow.map((step) => `<li>${esc(step)}</li>`).join('')}</ol>` : '';
   const comparison = item.comparison ? `<div class="evidence-pair">${item.comparison.map(caseMedia).join('')}</div>` : '';
-  return flow + comparison + caseMedia(item.media);
+  const table = item.table ? `<div class="case-table-wrap"><table class="case-table">
+    <caption>${esc(item.table.caption)}</caption>
+    <thead><tr>${item.table.headers.map((cell) => `<th scope="col">${esc(cell)}</th>`).join('')}</tr></thead>
+    <tbody>${item.table.rows.map(([label, ...cells]) => `<tr><th scope="row">${esc(label)}</th>${cells.map((cell) => `<td>${esc(cell)}</td>`).join('')}</tr>`).join('')}</tbody>
+  </table></div>` : '';
+  return flow + table + comparison + caseMedia(item.media);
 }
 
 function renderCase(item, index) {

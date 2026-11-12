@@ -152,6 +152,16 @@ figcaption { color: var(--muted); font-size: .8rem; padding: .6rem .8rem; }
 .case-flow { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .45rem; margin: 0; padding: 0; list-style: none; counter-reset: flow; }
 .case-flow li { counter-increment: flow; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); padding: .55rem .65rem; font-size: .82rem; font-weight: 670; }
 .case-flow li::before { content: counter(flow, decimal-leading-zero); display: block; color: var(--accent-text); font-size: .73rem; }
+/* Current rule comparisons stay separate from historical game captures. */
+.case-table-wrap { min-width: 0; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: var(--bg); }
+.case-table { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: .82rem; line-height: 1.6; overflow-wrap: anywhere; }
+.case-table caption { padding: .75rem .85rem; text-align: left; color: var(--accent-text); font-weight: 700; border-bottom: 1px solid var(--line); }
+.case-table th, .case-table td { padding: .7rem .65rem; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); }
+.case-table thead th { color: var(--accent-text); background: var(--surface); }
+.case-table th:first-child { width: 22%; }
+.case-table tbody th { font-weight: 650; }
+.case-table td { color: var(--muted); }
+.case-table tbody tr:last-child > * { border-bottom: 0; }
 .section-evidence { display: grid; gap: 1rem; align-items: start; margin-top: .8rem; }
 .section-evidence:has(> figure) { grid-template-columns: minmax(0, 1fr) minmax(0, 15rem); }
 .section-evidence .role-grid { margin-top: 0; }
@@ -198,3 +208,11 @@ figcaption { color: var(--muted); font-size: .8rem; padding: .6rem .8rem; }
   .project-grid, .role-grid { grid-template-columns: minmax(0, 1fr); }
   .timeline { grid-template-columns: minmax(0, 1fr); }
 }
+
+.competency-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+.competency-card { display: flex; flex-direction: column; gap: .85rem; padding: clamp(1rem, 2vw, 1.5rem); border: 1px solid var(--line); border-top: 3px solid var(--accent); border-radius: 10px; background: var(--surface); }
+.competency-card h3 { font-size: clamp(1.1rem, 1.5vw, 1.35rem); line-height: 1.5; }
+.competency-card > p:not(.eyebrow) { color: var(--muted); font-size: .9rem; }
+.competency-card > a { display: flex; align-items: center; gap: .5rem; margin-top: auto; padding-top: .35rem; font-size: .85rem; font-weight: 700; color: var(--accent-text); }
+.competency-card > a:hover { text-decoration: underline; }
+@media (max-width: 800px) { .competency-grid { grid-template-columns: minmax(0, 1fr); } }

@@ -12,8 +12,8 @@
   <meta property="og:image" content="https://msg1150.github.io/ai-game-maker-portfolio/assets/dungeon.webp">
   <link rel="canonical" href="https://msg1150.github.io/ai-game-maker-portfolio/projects/dungeonsweeper/">
   <link rel="icon" href="../../assets/mark.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="../../assets/site.css?v=474af6f4">
-  <script src="../../assets/site.js?v=801ec972" defer></script>
+  <link rel="stylesheet" href="../../assets/site.css?v=529540cc">
+  <script src="../../assets/site.js?v=7df0c7c9" defer></script>
   <title>DungeonSweeper | 박장한 AI Game Maker</title>
 </head>
 <body class="tone-violet">
@@ -49,7 +49,7 @@
         <section id="role" class="detail-section">
           <p class="eyebrow"><span>ROLE</span> CONTRIBUTION</p>
           <h2>내 역할과 AI의 역할</h2>
-          <div class="role-grid"><div><h3>내 역할</h3><p>귀환과 보상 규칙을 정하고, 플레이에서 발견한 추격 문제를 수정 요구로 바꿨습니다.</p></div><div><h3>Codex의 역할</h3><p>추격에서 수색으로 전환하는 코드와 던전 후보 생성과 미리보기를 구현했습니다.</p></div></div>
+          <div class="role-grid"><div><h3>본인이 정하고 확인한 부분</h3><p>귀환과 보상 규칙을 정했습니다. 직접 플레이해 발견한 추격 문제를 마지막 목격 위치 수색이라는 수정 기준으로 바꾸고, 플레이 영상으로 결과를 확인했습니다.</p></div><div><h3>Codex에 요청한 구현</h3><p>수색 상태 전환, 4방향 경로 탐색과 통과 검사, 던전 후보 생성 및 미리보기 코드를 구현하도록 요청했습니다.</p></div></div>
         </section>
 
         <section id="timeline" class="detail-section"><p class="eyebrow"><span>HISTORY</span> ITERATION</p><h2>주요 개발 이력</h2>
@@ -62,7 +62,7 @@
       <dl class="case-copy">
         <div><dt>목표</dt><dd>범위를 살짝 벗어나면 몬스터가 <strong class="text-accent">즉시 순찰</strong>로 돌아갔습니다.</dd></div>
         <div><dt>바꾼 점</dt><dd><strong class="text-accent">마지막 목격 위치</strong>까지 이동해 수색합니다. 경로는 <strong class="text-accent">4방향 BFS</strong>, 통과 여부는 BoxCast로 검사합니다.</dd></div>
-
+        <div><dt>결과</dt><dd>실제 요청 원문과 수정 후 플레이 영상을 함께 제시합니다. 시야를 잃은 뒤 <strong class="text-accent">마지막 목격 위치</strong>까지 이동하는 행동을 확인할 수 있습니다.</dd></div>
       </dl>
       <div class="case-visual"><figure class="evidence"><video controls playsinline preload="none" width="960" height="496" style="aspect-ratio: 960 / 496" poster="../../assets/dungeon-awareness.webp" aria-label="던전에서 플레이어를 발견하고 추격하는 몬스터"><source src="../../assets/dungeon-awareness.mp4" type="video/mp4"><a href="../../assets/dungeon-awareness.mp4">MP4 영상 열기</a></video><figcaption>플레이 영상 / 발견 -&gt; 추격 -&gt; 마지막 목격 위치 수색</figcaption></figure></div>
     </div>
