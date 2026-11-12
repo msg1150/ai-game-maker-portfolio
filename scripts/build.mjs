@@ -11,6 +11,7 @@ const esc = (text) => String(text).replace(/[&<>"']/g, (char) => ({
   '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
 }[char]));
 const icon = '<svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const favicon = createHash('sha256').update(await read('assets/mark.svg')).digest('hex').slice(0, 8);
 const css = createHash('sha256').update(await read('assets/site.css')).digest('hex').slice(0, 8);
 const js = createHash('sha256').update(await read('assets/site.js')).digest('hex').slice(0, 8);
 
@@ -67,7 +68,7 @@ function layout({ title, description, path = '', project, body }) {
   <meta property="og:description" content="${esc(description)}">
   <meta property="og:url" content="${url}">
   ${imageMeta}<link rel="canonical" href="${url}">
-  <link rel="icon" href="${prefix}assets/mark.svg" type="image/svg+xml">
+  <link rel="icon" href="${prefix}assets/mark.svg?v=${favicon}" type="image/svg+xml">
   <link rel="stylesheet" href="${prefix}assets/site.css?v=${css}">
   <script src="${prefix}assets/site.js?v=${js}" defer></script>
   <title>${esc(title)}</title>
@@ -76,7 +77,7 @@ function layout({ title, description, path = '', project, body }) {
   <a class="skip" href="#main">본문으로 건너뛰기</a>
   <header class="site-header">
     <div class="shell header-inner">
-      <a class="brand" href="${prefix}" aria-label="박장한 포트폴리오 홈"><span class="mark" aria-hidden="true">PJ</span><span>박장한 <small>AI Game Maker</small></span></a>
+      <a class="brand" href="${prefix}" aria-label="박장한 포트폴리오 홈"><span class="mark" aria-hidden="true">PJH</span><span>박장한 <small>AI Game Maker</small></span></a>
       <nav class="site-nav" aria-label="프로젝트 탐색">${navProjects}<a class="contact-link" href="#contact">연락처</a></nav>
     </div>
   </header>
