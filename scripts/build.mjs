@@ -217,7 +217,8 @@ function caseVisual(item) {
 function renderCase(item, index) {
   const visual = caseVisual(item);
   const copy = (text) => prose(text, item.highlights);
-  return `<article class="case" id="${item.id}">
+  const kind = item.media || item.comparison || item.table ? '' : item.flow ? ' case--diagram' : ' case--copy';
+  return `<article class="case${kind}" id="${item.id}">
     <div class="case-head"><p class="eyebrow"><span>CASE 0${index + 1}</span> ${esc(item.label)}</p><h3>${esc(item.title)}</h3></div>
     <div class="case-layout">
       <dl class="case-copy">
