@@ -75,7 +75,7 @@ f=P['formudoku'];project_page(4,'formudoku',MINT,'03 / 개인 개발 / 학습 �
  [('최신 점수 규칙과 개선 기록',BASE+'projects/formudoku/#score-revision'),('로그인 없이 게임 살펴보기','https://formudoku.goldenshift.workers.dev/')],next(q['text'] for ca in f['cases'] for q in ca.get('prompts',[]) if q['label'].startswith('제공 기록 / 후속 30')),quote_label='제공 개발 기록의 요청 발췌')
 a=P['battlearena'];project_page(5,'battlearena',BLUE,'04 / 팀 프로젝트 / AI와 개선한 본인 담당 도구','BattleArena','arena-level-validator.webp','제공 캡처 / PathLink 지면 이격 검출과 Focus. 후속 Attach 추가 전 화면입니다.',[
  ('내가 정한 검사와 수정 흐름','정상적인 공중 TargetPoint의 오검출을 줄이고 실제 연결값을 검사하도록 기준을 정했습니다. PathLink Attach와 Undo/Redo 후 재검사를 요청하고 툴 창이 열렸을 때만 실행하도록 제한했습니다.'),
- ('데이터 유실과 환경별 적용 문제','Unreal에서 저장한 수정값이 이전 JSON으로 덮이는 문제를 발견해 저장 시 JSON 내보내기를 요청했습니다. Cook 중 내보내기는 제외하고 Runtime은 시작 시 메모리에만 반영합니다.'),
+ ('JSON과 외부 편집기가 필요했던 이유','패키징 뒤에도 기획자가 게임 수치를 수정해 테스트하도록 데이터 조정과 빌드를 분리하려 했습니다. 파싱은 값을 게임에 적용하고, 외부 편집기는 표와 속성 UI로 편집을 돕습니다. 패키징 폴더 편집도 후속 요청했습니다.'),
  ('AI와의 분담 및 확인 범위','본인이 요구와 조건을 정하고 ChatGPT/Codex가 검사와 저장 코드를 구현했습니다. 현재 공개 소스 9개를 대조했습니다. 당시 빌드와 플레이 확인 기록은 보존하며 이번에 Unreal 실행을 재검증한 결과로 표현하지 않습니다.')],
- [('검사 기준과 Attach 개선 요청',BASE+'projects/battlearena/#level-validator'),('JSON 저장과 Runtime 적용',BASE+'projects/battlearena/#data-tools')],next(case for case in a['cases'] if case['id']=='validator-repair')['prompts'][1]['text'],quote_label='제공 기록의 사용자 요청 / 2026.10.29')
+ [('검사 기준과 Attach 개선 요청',BASE+'projects/battlearena/#level-validator'),('외부 JSON과 편집기 제작 목적',BASE+'projects/battlearena/#json-runtime')],next(case for case in a['cases'] if case['id']=='validator-repair')['prompts'][1]['text'],quote_label='제공 기록의 사용자 요청 / 2026.10.29')
 c.save();print(OUT)

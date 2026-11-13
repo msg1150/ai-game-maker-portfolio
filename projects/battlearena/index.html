@@ -54,7 +54,7 @@
         <section id="planning" class="detail-section">
           <p class="eyebrow"><span>PLAN</span> GAME DESIGN</p>
           <h2>팀의 실제 수정 작업에서 출발한 두 도구</h2>
-          <p class="prose">레벨의 <strong class="text-accent">연결 실수</strong>를 플레이 전에 찾는 Validator와, <strong class="text-accent">외부 데이터 편집</strong>을 Unreal에 연결하는 JSON 도구를 만들었습니다. 대화에서 정한 기준과 현재 공개 코드가 일치하는 내용을 중심으로 정리했습니다.</p>
+          <p class="prose">레벨의 <strong class="text-accent">연결 실수</strong>를 플레이 전에 찾는 Validator와, 기획자가 <strong class="text-accent">외부에서 게임 수치를 편집</strong>하도록 돕는 JSON 도구를 만들었습니다. 각 도구의 필요성, 본인이 정한 요구와 구현 후 수정 과정을 연결했습니다.</p>
         </section>
         <section id="timeline" class="detail-section"><p class="eyebrow"><span>HISTORY</span> ITERATION</p><h2>주요 개발 이력</h2>
           <ol class="timeline"><li><span>07 ~ 08월</span><div><h3>JSON 적용과 외부 편집기</h3><p>Registry와 속성 명세를 연결하고 재시작 없는 JSON 재적용과 외부 편집 흐름을 구성했습니다.</p></div></li><li><span>08 ~ 09월</span><div><h3>실제 레벨에 맞춘 검사 규칙</h3><p>공중 TargetPoint 등 정상 배치의 오검출을 줄이고 새 포탈과 점프패드 구조를 반영했습니다.</p></div></li><li><span>09 ~ 10월</span><div><h3>저장과 패키징 적용 문제 추적</h3><p>에디터 저장 시 JSON 내보내기, Cook 중 쓰기 방지와 게임 초기화 전 적용을 보완했습니다.</p></div></li><li><span>10월</span><div><h3>수정과 재검사 흐름 연결</h3><p>PathLink Attach와 Undo/Redo 뒤 재검사를 추가하고, 툴 창이 열렸을 때만 자동 검사하도록 제한했습니다.</p></div></li></ol></section>
@@ -114,8 +114,39 @@
     </div>
   </details>
     <div class="actions"><a class="button" href="https://github.com/msg1150/UnrealTeamProjectPortfolio/blob/c65bde5b3418a73e0b753556612cb72ab355de0b/GameplayValidator/SGameplayValidationIssueRow.cpp">Attach와 Undo 처리 코드<svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a class="button" href="https://github.com/msg1150/UnrealTeamProjectPortfolio/blob/c65bde5b3418a73e0b753556612cb72ab355de0b/GameplayValidator/GameplayValidationSubsystem.cpp">자동 재검사 조건 코드<svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
+  </article><article class="case" id="json-runtime">
+    <div class="case-head"><p class="eyebrow"><span>CASE 03</span> JSON과 외부 편집기를 만든 목적</p><h3>게임 수치를 외부에서 편집하고 재실행으로 반영</h3></div>
+    <div class="case-layout">
+      <dl class="case-copy">
+        <div><dt>목표</dt><dd><strong class="text-accent">패키징 뒤에도</strong> 기획자가 게임 수치를 바꿔 테스트할 수 있는 흐름이 필요했습니다. 외부 JSON을 수정하고 재실행해 반영하는 방식으로, <strong class="text-accent">데이터 조정과 게임 빌드를 분리</strong>하려 했습니다.</dd></div>
+        <div><dt>바꾼 점</dt><dd>JSON 파싱은 수정한 값을 게임 데이터에 적용하는 역할입니다. 외부 편집기는 JSON 문법을 직접 쓰는 대신 <strong class="text-accent">표와 속성 입력 화면</strong>을 제공하며, 이후 패키징 폴더도 편집하도록 <strong class="text-accent">기존 도구 확장</strong>을 요청했습니다.</dd></div>
+        <div><dt>결과</dt><dd>공개 코드에서 속성 명세 기반 편집, 타입과 범위 검사, 게임 시작 시 JSON 적용을 확인했습니다. 최초 제작 요청 전문은 남아 있지 않아 목적이 드러나는 후속 요청을 아래에 수록했습니다.</dd></div>
+      </dl>
+      <div class="case-visual"><div class="case-table-wrap"><table class="case-table">
+    <caption>데이터를 바꾸는 사람과 게임 사이의 역할 분리</caption>
+    <thead><tr><th scope="col">구성</th><th scope="col">필요했던 역할</th></tr></thead>
+    <tbody><tr><th scope="row">외부 JSON</th><td>게임에 적용할 수정값 보관</td></tr><tr><th scope="row">JSON 파싱</th><td>수정값을 등록된 게임 데이터에 반영</td></tr><tr><th scope="row">외부 편집기</th><td>표와 속성 UI에서 편집하고 잘못된 입력 검사</td></tr><tr><th scope="row">테스트 흐름</th><td>값 수정 / 저장 / 게임과 서버 재실행</td></tr></tbody>
+  </table></div></div>
+    </div>
+    <details class="prompt">
+    <summary>관련 요청 발췌 (3건)</summary>
+    <div class="prompt-body">
+      <h4>07.27 / 에디터를 끄지 않고 수정값 다시 적용</h4>
+      <pre><code>이제 깃으로 뭐 하기전에 에디터를 끄지 않고 재적용하는 메뉴를 한번 만들어보자</code></pre>
+      <div class="prompt-tools"><button type="button" data-copy hidden>프롬프트 복사</button><span class="copy-status" role="status"></span></div>
+    </div><div class="prompt-body">
+      <h4>07.27 / 적용 버튼 하나와 실패 이유로 사용 흐름 단순화</h4>
+      <pre><code>아니 버튼 뭐 이것저것 만들지말고 그냥 진짜 딱 적용 버튼 하나만 두고 알아서 검사돌려서 에디터 켰을때 나오는 알림창으로 성공 몇개 실패 몇개 이런식으로 띄우고 메세지 로그에 실패 이유 띄우는게 나을거같아</code></pre>
+      <div class="prompt-tools"><button type="button" data-copy hidden>프롬프트 복사</button><span class="copy-status" role="status"></span></div>
+    </div><div class="prompt-body">
+      <h4>10.30 / 패키징 뒤에도 외부 편집기로 값을 바꾸려는 요구</h4>
+      <pre><code>현재 내가 따로 json값을 편집하기 편하도록 이런식으로 만들어서 exe 파일을 배포를 했었는데 이건 지금 현재 우리 언리얼 프로젝트를 등록을 해야 편집이 가능한 방식이잖아? 근데 최종적으로는 패키징후에 패키징 폴더에 있는 json을 수정을 해야하는데 그 기능을 지금 못해서 이걸 수정을 할지 아예 새로 만들지 고민중이야 현재 우리 프로젝트는 해당 bat 파일을 이용해서 패키징을 하고있어 그래서 Windows랑 WindowsServer 폴더 둘다 수정이 되어야해 어떤식으로 하는게 좋을까</code></pre>
+      <div class="prompt-tools"><button type="button" data-copy hidden>프롬프트 복사</button><span class="copy-status" role="status"></span></div>
+    </div>
+  </details>
+    <div class="actions"><a class="button" href="https://github.com/msg1150/UnrealTeamProjectPortfolio/blob/c65bde5b3418a73e0b753556612cb72ab355de0b/DataEditor/Core/Services.cs">외부 편집기와 데이터 검증<svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a class="button" href="https://github.com/msg1150/UnrealTeamProjectPortfolio/blob/c65bde5b3418a73e0b753556612cb72ab355de0b/JsonAssetSync/JsonAssetSyncSubsystem.cpp">게임 시작 시 JSON 적용<svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
   </article><article class="case" id="data-tools">
-    <div class="case-head"><p class="eyebrow"><span>CASE 03</span> 수정값 유실을 발견하고 개선</p><h3>Unreal 수정값을 JSON에도 반영해 덮어쓰기 방지</h3></div>
+    <div class="case-head"><p class="eyebrow"><span>CASE 04</span> 수정값 유실을 발견하고 개선</p><h3>Unreal 수정값을 JSON에도 반영해 덮어쓰기 방지</h3></div>
     <div class="case-layout">
       <dl class="case-copy">
         <div><dt>목표</dt><dd>외부 편집기에서 바꾼 JSON은 적용됐지만 Unreal에서 바꾸고 저장한 값은 JSON으로 돌아가지 않았습니다. 다음 실행에서 <strong class="text-accent">이전 JSON이 수정값을 덮는</strong> 문제를 발견했습니다.</dd></div>
@@ -125,49 +156,14 @@
       <div class="case-visual"><ol class="case-flow" aria-label="구현 흐름"><li>Unreal에서 등록 에셋 수정 / 저장</li><li>연결된 JSON으로 내보내기</li><li>다음 실행 시 수정값 재적용</li></ol><figure class="evidence"><img src="../../assets/arena-data-editor.webp" width="1280" height="475" alt="WPF 에디터에서 데이터 행과 속성값을 편집하는 화면" loading="lazy" decoding="async"><figcaption>제공 도구 화면 / 속성 명세를 읽은 외부 WPF 편집기. 에디터 저장 훅의 동작은 연결한 코드에서 확인할 수 있습니다. <a href="../../assets/arena-data-editor.webp">원본 크기로 보기</a></figcaption></figure></div>
     </div>
     <details class="prompt">
-    <summary>관련 요청 발췌 (2건)</summary>
+    <summary>09.05 / 에디터 수정값이 이전 JSON으로 덮이는 문제</summary>
     <div class="prompt-body">
-      <h4>09.05 / 에디터 수정값이 이전 JSON으로 덮이는 문제</h4>
+
       <pre><code>현재 바탕화면에 있는 DataEditor폴더를 기준으로 프로그램을 만들어서 배포를 했었는데 지금 문제가 외부 그러니까 json을 직접 수정하거나 배포한 프로그램으로 수정을 했을때는 잘 적용이 되고있는거같은데 언리얼 에디터상에서 수정을 한건 반영이 안되어서 이게 에디터상에서 수정후에 언리얼을 꺼도 배포한 프로그램이나 json에는 적용이 안되고있는거같거든? 그렇게 되면서 당연하게 기존 json값으로 에디터를 다시 켰을때 덮어씌워지고 이 부분을 수정을 해야할거같은데 에디터상에서 수정을 하면 해당 뭐 테이블이나 에셋을 저장할때 알아서 json에도 반영이 되던가 아니면 언리얼 에디터 자체를 껐을때 반영이 되어도 좋고</code></pre>
-      <div class="prompt-tools"><button type="button" data-copy hidden>프롬프트 복사</button><span class="copy-status" role="status"></span></div>
-    </div><div class="prompt-body">
-      <h4>07.27 / 단일 적용 버튼과 실패 이유 표시</h4>
-      <pre><code>아니 버튼 뭐 이것저것 만들지말고 그냥 진짜 딱 적용 버튼 하나만 두고 알아서 검사돌려서 에디터 켰을때 나오는 알림창으로 성공 몇개 실패 몇개 이런식으로 띄우고 메세지 로그에 실패 이유 띄우는게 나을거같아</code></pre>
       <div class="prompt-tools"><button type="button" data-copy hidden>프롬프트 복사</button><span class="copy-status" role="status"></span></div>
     </div>
   </details>
     <div class="actions"><a class="button" href="https://github.com/msg1150/UnrealTeamProjectPortfolio/blob/c65bde5b3418a73e0b753556612cb72ab355de0b/JsonAssetSync/JsonAssetSyncEditor.cpp">에디터 저장과 JSON 내보내기<svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a class="button" href="https://github.com/msg1150/UnrealTeamProjectPortfolio/blob/c65bde5b3418a73e0b753556612cb72ab355de0b/DataEditor/Core/Services.cs">외부 편집기 데이터 검증<svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
-  </article><article class="case" id="json-runtime">
-    <div class="case-head"><p class="eyebrow"><span>CASE 04</span> 환경을 나눠 원인과 적용 범위 확인</p><h3>에디터 적용과 패키징 적용을 나누어 문제 해결</h3></div>
-    <div class="case-layout">
-      <dl class="case-copy">
-        <div><dt>목표</dt><dd>에디터에서 JSON이 반영돼도 패키징 환경은 대상 참조, 필드명과 초기화 순서가 달라 같은 결과를 보장할 수 없었습니다.</dd></div>
-        <div><dt>바꾼 점</dt><dd>등록 대상 참조 복구와 필드명 변환을 보완하고 <strong class="text-accent">첫 맵 로드 전</strong> 데이터를 적용합니다. 에셋 저장은 <strong class="text-accent">Editor에서만</strong> 허용하고 <strong class="text-accent">Runtime은 메모리 값만</strong> 바꿉니다.</dd></div>
-        <div><dt>결과</dt><dd>제공 대화에는 패키징 후 총기 데미지 변경을 확인한 <strong class="text-accent">사용자 기록</strong>이 있습니다. 이번 작업에서는 공개 코드를 대조했으며 Unreal 빌드와 전용 서버 전체 실행을 다시 수행하지 않았습니다.</dd></div>
-      </dl>
-      <div class="case-visual"><div class="case-table-wrap"><table class="case-table">
-    <caption>실행 환경과 적용 범위를 나눠 확인</caption>
-    <thead><tr><th scope="col">대상</th><th scope="col">처리 기준</th></tr></thead>
-    <tbody><tr><th scope="row">등록된 데이터</th><td>Registry에 연결된 대상만 JSON 적용</td></tr><tr><th scope="row">일반 에디터 저장</th><td>등록 에셋의 값을 JSON으로 내보내기</td></tr><tr><th scope="row">Cook / Commandlet</th><td>저장 훅의 원본 JSON 내보내기 제외</td></tr><tr><th scope="row">패키징 Runtime</th><td>시작 시 메모리 반영 / 에셋 저장 제외</td></tr></tbody>
-  </table></div></div>
-    </div>
-    <details class="prompt">
-    <summary>관련 요청 발췌 (3건)</summary>
-    <div class="prompt-body">
-      <h4>10.30 / Registry 전체의 적용 조건부터 확인</h4>
-      <pre><code>그럼 전체적으로 한번 다 확인해보고 지금 Registry에 들어가있는 애들이 전부 적용이 되려면 어떻게 해야하는지 알려줘</code></pre>
-      <div class="prompt-tools"><button type="button" data-copy hidden>프롬프트 복사</button><span class="copy-status" role="status"></span></div>
-    </div><div class="prompt-body">
-      <h4>10.30 / 실제 플레이 후 데미지 변경 확인</h4>
-      <pre><code>방금 테스트하고 왔는데 일단 총기 데미지는 잘 바뀐거같아</code></pre>
-      <div class="prompt-tools"><button type="button" data-copy hidden>프롬프트 복사</button><span class="copy-status" role="status"></span></div>
-    </div><div class="prompt-body">
-      <h4>11.05 / 미등록 에셋을 변경하지 않는지 확인</h4>
-      <pre><code>일단 json 파싱 부분은 registry에 등록이 안되어있는 data asset이나 date table은 아예 안건드는거지?</code></pre>
-      <div class="prompt-tools"><button type="button" data-copy hidden>프롬프트 복사</button><span class="copy-status" role="status"></span></div>
-    </div>
-  </details>
-    <div class="actions"><a class="button" href="https://github.com/msg1150/UnrealTeamProjectPortfolio/blob/c65bde5b3418a73e0b753556612cb72ab355de0b/JsonAssetSync/JsonApplyService.cpp">Editor와 Runtime 적용 분리<svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a class="button" href="https://github.com/msg1150/UnrealTeamProjectPortfolio/blob/c65bde5b3418a73e0b753556612cb72ab355de0b/JsonAssetSync/JsonAssetSyncSubsystem.cpp">첫 맵 이전 초기화<svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a class="button" href="https://github.com/msg1150/UnrealTeamProjectPortfolio/blob/c65bde5b3418a73e0b753556612cb72ab355de0b/JsonAssetSync/JsonApplyRegistrySave.cpp">Cook된 대상 참조 복구<svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
   </article><article class="case" id="projectile">
     <div class="case-head"><p class="eyebrow"><span>CASE 05</span> 전투 시스템</p><h3>프레임 사이의 투사체 충돌 감지</h3></div>
     <div class="case-layout">
