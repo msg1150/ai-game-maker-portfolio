@@ -23,3 +23,9 @@ Codex는 OpenAI가 배포한 Windows 앱의 Codex 전용 로고이고, ChatGPT�
 메인에서 AI 리더십, 구조화 능력, 학습 실행력을 실제 사례에 연결합니다. 각 프로젝트에서 본인이 정한 기준과 AI에 요청한 구현, 확인한 결과를 구분하고 팀 프로젝트는 담당 기능 범위를 명시합니다. 개발 기록 전체나 실행 파일은 게시하지 않습니다.
 
 `assets/park-janghan-ai-game-maker-portfolio.pdf`는 Google Drive 제출용 5쪽 요약입니다. 영상과 상세 요청은 로그인 없이 볼 수 있는 GitHub Pages 페이지로 연결합니다. Google Drive 업로드/공개 공유는 이 저장소에서 자동 수행하지 않습니다. PDF 재생성은 ReportLab과 맑은 고딕이 있는 환경에서 `python scripts/build-portfolio-pdf.py`를 실행하고 `output/pdf/`의 결과를 해당 assets 경로로 복사합니다.
+
+## FormuDoku 최신 반영 (2026-11-13)
+
+제공된 대화 기록은 v0.6.4까지이며 원시 원문 내보내기가 아닌 전사/축약임을 명시합니다. 추가 요청은 "제공 기록" 발췌로 표시합니다. 같은 폴더의 실제 소스와 공개 health는 v0.6.5입니다. 일반 정답 150점과 1회 잠금, 오답 목숨 차감, 공통 점수 설정, 기능별 모듈화와 완료 기록 복구를 반영했습니다.
+
+v0.6.5 로컬 필수 테스트 27개가 통과했습니다. 공개 app.js, scoring-config.js, number-entry.js, game-session.js, board-theme.css와 service-worker.js가 로컬 소스와 일치함을 확인했습니다. 기존 게임 캡처와 GIF는 v0.3 자료로 표기하며 최신 UI 캡처로 대체하지 않습니다.

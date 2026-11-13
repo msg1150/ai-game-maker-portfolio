@@ -154,8 +154,8 @@ function home() {
             <article class="competency-card tone-mint">
               <p class="eyebrow"><span>03</span> 학습 실행력</p>
               <h3>플레이 피드백을 받아<br>다음 구현에 적용합니다.</h3>
-              <p>수식 입력이 반복되면 불편하다는 피드백을 캐주얼 모드와 별도 점수로 옮기고, 모바일 하단 입력도 개선했습니다.</p>
-              <a href="./projects/formudoku/#mode-split">피드백과 모드 설계 ${icon}</a>
+              <p>플레이에서 일반 칸의 오답과 점수 누락을 발견하고, 규칙 수정과 공통 점수 설정, 기능별 파일 분리로 개선했습니다.</p>
+              <a href="./projects/formudoku/#score-revision">플레이 문제와 점수 개선 ${icon}</a>
             </article>
           </div>
         </div>
