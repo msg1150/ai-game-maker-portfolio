@@ -1026,10 +1026,12 @@
     "stack": [
       "Unreal Engine 5.6.1",
       "C++",
-      "Blueprint"
+      "Blueprint",
+      "ChatGPT",
+      "Codex"
     ],
-    "tagline": "멀티플레이 FPS의 게임플레이와 팀 제작 도구",
-    "summary": "Unreal Engine 기반 3D 멀티플레이 슈팅 팀 프로젝트입니다. 제 담당은 레벨 배치 검증, JSON 편집 및 동기화 도구, 투사체와 포탈 및 전투 NPC 경로 탐색입니다.",
+    "tagline": "팀의 레벨 배치와 데이터 수정 흐름을 돕는 제작 도구",
+    "summary": "멀티플레이 FPS 팀 프로젝트에서 레벨 배치 검증과 JSON 데이터 도구를 맡았습니다. 실제 작업에서 생긴 오검출과 수정값 유실을 바탕으로 AI에 검사 기준과 저장 흐름을 요청하고, 구현 결과를 확인하며 보완했습니다.",
     "cover": "arena-cover.webp",
     "coverAlt": "BattleArena 로고와 서로 마주 보는 두 캐릭터가 담긴 가로 대표 아트",
     "width": 1250,
@@ -1037,76 +1039,216 @@
     "coverLabel": "프로젝트 대표 아트",
     "roles": [
       [
-        "본인 담당 범위",
-        "레벨 배치 검증과 JSON 데이터 도구, 투사체 조준 및 충돌, 포탈 화면과 통과, 전투 NPC의 특수 이동 경로를 맡았습니다."
+        "본인이 정하고 검토한 부분",
+        "레벨에서 실제로 바꾸는 연결값에 맞춰 검사 범위를 정했습니다. Attach와 Undo/Redo 사용 조건, 에디터 저장과 JSON 반영, 패키징 적용 범위를 구체화했습니다."
       ],
       [
-        "AI 활용과 결과 확인",
-        "담당 기능 구현 과정에서 AI를 활용했습니다. 이 페이지에는 본인 담당 도구의 화면과 코드, 게임플레이 시연을 제시합니다."
+        "AI 구현과 본인 담당 범위",
+        "ChatGPT와 Codex에 검사 Provider, 편집기와 저장 훅, Runtime 적용 코드를 요청했습니다. 담당 범위는 두 제작 도구와 투사체, 포탈, 전투 NPC 경로이며 팀 전체 결과물과 구분합니다."
       ]
     ],
     "cases": [
       {
         "id": "level-validator",
-        "label": "팀 제작 도구 / 레벨",
-        "title": "레벨 오류를 찾고 수정할 위치로 이동",
-        "problem": "포탈 출구 누락과 잘못 연결된 이동 경로를 플레이 전에 확인할 수 있게 했습니다.",
-        "implementation": "포탈, 점프패드, 이동 경로를 검사하고, 오류 목록의 Focus 버튼으로 대상 오브젝트를 선택해 에디터 시점을 이동합니다.",
-        "verification": "캡처는 지면에서 50cm 떨어진 경로 입구를 검출한 예입니다.",
+        "label": "검사 기준을 정한 과정",
+        "title": "정상 배치를 오류로 잡지 않도록 검사 범위 조정",
+        "problem": "Blueprint에 이미 있는 Collision과 Event까지 다시 검사하고, 공중에 놓이는 점프패드 목적지를 NavMesh로 검사하면 불필요한 경고가 생깁니다.",
+        "implementation": "기획자가 배치할 때 바꾸는 연결값을 중심으로 줄였습니다. 점프패드 목적지의 NavMesh 검사는 빼고, 현재 포탈은 Teleport Enabled가 켜진 경우의 Exit Target 누락을 검사합니다.",
+        "verification": "현재 공개 코드는 점프패드 3종의 Target Point를 검사합니다. 초기 대화의 포탈 DA와 발사값 검사는 후속 변경으로 제거되어 현행 기능에서 제외했습니다.",
         "media": {
           "image": "arena-level-validator.webp",
           "width": 1172,
           "height": 457,
           "alt": "Unreal 에디터의 레벨 검증 오류 목록과 경로 오브젝트",
-          "caption": "에디터 화면 / 지면에서 50cm 떨어진 경로 입구와 Focus 버튼",
+          "caption": "제공 캡처 / PathLink의 지면 이격 50cm 검출과 Focus 이동. 후속 Attach 버튼 추가 전 화면입니다.",
           "fullSize": true
         },
         "links": [
           [
-            "레벨 검증 도구 코드",
-            "https://github.com/msg1150/UnrealTeamProjectPortfolio/tree/fee0b72e4cc6236acfcb332139613f53fd87b244/GameplayValidator"
+            "현재 포탈 검사 코드",
+            "https://github.com/msg1150/UnrealTeamProjectPortfolio/blob/c65bde5b3418a73e0b753556612cb72ab355de0b/GameplayValidator/PortalValidationProvider.cpp"
+          ],
+          [
+            "현재 점프패드 검사 코드",
+            "https://github.com/msg1150/UnrealTeamProjectPortfolio/blob/c65bde5b3418a73e0b753556612cb72ab355de0b/GameplayValidator/JumpPadValidationProvider.cpp"
           ]
         ],
         "highlights": [
-          "플레이 전에",
-          "Focus 버튼",
-          "50cm"
+          "연결값을 중심",
+          "목적지의 NavMesh 검사는 빼고",
+          "Exit Target 누락",
+          "점프패드 3종"
+        ],
+        "prompts": [
+          {
+            "label": "08.28 / 이미 구성된 Blueprint의 과도한 검사 줄이기",
+            "text": "애초에 셋팅이 거의 되어있는 bp를 레벨에 설치를 해서 사실상 point만 설정을 하면 되기때문에 콜리전이 없다거나 event가 없다거나 하는 부분들은 굳이 있을 필요는 없는거같은데"
+          },
+          {
+            "label": "08.28 / 공중 TargetPoint의 NavMesh 검사 제외",
+            "text": "이게 점프패드의 target point는 아무래도 이쪽으로 점프를 뛰어 같은 느낌이라 공중에 있을수있어서 targetpoint 주변에 navmesh 검사하는 로직은 빼야할거같아"
+          },
+          {
+            "label": "10.29 / 실제 사용하는 포탈과 점프패드로 변경",
+            "text": "방금 보니까 아직 Direction JumpPad도 사용중이라 해당 점프패드도 다시 검사를 할 수 있도록 추가를 해야할거같고 추가적으로 우리가 기존 BP_OneWayPortal을 더이상 사용하지 않고 SeamlessPortalActor를 사용할거야 그래서 포탈 검증을 해당 Actor를 기준으로 검증을 해야하는데 해당 Actor의 기준은 Teleport Enabled가 true면 Exit Target이 있어야해 일단 이정도만 체크를 해도 될거같아 포탈은"
+          }
+        ]
+      },
+      {
+        "id": "validator-repair",
+        "label": "AI 결과를 사용 흐름에 맞게 보완",
+        "title": "오류 목록에서 수정하고 Undo/Redo 후 결과 갱신",
+        "problem": "PathLink 오류를 찾은 뒤 별도 상세창에서 지면 부착을 실행해야 했고, 이를 Undo하면 검사 목록은 이전 결과로 남았습니다.",
+        "implementation": "Focus 옆에 기존 Attach To Ground를 호출하는 버튼을 요청했습니다. 이동은 Undo 가능한 작업으로 묶고, 검사 후에는 Undo/Redo에 맞춰 결과를 갱신합니다.",
+        "verification": "자동 재검사는 툴 창이 열리고 검사를 한 번 실행한 경우에만 동작합니다. 현재 코드에서 PIE 중 실행 차단과 종료 시 이벤트 해제를 확인했습니다.",
+        "highlights": [
+          "기존 Attach To Ground",
+          "Undo 가능한 작업",
+          "툴 창이 열리고",
+          "PIE 중 실행 차단"
+        ],
+        "flow": [
+          "Focus로 오류 위치 확인",
+          "Attach로 지면에 배치",
+          "Undo/Redo 뒤 결과 재검사"
+        ],
+        "prompts": [
+          {
+            "label": "10.29 / 오류 행에서 바로 Attach 실행",
+            "text": "그리고 지금 패스링크쪽 보면 이런식으로 뜨잖아 Focus버튼 옆에 attach버튼도 같이 두고 해당 버튼을 누르면 실제 PathLink의 Attach To Ground 버튼을 누른것처럼 되게 해줘"
+          },
+          {
+            "label": "10.29 / Undo와 Redo 뒤 자동 재검사",
+            "text": "그럼 Undo나 Redo를 할 경우 자동으로 다시 검사를 진행하도록 해줘"
+          },
+          {
+            "label": "10.29 / 자동 검사를 툴 창이 열렸을 때만 제한",
+            "text": "그럼 툴 창이 열려 있을 때만으로 제한을 해야할거같아"
+          }
+        ],
+        "links": [
+          [
+            "Attach와 Undo 처리 코드",
+            "https://github.com/msg1150/UnrealTeamProjectPortfolio/blob/c65bde5b3418a73e0b753556612cb72ab355de0b/GameplayValidator/SGameplayValidationIssueRow.cpp"
+          ],
+          [
+            "자동 재검사 조건 코드",
+            "https://github.com/msg1150/UnrealTeamProjectPortfolio/blob/c65bde5b3418a73e0b753556612cb72ab355de0b/GameplayValidator/GameplayValidationSubsystem.cpp"
+          ]
         ]
       },
       {
         "id": "data-tools",
-        "label": "팀 제작 도구 / 데이터",
-        "title": "JSON으로 편집한 값을 Unreal 에셋에 반영",
-        "problem": "Unreal 밖에서도 데이터 값을 편집하고, 잘못된 입력이 에셋에 반영되기 전에 확인할 수 있게 했습니다.",
-        "implementation": "Unreal Reflection으로 만든 속성 명세를 .NET 8 WPF 편집기가 읽습니다. 타입과 범위를 검증하고, 값 적용과 에셋 저장을 나눴습니다.",
-        "verification": "실행 중에는 메모리 값에 적용하고, 에셋 저장은 에디터에서 처리합니다.",
+        "label": "수정값 유실을 발견하고 개선",
+        "title": "Unreal 수정값을 JSON에도 반영해 덮어쓰기 방지",
+        "problem": "외부 편집기에서 바꾼 JSON은 적용됐지만 Unreal에서 바꾸고 저장한 값은 JSON으로 돌아가지 않았습니다. 다음 실행에서 이전 JSON이 수정값을 덮는 문제를 발견했습니다.",
+        "implementation": "Registry에 연결된 에셋을 저장할 때 JSON도 내보내도록 요청했습니다. 외부 WPF 편집기는 속성 명세로 타입과 범위를 검사하고, 에디터는 단일 Apply JSON 동작으로 재적용합니다.",
+        "verification": "현재 저장 훅과 내보내기 연결을 공개 코드에서 확인했습니다. 일반 에디터 저장과 Cook 저장을 구분하며, 패키징 중 원본 JSON을 덮지 않도록 제외 조건이 있습니다.",
         "flow": [
-          "Unreal 속성 명세",
-          "WPF 편집 및 입력 검증",
-          "JSON 동기화"
+          "Unreal에서 등록 에셋 수정 / 저장",
+          "연결된 JSON으로 내보내기",
+          "다음 실행 시 수정값 재적용"
         ],
         "media": {
           "image": "arena-data-editor.webp",
           "width": 1280,
           "height": 475,
           "alt": "WPF 에디터에서 데이터 행과 속성값을 편집하는 화면",
-          "caption": "도구 화면 / Unreal 속성 명세를 읽어 구성한 WPF 편집기",
+          "caption": "제공 도구 화면 / 속성 명세를 읽은 외부 WPF 편집기. 에디터 저장 훅의 동작은 연결한 코드에서 확인할 수 있습니다.",
           "fullSize": true
         },
         "links": [
           [
-            "JSON 동기화 코드",
-            "https://github.com/msg1150/UnrealTeamProjectPortfolio/tree/fee0b72e4cc6236acfcb332139613f53fd87b244/JsonAssetSync"
+            "에디터 저장과 JSON 내보내기",
+            "https://github.com/msg1150/UnrealTeamProjectPortfolio/blob/c65bde5b3418a73e0b753556612cb72ab355de0b/JsonAssetSync/JsonAssetSyncEditor.cpp"
           ],
           [
-            "WPF 편집기 코드",
-            "https://github.com/msg1150/UnrealTeamProjectPortfolio/tree/fee0b72e4cc6236acfcb332139613f53fd87b244/DataEditor"
+            "외부 편집기 데이터 검증",
+            "https://github.com/msg1150/UnrealTeamProjectPortfolio/blob/c65bde5b3418a73e0b753556612cb72ab355de0b/DataEditor/Core/Services.cs"
           ]
         ],
         "highlights": [
-          "잘못된 입력",
+          "이전 JSON이 수정값을 덮는",
+          "저장할 때 JSON도 내보내도록",
           "타입과 범위",
-          "값 적용과 에셋 저장"
+          "Cook 저장"
+        ],
+        "prompts": [
+          {
+            "label": "09.05 / 에디터 수정값이 이전 JSON으로 덮이는 문제",
+            "text": "현재 바탕화면에 있는 DataEditor폴더를 기준으로 프로그램을 만들어서 배포를 했었는데 지금 문제가 외부 그러니까 json을 직접 수정하거나 배포한 프로그램으로 수정을 했을때는 잘 적용이 되고있는거같은데 언리얼 에디터상에서 수정을 한건 반영이 안되어서 이게 에디터상에서 수정후에 언리얼을 꺼도 배포한 프로그램이나 json에는 적용이 안되고있는거같거든? 그렇게 되면서 당연하게 기존 json값으로 에디터를 다시 켰을때 덮어씌워지고 이 부분을 수정을 해야할거같은데 에디터상에서 수정을 하면 해당 뭐 테이블이나 에셋을 저장할때 알아서 json에도 반영이 되던가 아니면 언리얼 에디터 자체를 껐을때 반영이 되어도 좋고"
+          },
+          {
+            "label": "07.27 / 단일 적용 버튼과 실패 이유 표시",
+            "text": "아니 버튼 뭐 이것저것 만들지말고 그냥 진짜 딱 적용 버튼 하나만 두고 알아서 검사돌려서 에디터 켰을때 나오는 알림창으로 성공 몇개 실패 몇개 이런식으로 띄우고 메세지 로그에 실패 이유 띄우는게 나을거같아"
+          }
+        ]
+      },
+      {
+        "id": "json-runtime",
+        "label": "환경을 나눠 원인과 적용 범위 확인",
+        "title": "에디터 적용과 패키징 적용을 나누어 문제 해결",
+        "problem": "에디터에서 JSON이 반영돼도 패키징 환경은 대상 참조, 필드명과 초기화 순서가 달라 같은 결과를 보장할 수 없었습니다.",
+        "implementation": "등록 대상 참조 복구와 필드명 변환을 보완하고 첫 맵 로드 전 데이터를 적용합니다. 에셋 저장은 Editor에서만 허용하고 Runtime은 메모리 값만 바꿉니다.",
+        "verification": "제공 대화에는 패키징 후 총기 데미지 변경을 확인한 사용자 기록이 있습니다. 이번 작업에서는 공개 코드를 대조했으며 Unreal 빌드와 전용 서버 전체 실행을 다시 수행하지 않았습니다.",
+        "highlights": [
+          "첫 맵 로드 전",
+          "Editor에서만",
+          "Runtime은 메모리 값만",
+          "사용자 기록"
+        ],
+        "table": {
+          "caption": "실행 환경과 적용 범위를 나눠 확인",
+          "headers": [
+            "대상",
+            "처리 기준"
+          ],
+          "rows": [
+            [
+              "등록된 데이터",
+              "Registry에 연결된 대상만 JSON 적용"
+            ],
+            [
+              "일반 에디터 저장",
+              "등록 에셋의 값을 JSON으로 내보내기"
+            ],
+            [
+              "Cook / Commandlet",
+              "저장 훅의 원본 JSON 내보내기 제외"
+            ],
+            [
+              "패키징 Runtime",
+              "시작 시 메모리 반영 / 에셋 저장 제외"
+            ]
+          ]
+        },
+        "prompts": [
+          {
+            "label": "10.30 / Registry 전체의 적용 조건부터 확인",
+            "text": "그럼 전체적으로 한번 다 확인해보고 지금 Registry에 들어가있는 애들이 전부 적용이 되려면 어떻게 해야하는지 알려줘"
+          },
+          {
+            "label": "10.30 / 실제 플레이 후 데미지 변경 확인",
+            "text": "방금 테스트하고 왔는데 일단 총기 데미지는 잘 바뀐거같아"
+          },
+          {
+            "label": "11.05 / 미등록 에셋을 변경하지 않는지 확인",
+            "text": "일단 json 파싱 부분은 registry에 등록이 안되어있는 data asset이나 date table은 아예 안건드는거지?"
+          }
+        ],
+        "links": [
+          [
+            "Editor와 Runtime 적용 분리",
+            "https://github.com/msg1150/UnrealTeamProjectPortfolio/blob/c65bde5b3418a73e0b753556612cb72ab355de0b/JsonAssetSync/JsonApplyService.cpp"
+          ],
+          [
+            "첫 맵 이전 초기화",
+            "https://github.com/msg1150/UnrealTeamProjectPortfolio/blob/c65bde5b3418a73e0b753556612cb72ab355de0b/JsonAssetSync/JsonAssetSyncSubsystem.cpp"
+          ],
+          [
+            "Cook된 대상 참조 복구",
+            "https://github.com/msg1150/UnrealTeamProjectPortfolio/blob/c65bde5b3418a73e0b753556612cb72ab355de0b/JsonAssetSync/JsonApplyRegistrySave.cpp"
+          ]
         ]
       },
       {
@@ -1163,22 +1305,23 @@
     ],
     "section": {
       "id": "tools",
-      "label": "기술 및 검증 자료",
-      "title": "게임플레이 구현과 테스트 코드",
-      "text": "포탈 화면과 서버 통과 처리, 투사체, 1인칭 렌더링의 상세 구현과 Unreal Automation Test 코드는 기존 기술 자료에서 볼 수 있습니다.",
+      "label": "기여 및 확인 범위",
+      "title": "요청 기록과 공개 코드, 실제 확인 범위를 구분",
+      "text": "두 도구의 사용자 요청과 ChatGPT/Codex 답변을 대조하고, 현재 공개 커밋 c65bde5의 관련 소스 9개가 로컬 사본과 일치함을 확인했습니다. 초기 제안과 현재 기능을 구분해 기록합니다.",
       "notes": [
         [
-          "공간 포탈",
-          "입구 시점에 맞춰 출구 화면을 표시하고, 실제 통과 위치는 서버가 확정합니다."
+          "내 담당 기능",
+          "두 제작 도구 외에도 투사체 조준과 충돌, 포탈 화면과 서버 통과, 전투 NPC의 특수 이동 경로를 담당했습니다."
         ],
         [
-          "자동화 테스트",
-          "투사체 합류와 충돌과 포탈의 변환, 투영, 통과 조건을 검사하는 코드를 작성했습니다."
+          "검증 범위",
+          "빌드 성공과 플레이 확인은 제공된 당시 기록으로 표시합니다. 이번 작업은 소스 대조이며, Attach와 창 열기 / 닫기 반복 동작 및 새 패키징 실행을 재검증한 결과는 아닙니다."
         ]
       ],
       "highlights": [
-        "서버가 확정",
-        "변환, 투영, 통과 조건"
+        "두 제작 도구",
+        "제공된 당시 기록",
+        "소스 대조"
       ],
       "media": {
         "image": "arena.webp",
@@ -1204,12 +1347,42 @@
         "https://github.com/msg1150/UnrealTeamProjectPortfolio"
       ]
     ],
-    "cardSummary": "팀에서 맡은 레벨 검증과 JSON 도구를 중심으로, 제작 문제를 검사와 수정 단계로 나눈 과정을 보여줍니다.",
+    "cardSummary": "팀의 레벨 오검출과 데이터 유실 문제를 정의하고, AI와 검증, 수정과 동기화 도구를 개선했습니다.",
     "spotlight": {
       "id": "level-validator",
       "kind": "에디터 화면",
       "title": "레벨 배치 오류 검출",
       "summary": "오류 목록에서 수정할 오브젝트로 바로 이동합니다."
-    }
+    },
+    "planning": {
+      "title": "팀의 실제 수정 작업에서 출발한 두 도구",
+      "text": "레벨의 연결 실수를 플레이 전에 찾는 Validator와, 외부 데이터 편집을 Unreal에 연결하는 JSON 도구를 만들었습니다. 대화에서 정한 기준과 현재 공개 코드가 일치하는 내용을 중심으로 정리했습니다.",
+      "highlights": [
+        "연결 실수",
+        "외부 데이터 편집"
+      ]
+    },
+    "timeline": [
+      [
+        "07 ~ 08월",
+        "JSON 적용과 외부 편집기",
+        "Registry와 속성 명세를 연결하고 재시작 없는 JSON 재적용과 외부 편집 흐름을 구성했습니다."
+      ],
+      [
+        "08 ~ 09월",
+        "실제 레벨에 맞춘 검사 규칙",
+        "공중 TargetPoint 등 정상 배치의 오검출을 줄이고 새 포탈과 점프패드 구조를 반영했습니다."
+      ],
+      [
+        "09 ~ 10월",
+        "저장과 패키징 적용 문제 추적",
+        "에디터 저장 시 JSON 내보내기, Cook 중 쓰기 방지와 게임 초기화 전 적용을 보완했습니다."
+      ],
+      [
+        "10월",
+        "수정과 재검사 흐름 연결",
+        "PathLink Attach와 Undo/Redo 뒤 재검사를 추가하고, 툴 창이 열렸을 때만 자동 검사하도록 제한했습니다."
+      ]
+    ]
   }
 ]
