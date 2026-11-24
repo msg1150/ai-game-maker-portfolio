@@ -142,19 +142,44 @@ figcaption { color: var(--muted); font-size: .8rem; padding: .6rem .8rem; }
 .timeline h3 { font-size: 1.05rem; margin-bottom: .22rem; }
 .case-list { display: grid; gap: 1rem; margin-top: 1rem; }
 .case { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); padding: clamp(1rem, 3vw, 1.65rem); }
-.case-head { padding: 0 0 .85rem .75rem; border-left: 2px solid var(--accent-text); }
+.case-head { padding-left: .75rem; border-left: 2px solid var(--accent-text); }
+.case-head .eyebrow { align-items: baseline; flex-wrap: wrap; gap: .15rem .5rem; }
 .case-head h3 { margin-top: .4rem; }
-.case-layout { display: grid; align-items: start; grid-template-columns: minmax(0, .72fr) minmax(0, 1.28fr); gap: clamp(.9rem, 3vw, 2rem); padding-top: .7rem; }
-.case-copy { margin: 0; display: grid; gap: .65rem; }
-.case--diagram .case-layout, .case--copy .case-layout { grid-template-columns: minmax(0, 1fr); gap: 1rem; }
-.case--diagram .case-copy, .case--copy .case-copy { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; }
-.case dt { font-size: .78rem; font-weight: 750; color: var(--accent); }
-.case dd { margin: .14rem 0 0; font-size: .94rem; }
-.case-visual { display: grid; min-width: 0; gap: .65rem; }
-.evidence-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .6rem; }
+.case-layout { display: grid; align-items: start; gap: 1.1rem clamp(1rem, 3vw, 2rem); margin-top: 1rem; }
+.case-copy { margin: 0; display: grid; gap: .85rem; }
+.case-support { display: grid; gap: .65rem; }
+.case-visual { min-width: 0; }
+:is(.case--split, .case--table-media) .case-copy { grid-area: copy; }
+:is(.case--split, .case--table-media) .case-support { grid-area: support; }
+:is(.case--split, .case--table-media) .case-visual { grid-area: visual; }
+.case--split .case-layout {
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  grid-template-areas: "copy visual";
+}
+.case--split.case--with-support .case-layout {
+  grid-template-areas: "copy visual" "support visual";
+  grid-template-rows: auto 1fr;
+}
+.case--portrait .case-layout {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 16rem);
+}
+.case--stacked .case-copy {
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
+  gap: .85rem 1.25rem;
+}
+.case--table-media .case-layout {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-areas: "copy copy" "support visual";
+}
+.case dt { font-size: .82rem; font-weight: 750; color: var(--accent); }
+.case dd { margin: .18rem 0 0; font-size: .94rem; }
+.evidence-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: .85rem; }
 .case-flow { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .45rem; margin: 0; padding: 0; list-style: none; counter-reset: flow; }
 .case-flow li { counter-increment: flow; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); padding: .55rem .65rem; font-size: .82rem; font-weight: 670; }
 .case-flow li::before { content: counter(flow, decimal-leading-zero); display: block; color: var(--accent-text); font-size: .73rem; }
+.case--split .case-flow { grid-template-columns: minmax(0, 1fr); }
+.case--split .case-flow li { display: flex; align-items: baseline; gap: .6rem; }
 /* Current rule comparisons stay separate from historical game captures. */
 .case-table-wrap { min-width: 0; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: var(--bg); }
 .case-table { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: .82rem; line-height: 1.6; }
@@ -171,7 +196,7 @@ figcaption { color: var(--muted); font-size: .8rem; padding: .6rem .8rem; }
 .evidence { overflow: hidden; border: 1px solid var(--line); border-radius: 10px; background: #111720; }
 .media-window { position: relative; overflow: hidden; }
 .media-window img { position: absolute; max-width: none; height: auto; }
-.evidence--portrait { width: min(100%, 23rem); justify-self: center; }
+.evidence--portrait { width: min(100%, 16rem); margin-inline: auto; }
 .exhibition-note { margin-top: 1rem; color: var(--muted); font-size: .875rem; }
 .gif-demo summary { cursor: pointer; color: var(--accent); font-weight: 700; list-style: none; }
 .gif-demo summary::-webkit-details-marker { display: none; }
@@ -201,9 +226,7 @@ figcaption { color: var(--muted); font-size: .8rem; padding: .6rem .8rem; }
 .competency-card > a:hover { text-decoration: underline; }
 @media (max-width: 900px) {
   .hero-inner { gap: 1.4rem; }
-  .case-layout, .section-evidence:has(> figure) { grid-template-columns: minmax(0, 1fr); }
-  .case-visual { order: -1; }
-  .case--diagram .case-visual { order: initial; }
+  .section-evidence:has(> figure) { grid-template-columns: minmax(0, 1fr); }
   .section-evidence > figure { width: min(100%, 15rem); }
 }
 @media (max-width: 800px) {
@@ -216,7 +239,15 @@ figcaption { color: var(--muted); font-size: .8rem; padding: .6rem .8rem; }
   .hero-inner, .home .hero-inner, .gallery { grid-template-columns: minmax(0, 1fr); gap: 1.4rem; }
   .home .feature { justify-self: start; }
   .section-head { align-items: start; flex-direction: column; }
-  .case--diagram .case-copy, .case--copy .case-copy { grid-template-columns: minmax(0, 1fr); gap: .8rem; }
+  .case--split .case-layout,
+  .case--split.case--with-support .case-layout,
+  .case--table-media .case-layout {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: none;
+    grid-template-rows: auto;
+  }
+  :is(.case--split, .case--table-media) .case-layout > * { grid-area: auto; }
+  .case--stacked .case-copy { grid-auto-flow: row; }
 }
 @media (max-width: 600px) {
   .project-grid, .timeline, .role-grid, .evidence-pair { grid-template-columns: minmax(0, 1fr); }

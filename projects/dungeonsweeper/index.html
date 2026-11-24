@@ -11,9 +11,9 @@
   <meta property="og:url" content="https://msg1150.github.io/ai-game-maker-portfolio/projects/dungeonsweeper/">
   <meta property="og:image" content="https://msg1150.github.io/ai-game-maker-portfolio/assets/dungeon.webp">
   <link rel="canonical" href="https://msg1150.github.io/ai-game-maker-portfolio/projects/dungeonsweeper/">
-  <link rel="icon" href="../../assets/mark.svg?v=b0c86a84" type="image/svg+xml">
-  <link rel="stylesheet" href="../../assets/site.css?v=f22afa47">
-  <script src="../../assets/site.js?v=1c9a1d5a" defer></script>
+  <link rel="icon" href="../../assets/mark.svg?v=a60e582f" type="image/svg+xml">
+  <link rel="stylesheet" href="../../assets/site.css?v=b56db8f4">
+  <script src="../../assets/site.js?v=285ba21d" defer></script>
   <title>DungeonSweeper | 박장한 AI Game Maker</title>
 </head>
 <body class="tone-violet">
@@ -56,7 +56,7 @@
           <ol class="timeline"><li><span>09.17 ~ 10.06</span><div><h3>2D 데모와 저장 조건</h3><p>던전 진입, 회수, 귀환 루프와 자동 저장 조건을 정했습니다.</p></div></li><li><span>10.06 ~ 10.07</span><div><h3>마을 경제 설계</h3><p>자동 판매를 창고 보관, 개별 판매, 가방 확장으로 나눴습니다.</p></div></li><li><span>10.17 ~ 10.19</span><div><h3>2.5D 전환과 다층 던전</h3><p>2D 캐릭터와 입체 지형을 결합하고 제작 도구를 추가했습니다.</p></div></li><li><span>10.21 ~ 10.26</span><div><h3>성능과 콘텐츠</h3><p>렌더링을 최적화하고 마을 원화와 길드 의뢰를 적용했습니다.</p></div></li></ol></section>
         <section id="cases" class="detail-section">
           <p class="eyebrow"><span>CASES</span> IMPLEMENTATION</p><h2>구현 사례</h2>
-          <div class="case-list"><article class="case" id="awareness">
+          <div class="case-list"><article class="case case--split" id="awareness">
     <div class="case-head"><p class="eyebrow"><span>CASE 01</span> 플레이 검증</p><h3>시야를 잃어도 마지막 목격 위치까지 수색</h3></div>
     <div class="case-layout">
       <dl class="case-copy">
@@ -64,6 +64,7 @@
         <div><dt>바꾼 점</dt><dd><strong class="text-accent">마지막 목격 위치</strong>까지 이동해 수색합니다. 경로는 <strong class="text-accent">4방향 BFS</strong>, 통과 여부는 BoxCast로 검사합니다.</dd></div>
         <div><dt>결과</dt><dd>실제 요청 원문과 수정 후 플레이 영상을 함께 제시합니다. 시야를 잃은 뒤 <strong class="text-accent">마지막 목격 위치</strong>까지 이동하는 행동을 확인할 수 있습니다.</dd></div>
       </dl>
+
       <div class="case-visual"><figure class="evidence"><video controls playsinline preload="none" width="960" height="496" style="aspect-ratio: 960 / 496" poster="../../assets/dungeon-awareness.webp" aria-label="던전에서 플레이어를 발견하고 추격하는 몬스터"><source src="../../assets/dungeon-awareness.mp4" type="video/mp4"><a href="../../assets/dungeon-awareness.mp4">MP4 영상 열기</a></video><figcaption>플레이 영상 / 발견 -&gt; 추격 -&gt; 마지막 목격 위치 수색</figcaption></figure></div>
     </div>
     <details class="prompt">
@@ -75,7 +76,7 @@
     </div>
   </details>
     <div class="actions"><a class="button" href="https://github.com/msg1150/DungeonSweeper/blob/8cab0a9565909b7917b780bd7b92064493393d53/Assets/Scripts/Runtime/Actors/Monsters/EnemyAgent.cs">몬스터 행동 코드<svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
-  </article><article class="case" id="dungeon-tools">
+  </article><article class="case case--split" id="dungeon-tools">
     <div class="case-head"><p class="eyebrow"><span>CASE 02</span> 제작 도구</p><h3>던전 후보를 미리 보고 채택</h3></div>
     <div class="case-layout">
       <dl class="case-copy">
@@ -83,6 +84,7 @@
         <div><dt>바꾼 점</dt><dd><strong class="text-accent">층 수, 크기, 시드</strong>로 후보를 만들고, <strong class="text-accent">채택한 도면만</strong> 게임 카탈로그에 등록합니다.</dd></div>
         <div><dt>결과</dt><dd>시드를 되돌리면 <strong class="text-accent">같은 도면</strong>이 다시 생성됩니다.</dd></div>
       </dl>
+
       <div class="case-visual"><figure class="evidence"><video controls playsinline preload="none" width="845" height="640" style="aspect-ratio: 845 / 640" poster="../../assets/dungeon-generation.webp" aria-label="Unity 던전 제작 도구에서 시드를 바꾸고 원래 값으로 돌아가 같은 도면을 재현하는 장면"><source src="../../assets/dungeon-generation.mp4" type="video/mp4"><a href="../../assets/dungeon-generation.mp4">MP4 영상 열기</a></video><figcaption>에디터 시연 / 시드 1150 -&gt; 1151 -&gt; 1150</figcaption></figure></div>
     </div>
     <details class="prompt">
@@ -94,7 +96,7 @@
     </div>
   </details>
     <div class="actions"><a class="button" href="https://github.com/msg1150/DungeonSweeper/blob/8cab0a9565909b7917b780bd7b92064493393d53/Assets/Editor/Dungeons/DungeonGenerationPreview.cs">후보 미리보기 코드<svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
-  </article><article class="case" id="inventory">
+  </article><article class="case case--stacked" id="inventory">
     <div class="case-head"><p class="eyebrow"><span>CASE 03</span> 게임 규칙</p><h3>전리품을 팔거나 가방 확장에 쓰기</h3></div>
     <div class="case-layout">
       <dl class="case-copy">
@@ -102,11 +104,12 @@
         <div><dt>바꾼 점</dt><dd>귀환한 전리품은 창고에 보관해 <strong class="text-accent">개별 판매</strong>하거나, 골드와 함께 <strong class="text-accent">가방 확장</strong>에 씁니다.</dd></div>
 
       </dl>
+
       <div class="case-visual"><div class="evidence-pair"><figure class="evidence"><img src="../../assets/dungeon-upgrade-before.webp" width="855" height="428" alt="가방 5x4칸과 보유 골드가 보이는 확장 전 화면" loading="lazy" decoding="async"><figcaption>확장 전 / 가방 5 x 4 <a href="../../assets/dungeon-upgrade-before.webp">원본 크기로 보기</a></figcaption></figure><figure class="evidence"><img src="../../assets/dungeon-upgrade-after.webp" width="855" height="428" alt="가방이 확장된 결과를 보여주는 화면" loading="lazy" decoding="async"><figcaption>확장 후 / 재료와 골드를 사용한 결과 <a href="../../assets/dungeon-upgrade-after.webp">원본 크기로 보기</a></figcaption></figure></div></div>
     </div>
 
     <div class="actions"><a class="button" href="https://github.com/msg1150/DungeonSweeper/blob/8cab0a9565909b7917b780bd7b92064493393d53/Assets/Scripts/Runtime/Inventory/GridInventory.cs">배치 검사 코드<svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a class="button" href="https://github.com/msg1150/DungeonSweeper/blob/8cab0a9565909b7917b780bd7b92064493393d53/Assets/Scripts/Runtime/Town/TownWarehouseProgress.cs">창고와 가방 확장 코드<svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
-  </article><article class="case" id="expedition-save">
+  </article><article class="case case--split" id="expedition-save">
     <div class="case-head"><p class="eyebrow"><span>CASE 04</span> 저장 및 복원</p><h3>층을 오가도 탐험 상태 복원</h3></div>
     <div class="case-layout">
       <dl class="case-copy">
@@ -114,6 +117,7 @@
         <div><dt>바꾼 점</dt><dd>층을 떠날 때 <strong class="text-accent">몬스터, 시체, 탐색 기록</strong>을 보관하고, 재방문하면 복원합니다. 층 이동이 끝나면 <strong class="text-accent">자동 저장</strong>합니다.</dd></div>
 
       </dl>
+
       <div class="case-visual"><figure class="evidence"><video controls playsinline preload="none" width="960" height="540" style="aspect-ratio: 960 / 540" poster="../../assets/dungeon-floors.webp" aria-label="계단으로 1층에서 2층에 갔다가 1층으로 돌아오는 게임 화면"><source src="../../assets/dungeon-floors.mp4" type="video/mp4"><a href="../../assets/dungeon-floors.mp4">MP4 영상 열기</a></video><figcaption>플레이 영상 / 1층 -&gt; 2층 -&gt; 1층 왕복</figcaption></figure></div>
     </div>
 

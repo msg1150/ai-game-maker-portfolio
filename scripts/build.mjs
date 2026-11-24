@@ -207,22 +207,31 @@ function promptList(prompts = []) {
   </details>`;
 }
 
-function caseVisual(item) {
+function caseSupport(item) {
   const flow = item.flow ? `<ol class="case-flow" aria-label="구현 흐름">${item.flow.map((step) => `<li>${esc(step)}</li>`).join('')}</ol>` : '';
-  const comparison = item.comparison ? `<div class="evidence-pair">${item.comparison.map(caseMedia).join('')}</div>` : '';
   const table = item.table ? `<div class="case-table-wrap"><table class="case-table">
     <caption>${esc(item.table.caption)}</caption>
     <thead><tr>${item.table.headers.map((cell) => `<th scope="col">${esc(cell)}</th>`).join('')}</tr></thead>
     <tbody>${item.table.rows.map(([label, ...cells]) => `<tr><th scope="row">${esc(label)}</th>${cells.map((cell) => `<td>${esc(cell)}</td>`).join('')}</tr>`).join('')}</tbody>
   </table></div>` : '';
-  return flow + table + comparison + caseMedia(item.media);
+  return flow + table;
 }
 
 function renderCase(item, index) {
-  const visual = caseVisual(item);
+  const support = caseSupport(item);
+  const visual = item.comparison
+    ? `<div class="evidence-pair">${item.comparison.map(caseMedia).join('')}</div>`
+    : caseMedia(item.media);
   const copy = (text) => prose(text, item.highlights);
-  const kind = item.media || item.comparison || item.table ? '' : item.flow ? ' case--diagram' : ' case--copy';
-  return `<article class="case${kind}" id="${item.id}">
+  const layout = !visual || item.comparison || item.table ? 'stacked' : 'split';
+  const classes = [
+    'case',
+    `case--${layout}`,
+    item.media?.portrait && 'case--portrait',
+    item.table && visual && 'case--table-media',
+    layout === 'split' && support && 'case--with-support',
+  ].filter(Boolean).join(' ');
+  return `<article class="${classes}" id="${esc(item.id)}">
     <div class="case-head"><p class="eyebrow"><span>CASE 0${index + 1}</span> ${esc(item.label)}</p><h3>${esc(item.title)}</h3></div>
     <div class="case-layout">
       <dl class="case-copy">
@@ -230,6 +239,7 @@ function renderCase(item, index) {
         <div><dt>바꾼 점</dt><dd>${copy(item.implementation)}</dd></div>
         ${item.verification ? `<div><dt>결과</dt><dd>${copy(item.verification)}</dd></div>` : ''}
       </dl>
+      ${support ? `<div class="case-support">${support}</div>` : ''}
       ${visual ? `<div class="case-visual">${visual}</div>` : ''}
     </div>
     ${promptList(item.prompts)}

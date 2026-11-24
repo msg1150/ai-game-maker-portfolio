@@ -11,9 +11,9 @@
   <meta property="og:url" content="https://msg1150.github.io/ai-game-maker-portfolio/projects/battlearena/">
   <meta property="og:image" content="https://msg1150.github.io/ai-game-maker-portfolio/assets/arena-cover.webp">
   <link rel="canonical" href="https://msg1150.github.io/ai-game-maker-portfolio/projects/battlearena/">
-  <link rel="icon" href="../../assets/mark.svg?v=b0c86a84" type="image/svg+xml">
-  <link rel="stylesheet" href="../../assets/site.css?v=f22afa47">
-  <script src="../../assets/site.js?v=1c9a1d5a" defer></script>
+  <link rel="icon" href="../../assets/mark.svg?v=a60e582f" type="image/svg+xml">
+  <link rel="stylesheet" href="../../assets/site.css?v=b56db8f4">
+  <script src="../../assets/site.js?v=285ba21d" defer></script>
   <title>BattleArena | 박장한 AI Game Maker</title>
 </head>
 <body class="tone-blue">
@@ -60,7 +60,7 @@
           <ol class="timeline"><li><span>07 ~ 08월</span><div><h3>JSON 적용과 외부 편집기</h3><p>Registry와 속성 명세를 연결하고 재시작 없는 JSON 재적용과 외부 편집 흐름을 구성했습니다.</p></div></li><li><span>08 ~ 09월</span><div><h3>실제 레벨에 맞춘 검사 규칙</h3><p>공중 TargetPoint 등 정상 배치의 오검출을 줄이고 새 포탈과 점프패드 구조를 반영했습니다.</p></div></li><li><span>09 ~ 10월</span><div><h3>저장과 패키징 적용 문제 추적</h3><p>에디터 저장 시 JSON 내보내기, Cook 중 쓰기 방지와 게임 초기화 전 적용을 보완했습니다.</p></div></li><li><span>10월</span><div><h3>수정과 재검사 흐름 연결</h3><p>PathLink Attach와 Undo/Redo 뒤 재검사를 추가하고, 툴 창이 열렸을 때만 자동 검사하도록 제한했습니다.</p></div></li></ol></section>
         <section id="cases" class="detail-section">
           <p class="eyebrow"><span>CASES</span> IMPLEMENTATION</p><h2>구현 사례</h2>
-          <div class="case-list"><article class="case" id="level-validator">
+          <div class="case-list"><article class="case case--split" id="level-validator">
     <div class="case-head"><p class="eyebrow"><span>CASE 01</span> 검사 기준을 정한 과정</p><h3>정상 배치를 오류로 잡지 않도록 검사 범위 조정</h3></div>
     <div class="case-layout">
       <dl class="case-copy">
@@ -68,6 +68,7 @@
         <div><dt>바꾼 점</dt><dd>기획자가 배치할 때 바꾸는 <strong class="text-accent">연결값을 중심</strong>으로 줄였습니다. 점프패드 <strong class="text-accent">목적지의 NavMesh 검사는 빼고</strong>, 현재 포탈은 Teleport Enabled가 켜진 경우의 <strong class="text-accent">Exit Target 누락</strong>을 검사합니다.</dd></div>
         <div><dt>결과</dt><dd>현재 공개 코드는 <strong class="text-accent">점프패드 3종</strong>의 Target Point를 검사합니다. 초기 대화의 포탈 DA와 발사값 검사는 후속 변경으로 제거되어 현행 기능에서 제외했습니다.</dd></div>
       </dl>
+
       <div class="case-visual"><figure class="evidence"><img src="../../assets/arena-level-validator.webp" width="1172" height="457" alt="Unreal 에디터의 레벨 검증 오류 목록과 경로 오브젝트" loading="lazy" decoding="async"><figcaption>제공 캡처 / PathLink의 지면 이격 50cm 검출과 Focus 이동. 후속 Attach 버튼 추가 전 화면입니다. <a href="../../assets/arena-level-validator.webp">원본 크기로 보기</a></figcaption></figure></div>
     </div>
     <details class="prompt">
@@ -83,30 +84,27 @@
     </div>
   </details>
     <div class="actions"><a class="button" href="https://github.com/msg1150/UnrealTeamProjectPortfolio/blob/c65bde5b3418a73e0b753556612cb72ab355de0b/GameplayValidator/PortalValidationProvider.cpp">현재 포탈 검사 코드<svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a class="button" href="https://github.com/msg1150/UnrealTeamProjectPortfolio/blob/c65bde5b3418a73e0b753556612cb72ab355de0b/GameplayValidator/JumpPadValidationProvider.cpp">현재 점프패드 검사 코드<svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
-  </article><article class="case case--diagram" id="validator-repair">
+  </article><article class="case case--stacked" id="validator-repair">
     <div class="case-head"><p class="eyebrow"><span>CASE 02</span> AI 결과를 사용 흐름에 맞게 보완</p><h3>오류 목록에서 수정하고 Undo/Redo 후 결과 갱신</h3></div>
     <div class="case-layout">
       <dl class="case-copy">
-        <div><dt>목표</dt><dd>PathLink 오류를 찾은 뒤 별도 상세창에서 지면 부착을 실행해야 했고, 이를 Undo하면 검사 목록은 이전 결과로 남았습니다.</dd></div>
+        <div><dt>목표</dt><dd>PathLink 오류를 찾은 뒤 상세창에서 지면 부착을 실행해야 했습니다. AI가 구현을 검토하면서, 이동을 되돌려도 검사 목록에는 이전 결과가 남는 문제를 발견했습니다.</dd></div>
         <div><dt>바꾼 점</dt><dd>Focus 옆에 <strong class="text-accent">기존 Attach To Ground</strong>를 호출하는 버튼을 요청했습니다. 이동은 <strong class="text-accent">Undo 가능한 작업</strong>으로 묶고, 검사 후에는 Undo/Redo에 맞춰 결과를 갱신합니다.</dd></div>
         <div><dt>결과</dt><dd>자동 재검사는 <strong class="text-accent">툴 창이 열리고</strong> 검사를 한 번 실행한 경우에만 동작합니다. 현재 코드에서 <strong class="text-accent">PIE 중 실행 차단</strong>과 종료 시 이벤트 해제를 확인했습니다.</dd></div>
       </dl>
-      <div class="case-visual"><ol class="case-flow" aria-label="구현 흐름"><li>Focus로 오류 위치 확인</li><li>Attach로 지면에 배치</li><li>Undo/Redo 뒤 결과 재검사</li></ol></div>
+      <div class="case-support"><ol class="case-flow" aria-label="구현 흐름"><li>Focus로 오류 위치 확인</li><li>Attach로 지면에 배치</li><li>Undo/Redo 뒤 결과 재검사</li></ol></div>
+
     </div>
     <details class="prompt">
-    <summary>관련 요청 발췌 (2건)</summary>
+    <summary>요청 발췌 / 오류 행에서 바로 Attach 실행</summary>
     <div class="prompt-body">
-      <h4>오류 행에서 바로 Attach 실행</h4>
+
       <pre><code>Focus버튼 옆에 attach버튼도 같이 두고 해당 버튼을 누르면 실제 PathLink의 Attach To Ground 버튼을 누른것처럼 되게 해줘</code></pre>
-      <div class="prompt-tools"><button type="button" data-copy hidden>프롬프트 복사</button><span class="copy-status" role="status"></span></div>
-    </div><div class="prompt-body">
-      <h4>Undo와 Redo 뒤 자동 재검사</h4>
-      <pre><code>그럼 Undo나 Redo를 할 경우 자동으로 다시 검사를 진행하도록 해줘</code></pre>
       <div class="prompt-tools"><button type="button" data-copy hidden>프롬프트 복사</button><span class="copy-status" role="status"></span></div>
     </div>
   </details>
     <div class="actions"><a class="button" href="https://github.com/msg1150/UnrealTeamProjectPortfolio/blob/c65bde5b3418a73e0b753556612cb72ab355de0b/GameplayValidator/SGameplayValidationIssueRow.cpp">Attach와 Undo 처리 코드<svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a class="button" href="https://github.com/msg1150/UnrealTeamProjectPortfolio/blob/c65bde5b3418a73e0b753556612cb72ab355de0b/GameplayValidator/GameplayValidationSubsystem.cpp">자동 재검사 조건 코드<svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
-  </article><article class="case" id="json-runtime">
+  </article><article class="case case--stacked" id="json-runtime">
     <div class="case-head"><p class="eyebrow"><span>CASE 03</span> JSON과 외부 편집기를 만든 목적</p><h3>게임 수치를 외부에서 편집하고 재실행으로 반영</h3></div>
     <div class="case-layout">
       <dl class="case-copy">
@@ -114,11 +112,12 @@
         <div><dt>바꾼 점</dt><dd>JSON 파싱은 수정한 값을 게임 데이터에 적용하는 역할입니다. 외부 편집기는 JSON 문법을 직접 쓰는 대신 <strong class="text-accent">표와 속성 입력 화면</strong>을 제공하며, 이후 패키징 폴더도 편집하도록 <strong class="text-accent">기존 도구 확장</strong>을 요청했습니다.</dd></div>
         <div><dt>결과</dt><dd>공개 코드에서 속성 명세 기반 편집, 타입과 범위 검사, 게임 시작 시 JSON 적용을 확인했습니다. 최초 제작 요청 전문은 남아 있지 않아 목적이 드러나는 후속 요청을 아래에 수록했습니다.</dd></div>
       </dl>
-      <div class="case-visual"><div class="case-table-wrap"><table class="case-table">
+      <div class="case-support"><div class="case-table-wrap"><table class="case-table">
     <caption>데이터를 바꾸는 사람과 게임 사이의 역할 분리</caption>
     <thead><tr><th scope="col">구성</th><th scope="col">필요했던 역할</th></tr></thead>
     <tbody><tr><th scope="row">외부 JSON</th><td>게임에 적용할 수정값 보관</td></tr><tr><th scope="row">JSON 파싱</th><td>수정값을 등록된 게임 데이터에 반영</td></tr><tr><th scope="row">외부 편집기</th><td>표와 속성 UI에서 편집하고 잘못된 입력 검사</td></tr><tr><th scope="row">테스트 흐름</th><td>값 수정 / 저장 / 게임과 서버 재실행</td></tr></tbody>
   </table></div></div>
+
     </div>
     <details class="prompt">
     <summary>관련 요청 발췌 (2건)</summary>
@@ -133,7 +132,7 @@
     </div>
   </details>
     <div class="actions"><a class="button" href="https://github.com/msg1150/UnrealTeamProjectPortfolio/blob/c65bde5b3418a73e0b753556612cb72ab355de0b/DataEditor/Core/Services.cs">외부 편집기와 데이터 검증<svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a class="button" href="https://github.com/msg1150/UnrealTeamProjectPortfolio/blob/c65bde5b3418a73e0b753556612cb72ab355de0b/JsonAssetSync/JsonAssetSyncSubsystem.cpp">게임 시작 시 JSON 적용<svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
-  </article><article class="case" id="data-tools">
+  </article><article class="case case--split case--with-support" id="data-tools">
     <div class="case-head"><p class="eyebrow"><span>CASE 04</span> 수정값 유실을 발견하고 개선</p><h3>Unreal 수정값을 JSON에도 반영해 덮어쓰기 방지</h3></div>
     <div class="case-layout">
       <dl class="case-copy">
@@ -141,7 +140,8 @@
         <div><dt>바꾼 점</dt><dd>Registry에 연결된 에셋을 <strong class="text-accent">저장할 때 JSON도 내보내도록</strong> 요청했습니다. 외부 WPF 편집기는 속성 명세로 <strong class="text-accent">타입과 범위</strong>를 검사하고, 에디터는 단일 Apply JSON 동작으로 재적용합니다.</dd></div>
         <div><dt>결과</dt><dd>현재 저장 훅과 내보내기 연결을 공개 코드에서 확인했습니다. 일반 에디터 저장과 <strong class="text-accent">Cook 저장</strong>을 구분하며, 패키징 중 원본 JSON을 덮지 않도록 제외 조건이 있습니다.</dd></div>
       </dl>
-      <div class="case-visual"><ol class="case-flow" aria-label="구현 흐름"><li>Unreal에서 등록 에셋 수정 / 저장</li><li>연결된 JSON으로 내보내기</li><li>다음 실행 시 수정값 재적용</li></ol><figure class="evidence"><img src="../../assets/arena-data-editor.webp" width="1280" height="475" alt="WPF 에디터에서 데이터 행과 속성값을 편집하는 화면" loading="lazy" decoding="async"><figcaption>제공 도구 화면 / 속성 명세를 읽은 외부 WPF 편집기. 에디터 저장 훅의 동작은 연결한 코드에서 확인할 수 있습니다. <a href="../../assets/arena-data-editor.webp">원본 크기로 보기</a></figcaption></figure></div>
+      <div class="case-support"><ol class="case-flow" aria-label="구현 흐름"><li>Unreal에서 등록 에셋 수정 / 저장</li><li>연결된 JSON으로 내보내기</li><li>다음 실행 시 수정값 재적용</li></ol></div>
+      <div class="case-visual"><figure class="evidence"><img src="../../assets/arena-data-editor.webp" width="1280" height="475" alt="WPF 에디터에서 데이터 행과 속성값을 편집하는 화면" loading="lazy" decoding="async"><figcaption>제공 도구 화면 / 속성 명세를 읽은 외부 WPF 편집기. 에디터 저장 훅의 동작은 연결한 코드에서 확인할 수 있습니다. <a href="../../assets/arena-data-editor.webp">원본 크기로 보기</a></figcaption></figure></div>
     </div>
     <details class="prompt">
     <summary>요청 발췌 / 에디터 수정값이 이전 JSON으로 덮이는 문제</summary>
@@ -152,7 +152,7 @@
     </div>
   </details>
     <div class="actions"><a class="button" href="https://github.com/msg1150/UnrealTeamProjectPortfolio/blob/c65bde5b3418a73e0b753556612cb72ab355de0b/JsonAssetSync/JsonAssetSyncEditor.cpp">에디터 저장과 JSON 내보내기<svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a><a class="button" href="https://github.com/msg1150/UnrealTeamProjectPortfolio/blob/c65bde5b3418a73e0b753556612cb72ab355de0b/DataEditor/Core/Services.cs">외부 편집기 데이터 검증<svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
-  </article><article class="case" id="projectile">
+  </article><article class="case case--split" id="projectile">
     <div class="case-head"><p class="eyebrow"><span>CASE 05</span> 전투 시스템</p><h3>프레임 사이의 투사체 충돌 감지</h3></div>
     <div class="case-layout">
       <dl class="case-copy">
@@ -160,11 +160,12 @@
         <div><dt>바꾼 점</dt><dd>합류 전후 시간을 나눠 <strong class="text-accent">이동 구간을 Sweep</strong>하고 첫 충돌을 선택합니다. 플레이어 판정은 <strong class="text-accent">서버에서 검사</strong>합니다.</dd></div>
 
       </dl>
+
       <div class="case-visual"><figure class="evidence"><video controls playsinline preload="none" width="864" height="308" style="aspect-ratio: 864 / 308" poster="../../assets/arena-shot.webp" aria-label="조준선과 총구 위치가 다른 상태에서의 발사 장면"><source src="../../assets/arena-shot.mp4" type="video/mp4"><a href="../../assets/arena-shot.mp4">MP4 영상 열기</a></video><figcaption>플레이 영상 / 조준 후 발사</figcaption></figure></div>
     </div>
 
     <div class="actions"><a class="button" href="https://github.com/msg1150/UnrealTeamProjectPortfolio/blob/fee0b72e4cc6236acfcb332139613f53fd87b244/Weapon/ProjectileWorldCollisionComponent.cpp">충돌 판정 코드<svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
-  </article><article class="case" id="navigation">
+  </article><article class="case case--split" id="navigation">
     <div class="case-head"><p class="eyebrow"><span>CASE 06</span> 특수 이동</p><h3>비용 0인 포탈까지 경로 후보로 비교</h3></div>
     <div class="case-layout">
       <dl class="case-copy">
@@ -172,6 +173,7 @@
         <div><dt>바꾼 점</dt><dd>NavMesh와 특수 이동을 그래프로 연결하고 <strong class="text-accent">Dijkstra</strong>로 <strong class="text-accent">누적 비용</strong>을 비교합니다.</dd></div>
 
       </dl>
+
       <div class="case-visual"><figure class="evidence"><img src="../../assets/arena-nav.webp" width="464" height="294" alt="전투 NPC의 경로와 특수 이동 연결을 시각화한 게임 화면" loading="lazy" decoding="async"><figcaption>게임 화면 / 흰색은 현재 경로, 빨간색은 특수 이동 연결, 파란색은 이후 경로</figcaption></figure></div>
     </div>
 
