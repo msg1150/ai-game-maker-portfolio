@@ -163,6 +163,10 @@ figcaption { color: var(--muted); font-size: .8rem; padding: .6rem .8rem; }
 .section-evidence:has(> figure) { grid-template-columns: minmax(0, 1fr) minmax(0, 15rem); }
 .section-evidence .role-grid { margin-top: 0; }
 .evidence { overflow: hidden; border: 1px solid var(--line); border-radius: 10px; background: #111720; }
+.media-window { position: relative; overflow: hidden; }
+.media-window img { position: absolute; max-width: none; height: auto; }
+.evidence--portrait { width: min(100%, 23rem); justify-self: center; }
+.exhibition-note { margin-top: 1rem; color: var(--muted); font-size: .875rem; }
 .gif-demo summary { cursor: pointer; color: var(--accent); font-weight: 700; list-style: none; }
 .gif-demo summary::-webkit-details-marker { display: none; }
 .gif-demo summary:focus-visible { outline-offset: -3px; }

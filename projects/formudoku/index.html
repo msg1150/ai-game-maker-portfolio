@@ -12,7 +12,7 @@
   <meta property="og:image" content="https://msg1150.github.io/ai-game-maker-portfolio/assets/formudoku-cover.webp">
   <link rel="canonical" href="https://msg1150.github.io/ai-game-maker-portfolio/projects/formudoku/">
   <link rel="icon" href="../../assets/mark.svg?v=a60e582f" type="image/svg+xml">
-  <link rel="stylesheet" href="../../assets/site.css?v=c73a156f">
+  <link rel="stylesheet" href="../../assets/site.css?v=d5bfb6d1">
   <script src="../../assets/site.js?v=285ba21d" defer></script>
   <title>FormuDoku | 박장한 AI Game Maker</title>
 </head>
@@ -72,7 +72,7 @@
     <caption>현재 공개 v0.6.5 / 모드별 규칙</caption>
     <thead><tr><th scope="col">구분</th><th scope="col">캐주얼</th><th scope="col">챌린지</th></tr></thead>
     <tbody><tr><th scope="row">수식 칸</th><td>초급 3 / 중급 4 / 고급 5 / 전문가 7칸</td><td>모든 빈칸</td></tr><tr><th scope="row">일반 숫자 정답</th><td>150점 / 확정 후 입력 잠금</td><td>일반 숫자 칸 없음</td></tr><tr><th scope="row">수식 점수</th><td>연산자 수 x 150점</td><td>(숫자 수 + 연산자 수) x 100점</td></tr><tr><th scope="row">정답 기회</th><td>일반 숫자 1회 확정 / 수식 2회</td><td>수식 2회</td></tr><tr><th scope="row">공통</th><td>목숨 3개 / 새 오답은 목숨 -1</td><td>목숨 3개 / 새 오답은 목숨 -1</td></tr></tbody>
-  </table></div></div>
+  </table></div><figure class="evidence"><img src="../../assets/formudoku-casual-20261124.webp" width="1200" height="812" alt="2026년 11월 24일 캐주얼 모드에서 일반 칸 정답 후 점수 150점과 기회 0 / 1, 잠긴 숫자 패드를 보여주는 실제 화면" loading="lazy" decoding="async"><figcaption>2026.11.24 실제 플레이 / 일반 숫자와 테두리로 구분한 수식 칸을 함께 사용하는 캐주얼 모드. 일반 정답을 맞힌 뒤 150점과 입력 잠금을 확인할 수 있습니다. <a href="../../assets/formudoku-casual-20261124.webp">원본 크기로 보기</a></figcaption></figure></div>
     </div>
     <details class="prompt">
     <summary>관련 요청 발췌 (3건)</summary>
@@ -99,12 +99,12 @@
         <div><dt>바꾼 점</dt><dd>일반 정답은 <strong class="text-accent">150점을 한 번</strong> 지급하고 잠급니다. 수식은 <strong class="text-accent">최고점을 넘긴 차액</strong>만 더합니다. 모드별 기본 점수는 <strong class="text-accent">scoring-config.js</strong>에 모으고 브라우저와 서버가 <strong class="text-accent">같은 계산</strong>을 사용합니다.</dd></div>
         <div><dt>결과</dt><dd>일반 정답 <strong class="text-accent">중복 지급 방지</strong>, 오답 0점과 목숨 차감, 서버의 독립적인 총점 재계산을 검사했습니다. 기존 저장의 미지급 일반 칸 점수도 중복 없이 보정합니다.</dd></div>
       </dl>
-      <div class="case-visual"><ol class="case-flow" aria-label="구현 흐름"><li>점수 기본값 한곳에서 설정</li><li>브라우저와 서버의 공통 계산</li><li>서버가 이력을 재생해 총점 검증</li></ol><figure class="evidence">
+      <div class="case-visual"><ol class="case-flow" aria-label="구현 흐름"><li>일반 정답으로 150점 획득</li><li>정답 칸의 입력 잠금</li><li>다른 칸 오답 시 목숨 -1</li></ol><figure class="evidence">
       <details class="gif-demo">
-        <summary><img src="../../assets/formudoku-score-poster.webp" width="960" height="662" alt="" loading="lazy"><span class="gif-closed">무음 GIF 보기</span><span class="gif-open">GIF 접기</span></summary>
-        <img src="../../assets/formudoku-score.gif" width="960" height="662" alt="같은 칸에 두 수식을 차례로 제출해 총점이 300점에서 700점이 되는 무음 GIF" loading="lazy">
+        <summary><img src="../../assets/formudoku-number-rules-poster-20261124.webp" width="960" height="650" alt="" loading="lazy"><span class="gif-closed">무음 GIF 보기</span><span class="gif-open">GIF 접기</span></summary>
+        <img src="../../assets/formudoku-number-rules-20261124.gif" width="960" height="650" alt="일반 정답으로 점수가 0점에서 150점으로 오르고 기회가 0 / 1로 바뀐 뒤, 다른 칸의 오답으로 목숨이 3개에서 2개로 줄어드는 무음 GIF" loading="lazy">
       </details>
-      <figcaption>v0.3 촬영 / 현행 챌린지와 같은 점수식. 1 + 3으로 300점, 3 x 2 / 5 + 3으로 700점이 되어 차액 400점만 추가됩니다.</figcaption>
+      <figcaption>2026.11.24 무음 시연 / 일반 정답 150점과 입력 잠금, 다른 칸의 오답 후 목숨 3개에서 2개로 감소하는 구간만 발췌했습니다.</figcaption>
     </figure></div>
     </div>
     <details class="prompt">
@@ -291,7 +291,7 @@
     </div>
   </details>
 
-  </article><article class="case case--diagram" id="mobile-offline">
+  </article><article class="case" id="mobile-offline">
     <div class="case-head"><p class="eyebrow"><span>CASE 08</span> 모바일 플레이 / v0.4.3 ~ 0.5.1</p><h3>보드를 보면서 수식을 적는 하단 고정 입력</h3></div>
     <div class="case-layout">
       <dl class="case-copy">
@@ -299,7 +299,7 @@
         <div><dt>바꾼 점</dt><dd>모바일에 <strong class="text-accent">접이식 하단 입력 패널</strong>을 두고, 선택한 칸에 따라 <strong class="text-accent">숫자 패드와 수식 재료</strong>를 전환합니다. 여러 후보 숫자 메모와 게임당 무료 힌트 2회를 지원합니다.</dd></div>
         <div><dt>결과</dt><dd>새로고침과 다중 탭 저장 충돌을 검사했습니다. <strong class="text-accent">오프라인 연습</strong>은 두 모드와 4개 난이도를 지원하고 공식 랭킹에서는 제외합니다.</dd></div>
       </dl>
-      <div class="case-visual"><ol class="case-flow" aria-label="구현 흐름"><li>상단에서 보드 확인</li><li>하단에서 숫자 또는 수식 입력</li><li>패널을 접어 보드 공간 확보</li></ol></div>
+      <div class="case-visual"><ol class="case-flow" aria-label="구현 흐름"><li>상단에서 보드 확인</li><li>하단에서 숫자 또는 수식 입력</li><li>패널을 접어 보드 공간 확보</li></ol><figure class="evidence evidence--portrait"><div class="media-window" style="aspect-ratio: 1440 / 2450"><img src="../../assets/formudoku-mobile-20261124.webp" width="1440" height="3088" alt="삼성 인터넷에서 캐주얼 전문가 보드와 하단 숫자 입력 패널을 함께 보여주는 실제 모바일 화면" loading="lazy" decoding="async" style="width: 100%; left: 0%; top: -12.653061224489795%"></div><figcaption>2026.11.24 모바일 캡처 / 보드와 하단 입력 패널을 한 화면에서 사용합니다. 선택한 일반 칸의 숫자 패드와 정답 확정 후 수정 불가 안내가 보입니다.</figcaption></figure></div>
     </div>
     <details class="prompt">
     <summary>77 / 실제 모바일 플레이에서 발견한 불편</summary>
@@ -312,6 +312,7 @@
 
   </article></div>
         </section>
+
 
         <section id="checks" class="detail-section">
           <p class="eyebrow"><span>NOTES</span> 테스트 및 공개 상태</p><h2>현재 공개 v0.6.5와 핵심 동작 27개 확인</h2>

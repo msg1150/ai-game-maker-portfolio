@@ -183,11 +183,14 @@ function caseMedia(media) {
       <figcaption>${esc(media.caption)}</figcaption>
     </figure>`;
   }
+  const frame = media.viewport;
+  const still = frame
+    ? `<div class="media-window" style="aspect-ratio: ${frame.width} / ${frame.height}"><img src="${asset}" width="${media.width}" height="${media.height}" alt="${esc(media.alt)}" loading="lazy" decoding="async" style="width: ${media.width / frame.width * 100}%; left: ${-frame.x / frame.width * 100}%; top: ${-frame.y / frame.height * 100}%"></div>`
+    : `<img src="${asset}" width="${media.width}" height="${media.height}" alt="${esc(media.alt)}" loading="lazy" decoding="async">`;
   const content = media.video ?
-    `<video controls playsinline preload="none" width="${media.width}" height="${media.height}" style="aspect-ratio: ${media.width} / ${media.height}" poster="${asset}" aria-label="${esc(media.alt)}"><source src="../../assets/${esc(media.video)}" type="video/mp4"><a href="../../assets/${esc(media.video)}">MP4 영상 열기</a></video>` :
-    `<img src="${asset}" width="${media.width}" height="${media.height}" alt="${esc(media.alt)}" loading="lazy" decoding="async">`;
+    `<video controls playsinline preload="none" width="${media.width}" height="${media.height}" style="aspect-ratio: ${media.width} / ${media.height}" poster="${asset}" aria-label="${esc(media.alt)}"><source src="../../assets/${esc(media.video)}" type="video/mp4"><a href="../../assets/${esc(media.video)}">MP4 영상 열기</a></video>` : still;
   const fullSize = media.fullSize ? ` <a href="${asset}">원본 크기로 보기</a>` : '';
-  return `<figure class="evidence">${content}<figcaption>${esc(media.caption)}${fullSize}</figcaption></figure>`;
+  return `<figure class="evidence${media.portrait ? ' evidence--portrait' : ''}">${content}<figcaption>${esc(media.caption)}${fullSize}</figcaption></figure>`;
 }
 
 function promptList(prompts = []) {
@@ -235,7 +238,7 @@ function renderCase(item, index) {
 }
 
 function detail(project) {
-  const { name, summary, roles, planning, cases, timeline, gallery, section } = project;
+  const { name, summary, roles, planning, cases, timeline, gallery, exhibition, section } = project;
   const heading = project.titleParts
     ? project.titleParts.map((part) => `<span class="hero-title-part">${esc(part)}</span>`).join('<wbr>')
     : esc(name);
@@ -255,7 +258,7 @@ function detail(project) {
               <p class="hero-lede">${esc(project.tagline)}</p>
               <p class="hero-summary">${esc(summary)}</p>
               ${tags(project.stack, '../../')}
-              ${actions([['사례 및 영상 보기', '#cases'], ...project.links])}
+              ${actions([['사례 및 영상 보기', '#cases'], ...(exhibition ? [['지스타 시연 현장', `#${exhibition.id}`]] : []), ...project.links])}
             </div>
             <figure class="project-cover">${cover(project, '../../', true)}<figcaption>${esc(project.coverLabel)}</figcaption></figure>
           </div>
@@ -263,7 +266,7 @@ function detail(project) {
       </section>
       <div class="shell detail">
         <nav class="local-nav" aria-label="페이지 목차">
-          <a href="#role">역할</a>${planning ? '<a href="#planning">초기 기획</a>' : ''}${timeline ? '<a href="#timeline">개발 이력</a>' : ''}<a href="#cases">구현 사례</a>${gallery ? '<a href="#gallery">인게임 화면</a>' : ''}<a href="#${section.id}">${esc(section.label)}</a>
+          <a href="#role">역할</a>${planning ? '<a href="#planning">초기 기획</a>' : ''}${timeline ? '<a href="#timeline">개발 이력</a>' : ''}<a href="#cases">구현 사례</a>${gallery ? '<a href="#gallery">인게임 화면</a>' : ''}${exhibition ? `<a href="#${exhibition.id}">지스타 시연</a>` : ''}<a href="#${section.id}">${esc(section.label)}</a>
         </nav>
         ${project.loop ? `<section class="loop" aria-labelledby="loop-title"><h2 id="loop-title">핵심 플레이 루프</h2><ol>${project.loop.map((item) => `<li>${esc(item)}</li>`).join('')}</ol></section>` : ''}
         <section id="role" class="detail-section">
@@ -285,6 +288,13 @@ function detail(project) {
         ${gallery ? `<section id="gallery" class="detail-section">
           <p class="eyebrow"><span>SCREENSHOTS</span> GAME SYSTEMS</p><h2>인게임 화면</h2>
           <div class="gallery">${gallery.map(caseMedia).join('')}</div>
+        </section>` : ''}
+        ${exhibition ? `<section id="${exhibition.id}" class="detail-section exhibition-section">
+          <p class="eyebrow"><span>${esc(exhibition.label)}</span> 현장 시연</p>
+          <h2>${esc(exhibition.title)}</h2>
+          <p class="prose">${esc(exhibition.text)}</p>
+          <div class="gallery exhibition-gallery">${exhibition.media.map(caseMedia).join('')}</div>
+          <p class="exhibition-note">${esc(exhibition.note)}</p>
         </section>` : ''}
         <section id="${section.id}" class="detail-section">
           <p class="eyebrow"><span>NOTES</span> ${esc(section.label)}</p><h2>${esc(section.title)}</h2>
