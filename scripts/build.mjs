@@ -124,7 +124,6 @@ function home() {
             <p class="hero-summary">문제를 정의하고 AI에 구현 기준을 전달한 뒤, <strong class="text-accent">플레이와 테스트로 결과를 확인합니다.</strong></p>
             <div class="actions">
               <a class="button primary" href="#projects">프로젝트 보기${icon}</a>
-              <a class="button" href="./assets/park-janghan-ai-game-maker-portfolio.pdf">포트폴리오 PDF${icon}</a>
               <a class="button icon-button" href="mailto:${email}" aria-label="이메일" title="이메일"><img src="./assets/icons/lucide/mail.svg" alt="" width="18" height="18"></a>
               <a class="button icon-button" href="${profile}" aria-label="GitHub 프로필" title="GitHub 프로필"><img src="./assets/icons/devicon/github.svg" alt="" width="18" height="18"></a>
             </div>
