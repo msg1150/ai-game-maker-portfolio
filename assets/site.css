@@ -22,7 +22,13 @@ html { scroll-padding-top: calc(var(--header-height) + 1rem); }
 body { margin: 0; }
 h1, h2, h3, p, figure { margin: 0; }
 h1, h2, h3 { line-height: 1.18; letter-spacing: -.035em; }
-h2, h3 { word-break: keep-all; overflow-wrap: anywhere; }
+/* Keep Korean words together while allowing long identifiers to fit narrow screens. */
+:is(p, dd, figcaption, h2, h3, h4, summary, .case-table, .case-flow, .loop li, .prompt pre) {
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+:is(p, dd, figcaption) { text-wrap: pretty; }
+:is(h2, h3, h4) { text-wrap: balance; }
 h2 { font-size: clamp(1.7rem, 4vw, 2.7rem); }
 h3 { font-size: clamp(1.2rem, 2vw, 1.55rem); }
 a { color: inherit; text-decoration: none; }
@@ -55,7 +61,7 @@ svg { flex: 0 0 auto; }
 .hero-inner { display: grid; align-items: center; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(1.75rem, 5vw, 5.5rem); padding-block: clamp(2.8rem, 7.5vw, 6.6rem); }
 .hero-copy h1 { margin-block: .7rem .8rem; font-size: clamp(2.5rem, 5.6vw, 5.25rem); letter-spacing: -.067em; overflow-wrap: anywhere; }
 .hero-lede { font-size: clamp(1.2rem, 2.4vw, 1.8rem); font-weight: 700; line-height: 1.45; word-break: keep-all; }
-.hero-summary { max-width: 39ch; margin-top: 1rem; color: var(--muted); word-break: keep-all; }
+.hero-summary { max-width: 45ch; margin-top: 1rem; color: var(--muted); }
 .home .hero-inner { grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); gap: clamp(1.5rem, 5vw, 4rem); padding-block: clamp(2rem, 4.5vw, 4rem); }
 .home .hero-copy h1 { font-size: clamp(3rem, 6vw, 5.2rem); margin-block: .5rem .25rem; }
 .hero-role { color: var(--accent-text); font-size: clamp(1.35rem, 2.4vw, 2rem); font-weight: 750; line-height: 1.3; }
@@ -88,7 +94,7 @@ svg { flex: 0 0 auto; }
 .project-card > a:focus-visible { outline-offset: -3px; }
 .card-body { flex: 1; display: flex; flex-direction: column; align-items: flex-start; padding: 1rem 1.1rem 1.15rem; border-top: 2px solid var(--accent); }
 .card-body h3 { margin-block: .5rem .35rem; }
-.card-body > p:not(.eyebrow) { color: var(--muted); word-break: keep-all; }
+.card-body > p:not(.eyebrow) { color: var(--muted); }
 .tags { display: flex; flex-wrap: wrap; gap: .35rem; margin: .85rem 0; padding: 0; list-style: none; }
 .card-body .tags { margin-top: auto; padding-top: .85rem; }
 .tags li { min-height: 34px; display: inline-flex; align-items: center; gap: .35rem; border: 1px solid var(--line); border-radius: 6px; color: var(--muted); font-size: .74rem; }
@@ -127,7 +133,7 @@ figcaption { color: var(--muted); font-size: .8rem; padding: .6rem .8rem; }
 .role-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .8rem; margin-top: 1rem; }
 .role-grid > div { border: 1px solid var(--line); border-radius: 12px; background: var(--surface); padding: 1.1rem; }
 .role-grid h3 { color: var(--accent); font-size: 1.02rem; margin-bottom: .4rem; }
-.role-grid p, .timeline p, .case dd { color: var(--muted); word-break: keep-all; overflow-wrap: anywhere; }
+.role-grid p, .timeline p, .case dd { color: var(--muted); }
 .timeline { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; list-style: none; padding: 0; margin: 1rem 0 0; }
 .timeline li { display: grid; align-content: start; gap: .5rem; border-top: 2px solid var(--accent); border-radius: 8px; background: var(--surface); padding: 1rem 1.1rem; }
 .timeline > li:last-child:nth-child(odd), .role-grid > div:last-child:nth-child(odd) { grid-column: 1 / -1; }
@@ -143,7 +149,7 @@ figcaption { color: var(--muted); font-size: .8rem; padding: .6rem .8rem; }
 .case--diagram .case-layout, .case--copy .case-layout { grid-template-columns: minmax(0, 1fr); gap: 1rem; }
 .case--diagram .case-copy, .case--copy .case-copy { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.25rem; }
 .case dt { font-size: .78rem; font-weight: 750; color: var(--accent); }
-.case dd { margin: .14rem 0 0; max-width: 42ch; font-size: .94rem; }
+.case dd { margin: .14rem 0 0; font-size: .94rem; }
 .case-visual { display: grid; min-width: 0; gap: .65rem; }
 .evidence-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .6rem; }
 .case-flow { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .45rem; margin: 0; padding: 0; list-style: none; counter-reset: flow; }
@@ -151,7 +157,7 @@ figcaption { color: var(--muted); font-size: .8rem; padding: .6rem .8rem; }
 .case-flow li::before { content: counter(flow, decimal-leading-zero); display: block; color: var(--accent-text); font-size: .73rem; }
 /* Current rule comparisons stay separate from historical game captures. */
 .case-table-wrap { min-width: 0; border: 1px solid var(--line); border-radius: 10px; overflow: hidden; background: var(--bg); }
-.case-table { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: .82rem; line-height: 1.6; overflow-wrap: anywhere; }
+.case-table { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: .82rem; line-height: 1.6; }
 .case-table caption { padding: .75rem .85rem; text-align: left; color: var(--accent-text); font-weight: 700; border-bottom: 1px solid var(--line); }
 .case-table th, .case-table td { padding: .7rem .65rem; text-align: left; vertical-align: top; border-bottom: 1px solid var(--line); }
 .case-table thead th { color: var(--accent-text); background: var(--surface); }
@@ -180,12 +186,12 @@ figcaption { color: var(--muted); font-size: .8rem; padding: .6rem .8rem; }
 .prompt summary:hover { background: var(--glow); border-radius: 9px; }
 .prompt-body { padding: .75rem .85rem; border-top: 1px solid var(--line); }
 .prompt-body h4 { margin: 0 0 .4rem; color: var(--accent); font-size: .86rem; }
-.prompt pre { margin: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+.prompt pre { margin: 0; white-space: pre-wrap; }
 .prompt code { font: .9rem/1.65 "Consolas", "Malgun Gothic", monospace; }
 .prompt-tools { display: flex; align-items: center; flex-wrap: wrap; gap: .6rem; margin-top: .75rem; }
 .prompt-tools button { min-height: 40px; color: var(--accent); background: var(--surface); border: 1px solid var(--line); border-radius: 6px; padding-inline: .6rem; font: inherit; font-size: .82rem; cursor: pointer; }
 .copy-status { color: var(--muted); font-size: .82rem; }
-.prose { margin-top: .6rem; max-width: 75ch; color: var(--muted); }
+.prose { margin-top: .6rem; max-width: 62rem; color: var(--muted); }
 .related { display: flex; flex-wrap: wrap; gap: .3rem 1.25rem; padding-block: .6rem; border-bottom: 1px solid var(--line); }
 .competency-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
 .competency-card { display: flex; flex-direction: column; gap: .85rem; padding: clamp(1rem, 2vw, 1.5rem); border: 1px solid var(--line); border-top: 3px solid var(--accent); border-radius: 10px; background: var(--surface); }

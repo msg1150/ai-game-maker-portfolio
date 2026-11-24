@@ -141,19 +141,19 @@ function home() {
           <div class="competency-grid">
             <article class="competency-card tone-violet">
               <p class="eyebrow"><span>01</span> AI 리더십</p>
-              <h3>수정 기준은 직접 정하고,<br>구현은 AI와 나눕니다.</h3>
+              <h3>수정 기준은 직접 정하고, 구현은 AI와 나눕니다.</h3>
               <p>몬스터가 추격을 너무 빨리 멈추는 문제를 발견하고, 마지막 목격 위치까지 수색하도록 Codex에 요청했습니다.</p>
               <a href="./projects/dungeonsweeper/#awareness">실제 요청과 플레이 결과 ${icon}</a>
             </article>
             <article class="competency-card tone-gold">
               <p class="eyebrow"><span>02</span> 구조화 능력</p>
-              <h3>규칙 변경을 화면, 서버,<br>데이터 보존으로 나눕니다.</h3>
+              <h3>규칙 변경을 화면, 서버, 데이터 보존으로 나눕니다.</h3>
               <p>무료 미니게임 전환을 입력 제거, 구버전 API 처리, DB 제약 변경으로 나누고 기존 기록 보존까지 검사했습니다.</p>
               <a href="./projects/golden-shift/#free-play">변경 범위와 검증 결과 ${icon}</a>
             </article>
             <article class="competency-card tone-mint">
               <p class="eyebrow"><span>03</span> 학습 실행력</p>
-              <h3>플레이 피드백을 받아<br>다음 구현에 적용합니다.</h3>
+              <h3>플레이 피드백을 받아 다음 구현에 적용합니다.</h3>
               <p>플레이에서 일반 칸의 오답과 점수 누락을 발견하고, 규칙 수정과 공통 점수 설정, 기능별 파일 분리로 개선했습니다.</p>
               <a href="./projects/formudoku/#score-revision">플레이 문제와 점수 개선 ${icon}</a>
             </article>
@@ -196,7 +196,7 @@ function caseMedia(media) {
 function promptList(prompts = []) {
   if (!prompts.length) return '';
   const grouped = prompts.length > 1;
-  const summary = grouped ? `관련 요청 발췌 (${prompts.length}건)` : prompts[0].label;
+  const summary = grouped ? `관련 요청 발췌 (${prompts.length}건)` : `요청 발췌 / ${prompts[0].label}`;
   return `<details class="prompt">
     <summary>${esc(summary)}</summary>
     ${prompts.map(({ label, text }) => `<div class="prompt-body">

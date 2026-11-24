@@ -11,9 +11,9 @@
   <meta property="og:url" content="https://msg1150.github.io/ai-game-maker-portfolio/projects/battlearena/">
   <meta property="og:image" content="https://msg1150.github.io/ai-game-maker-portfolio/assets/arena-cover.webp">
   <link rel="canonical" href="https://msg1150.github.io/ai-game-maker-portfolio/projects/battlearena/">
-  <link rel="icon" href="../../assets/mark.svg?v=a60e582f" type="image/svg+xml">
-  <link rel="stylesheet" href="../../assets/site.css?v=d5bfb6d1">
-  <script src="../../assets/site.js?v=285ba21d" defer></script>
+  <link rel="icon" href="../../assets/mark.svg?v=b0c86a84" type="image/svg+xml">
+  <link rel="stylesheet" href="../../assets/site.css?v=f22afa47">
+  <script src="../../assets/site.js?v=1c9a1d5a" defer></script>
   <title>BattleArena | 박장한 AI Game Maker</title>
 </head>
 <body class="tone-blue">
@@ -71,18 +71,14 @@
       <div class="case-visual"><figure class="evidence"><img src="../../assets/arena-level-validator.webp" width="1172" height="457" alt="Unreal 에디터의 레벨 검증 오류 목록과 경로 오브젝트" loading="lazy" decoding="async"><figcaption>제공 캡처 / PathLink의 지면 이격 50cm 검출과 Focus 이동. 후속 Attach 버튼 추가 전 화면입니다. <a href="../../assets/arena-level-validator.webp">원본 크기로 보기</a></figcaption></figure></div>
     </div>
     <details class="prompt">
-    <summary>관련 요청 발췌 (3건)</summary>
+    <summary>관련 요청 발췌 (2건)</summary>
     <div class="prompt-body">
-      <h4>08.28 / 이미 구성된 Blueprint의 과도한 검사 줄이기</h4>
-      <pre><code>애초에 셋팅이 거의 되어있는 bp를 레벨에 설치를 해서 사실상 point만 설정을 하면 되기때문에 콜리전이 없다거나 event가 없다거나 하는 부분들은 굳이 있을 필요는 없는거같은데</code></pre>
-      <div class="prompt-tools"><button type="button" data-copy hidden>프롬프트 복사</button><span class="copy-status" role="status"></span></div>
-    </div><div class="prompt-body">
-      <h4>08.28 / 공중 TargetPoint의 NavMesh 검사 제외</h4>
+      <h4>공중 TargetPoint의 NavMesh 검사 제외</h4>
       <pre><code>이게 점프패드의 target point는 아무래도 이쪽으로 점프를 뛰어 같은 느낌이라 공중에 있을수있어서 targetpoint 주변에 navmesh 검사하는 로직은 빼야할거같아</code></pre>
       <div class="prompt-tools"><button type="button" data-copy hidden>프롬프트 복사</button><span class="copy-status" role="status"></span></div>
     </div><div class="prompt-body">
-      <h4>10.29 / 실제 사용하는 포탈과 점프패드로 변경</h4>
-      <pre><code>방금 보니까 아직 Direction JumpPad도 사용중이라 해당 점프패드도 다시 검사를 할 수 있도록 추가를 해야할거같고 추가적으로 우리가 기존 BP_OneWayPortal을 더이상 사용하지 않고 SeamlessPortalActor를 사용할거야 그래서 포탈 검증을 해당 Actor를 기준으로 검증을 해야하는데 해당 Actor의 기준은 Teleport Enabled가 true면 Exit Target이 있어야해 일단 이정도만 체크를 해도 될거같아 포탈은</code></pre>
+      <h4>활성 포탈의 출구 검사 기준</h4>
+      <pre><code>기존 BP_OneWayPortal을 더이상 사용하지 않고 SeamlessPortalActor를 사용할거야 그래서 포탈 검증을 해당 Actor를 기준으로 검증을 해야하는데 해당 Actor의 기준은 Teleport Enabled가 true면 Exit Target이 있어야해</code></pre>
       <div class="prompt-tools"><button type="button" data-copy hidden>프롬프트 복사</button><span class="copy-status" role="status"></span></div>
     </div>
   </details>
@@ -98,18 +94,14 @@
       <div class="case-visual"><ol class="case-flow" aria-label="구현 흐름"><li>Focus로 오류 위치 확인</li><li>Attach로 지면에 배치</li><li>Undo/Redo 뒤 결과 재검사</li></ol></div>
     </div>
     <details class="prompt">
-    <summary>관련 요청 발췌 (3건)</summary>
+    <summary>관련 요청 발췌 (2건)</summary>
     <div class="prompt-body">
-      <h4>10.29 / 오류 행에서 바로 Attach 실행</h4>
-      <pre><code>그리고 지금 패스링크쪽 보면 이런식으로 뜨잖아 Focus버튼 옆에 attach버튼도 같이 두고 해당 버튼을 누르면 실제 PathLink의 Attach To Ground 버튼을 누른것처럼 되게 해줘</code></pre>
+      <h4>오류 행에서 바로 Attach 실행</h4>
+      <pre><code>Focus버튼 옆에 attach버튼도 같이 두고 해당 버튼을 누르면 실제 PathLink의 Attach To Ground 버튼을 누른것처럼 되게 해줘</code></pre>
       <div class="prompt-tools"><button type="button" data-copy hidden>프롬프트 복사</button><span class="copy-status" role="status"></span></div>
     </div><div class="prompt-body">
-      <h4>10.29 / Undo와 Redo 뒤 자동 재검사</h4>
+      <h4>Undo와 Redo 뒤 자동 재검사</h4>
       <pre><code>그럼 Undo나 Redo를 할 경우 자동으로 다시 검사를 진행하도록 해줘</code></pre>
-      <div class="prompt-tools"><button type="button" data-copy hidden>프롬프트 복사</button><span class="copy-status" role="status"></span></div>
-    </div><div class="prompt-body">
-      <h4>10.29 / 자동 검사를 툴 창이 열렸을 때만 제한</h4>
-      <pre><code>그럼 툴 창이 열려 있을 때만으로 제한을 해야할거같아</code></pre>
       <div class="prompt-tools"><button type="button" data-copy hidden>프롬프트 복사</button><span class="copy-status" role="status"></span></div>
     </div>
   </details>
@@ -129,18 +121,14 @@
   </table></div></div>
     </div>
     <details class="prompt">
-    <summary>관련 요청 발췌 (3건)</summary>
+    <summary>관련 요청 발췌 (2건)</summary>
     <div class="prompt-body">
-      <h4>07.27 / 에디터를 끄지 않고 수정값 다시 적용</h4>
-      <pre><code>이제 깃으로 뭐 하기전에 에디터를 끄지 않고 재적용하는 메뉴를 한번 만들어보자</code></pre>
-      <div class="prompt-tools"><button type="button" data-copy hidden>프롬프트 복사</button><span class="copy-status" role="status"></span></div>
-    </div><div class="prompt-body">
-      <h4>07.27 / 적용 버튼 하나와 실패 이유로 사용 흐름 단순화</h4>
+      <h4>적용 버튼 하나와 실패 이유로 사용 흐름 단순화</h4>
       <pre><code>아니 버튼 뭐 이것저것 만들지말고 그냥 진짜 딱 적용 버튼 하나만 두고 알아서 검사돌려서 에디터 켰을때 나오는 알림창으로 성공 몇개 실패 몇개 이런식으로 띄우고 메세지 로그에 실패 이유 띄우는게 나을거같아</code></pre>
       <div class="prompt-tools"><button type="button" data-copy hidden>프롬프트 복사</button><span class="copy-status" role="status"></span></div>
     </div><div class="prompt-body">
-      <h4>10.30 / 패키징 뒤에도 외부 편집기로 값을 바꾸려는 요구</h4>
-      <pre><code>현재 내가 따로 json값을 편집하기 편하도록 이런식으로 만들어서 exe 파일을 배포를 했었는데 이건 지금 현재 우리 언리얼 프로젝트를 등록을 해야 편집이 가능한 방식이잖아? 근데 최종적으로는 패키징후에 패키징 폴더에 있는 json을 수정을 해야하는데 그 기능을 지금 못해서 이걸 수정을 할지 아예 새로 만들지 고민중이야 현재 우리 프로젝트는 해당 bat 파일을 이용해서 패키징을 하고있어 그래서 Windows랑 WindowsServer 폴더 둘다 수정이 되어야해 어떤식으로 하는게 좋을까</code></pre>
+      <h4>패키징 뒤에도 외부 편집기로 값을 바꾸려는 요구</h4>
+      <pre><code>패키징후에 패키징 폴더에 있는 json을 수정을 해야하는데 그 기능을 지금 못해서 이걸 수정을 할지 아예 새로 만들지 고민중이야</code></pre>
       <div class="prompt-tools"><button type="button" data-copy hidden>프롬프트 복사</button><span class="copy-status" role="status"></span></div>
     </div>
   </details>
@@ -156,10 +144,10 @@
       <div class="case-visual"><ol class="case-flow" aria-label="구현 흐름"><li>Unreal에서 등록 에셋 수정 / 저장</li><li>연결된 JSON으로 내보내기</li><li>다음 실행 시 수정값 재적용</li></ol><figure class="evidence"><img src="../../assets/arena-data-editor.webp" width="1280" height="475" alt="WPF 에디터에서 데이터 행과 속성값을 편집하는 화면" loading="lazy" decoding="async"><figcaption>제공 도구 화면 / 속성 명세를 읽은 외부 WPF 편집기. 에디터 저장 훅의 동작은 연결한 코드에서 확인할 수 있습니다. <a href="../../assets/arena-data-editor.webp">원본 크기로 보기</a></figcaption></figure></div>
     </div>
     <details class="prompt">
-    <summary>09.05 / 에디터 수정값이 이전 JSON으로 덮이는 문제</summary>
+    <summary>요청 발췌 / 에디터 수정값이 이전 JSON으로 덮이는 문제</summary>
     <div class="prompt-body">
 
-      <pre><code>현재 바탕화면에 있는 DataEditor폴더를 기준으로 프로그램을 만들어서 배포를 했었는데 지금 문제가 외부 그러니까 json을 직접 수정하거나 배포한 프로그램으로 수정을 했을때는 잘 적용이 되고있는거같은데 언리얼 에디터상에서 수정을 한건 반영이 안되어서 이게 에디터상에서 수정후에 언리얼을 꺼도 배포한 프로그램이나 json에는 적용이 안되고있는거같거든? 그렇게 되면서 당연하게 기존 json값으로 에디터를 다시 켰을때 덮어씌워지고 이 부분을 수정을 해야할거같은데 에디터상에서 수정을 하면 해당 뭐 테이블이나 에셋을 저장할때 알아서 json에도 반영이 되던가 아니면 언리얼 에디터 자체를 껐을때 반영이 되어도 좋고</code></pre>
+      <pre><code>기존 json값으로 에디터를 다시 켰을때 덮어씌워지고 이 부분을 수정을 해야할거같은데 에디터상에서 수정을 하면 해당 뭐 테이블이나 에셋을 저장할때 알아서 json에도 반영이 되던가</code></pre>
       <div class="prompt-tools"><button type="button" data-copy hidden>프롬프트 복사</button><span class="copy-status" role="status"></span></div>
     </div>
   </details>
@@ -199,10 +187,10 @@
           <p class="exhibition-note">사진은 팀 게임의 부스와 관람객 시연 현장입니다. 사진 속에서 설명 중인 인물은 본인이 아닙니다.</p>
         </section>
         <section id="tools" class="detail-section">
-          <p class="eyebrow"><span>NOTES</span> 기여 및 확인 범위</p><h2>요청 기록과 공개 코드, 실제 확인 범위를 구분</h2>
-          <p class="prose">두 도구의 사용자 요청과 ChatGPT/Codex 답변을 대조하고, 현재 공개 커밋 c65bde5의 관련 소스 9개가 로컬 사본과 일치함을 확인했습니다. 초기 제안과 현재 기능을 구분해 기록합니다.</p>
+          <p class="eyebrow"><span>NOTES</span> 기여 및 확인 범위</p><h2>담당 기능과 검증 근거</h2>
+          <p class="prose">각 사례에서 레벨 검증, JSON 동기화, 전투 기능을 맡은 범위와 결과를 확인할 수 있습니다.</p>
           <div class="section-evidence">
-            <div class="role-grid"><div><h3>내 담당 기능</h3><p><strong class="text-accent">두 제작 도구</strong> 외에도 투사체 조준과 충돌, 포탈 화면과 서버 통과, 전투 NPC의 특수 이동 경로를 담당했습니다.</p></div><div><h3>검증 범위</h3><p>빌드 성공과 플레이 확인은 <strong class="text-accent">제공된 당시 기록</strong>으로 표시합니다. 이번 작업은 <strong class="text-accent">소스 대조</strong>이며, Attach와 창 열기 / 닫기 반복 동작 및 새 패키징 실행을 재검증한 결과는 아닙니다.</p></div></div>
+            <div class="role-grid"><div><h3>내 담당 기능</h3><p><strong class="text-accent">두 제작 도구</strong> 외에도 투사체 조준과 충돌, 포탈 화면과 서버 통과, 전투 NPC의 특수 이동 경로를 담당했습니다.</p></div><div><h3>도구 동작 확인</h3><p><strong class="text-accent">Attach 후 재검사</strong>와 에디터 저장 시 <strong class="text-accent">JSON 갱신</strong>은 공개 코드에서 확인했습니다.</p></div></div>
             <figure class="evidence"><img src="../../assets/arena.webp" width="855" height="481" alt="1인칭 시점에서 포탈 너머 출구가 보이는 게임 화면" loading="lazy" decoding="async"><figcaption>인게임 / 포탈 출구 화면</figcaption></figure>
           </div>
           <div class="actions"><a class="button" href="https://msg1150.github.io/projects/battlearena/">기존 구현과 검증 자료<svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="none"><path d="M3 8h9m-4-4 4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a></div>
